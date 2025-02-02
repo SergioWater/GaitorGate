@@ -17,7 +17,7 @@
 |    :---:     |     :---:     |     :---:       |
 | member1      |               |                 |
 | member2      |               |                 |
-| member3      |               |                 |
+| Ulices Gonzalez      | sgonzalez30@sfsu.edu              | ulicessgg                |
 | member4      |               |                 |
 | member5      |               |                 |
 | member6      |               |                 |
