@@ -18,7 +18,7 @@
 | member1      |               |                 |
 | member2      |               |                 |
 | Ulices Gonzalez      | sgonzalez30@sfsu.edu              | ulicessgg                |
-| member4      |               |                 |
+| Mowtee Sailan | msailan@mail.sfsu.edu | MowteeCoding |
 | member5      |               |                 |
 | member6      |               |                 |
 
