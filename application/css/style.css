@@ -1,0 +1,38 @@
+* {
+    text-align: center;
+}
+
+header {
+    padding: 0px;
+    padding-bottom: 64px;
+}
+
+h1 {
+    font-size: clamp(24px, 30x, 36px);
+    padding-inline: 0px;
+}
+
+h2 {
+    font-size: clamp(12px, 24px, 36px);
+    text-align: left;
+    padding-left: 296px;
+}
+
+ul {
+    padding: 0px;
+}
+
+li {
+    padding: 0px;
+    padding-left: 0px;
+    list-style-type: none;
+}
+
+a {
+    font-size: clamp(24px, 30x, 36px);
+}
+
+footer {
+    padding: 0px;
+    padding-top: 64px;
+}
