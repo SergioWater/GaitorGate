@@ -20,6 +20,6 @@
 | Ulices Gonzalez      | sgonzalez30@sfsu.edu              | ulicessgg                |
 | Mowtee Sailan | msailan@mail.sfsu.edu | MowteeCoding |
 | member5      |  aalakel@sfsu.edu | Akramalakel179                |
-| member6      |               |                 |
+| Sergio Aguilar      | saguilar11@sfsu.edu | SergioWater |
 
 ## NO code needs to be stored in the root of your repository. You may rename the application folder if you like to your team's application name. But all source code related to your team's application should be stored inside the application folder.
