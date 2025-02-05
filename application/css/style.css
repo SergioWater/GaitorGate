@@ -18,11 +18,23 @@ h2 {
     padding-left: 296px;
 }
 
+h3 {
+    font-size: clamp(12px, 18px, 24px);
+    padding-inline: 0px;
+}
+
+h4 {
+    font-size: clamp(12px, 18px, 24px);
+    padding-inline: 0px;
+    text-decoration: underline;
+}
+
 ul {
     padding: 0px;
 }
 
 li {
+    font-size: 30px;
     padding: 0px;
     padding-left: 0px;
     list-style-type: none;
@@ -30,9 +42,16 @@ li {
 
 a {
     font-size: clamp(24px, 30x, 36px);
+    text-decoration: none;
 }
 
 footer {
     padding: 0px;
     padding-top: 64px;
+}
+
+img {
+    border: 8px;
+    border-style: groove;
+    border-color: black;
 }
