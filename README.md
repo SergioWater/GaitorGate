@@ -15,7 +15,7 @@
 
 | Student Name | School Email | GitHub Username |
 |    :---:     |     :---:     |     :---:       |
-| member1      |               |                 |
+| Marco Barraza|   mbarraza@sfsu.edu|Mbarr11     |
 | Andre Dargani | mdargani@sfsu.edu | madargani |
 | Ulices Gonzalez      | sgonzalez30@sfsu.edu              | ulicessgg                |
 | Mowtee Sailan | msailan@mail.sfsu.edu | MowteeCoding |
