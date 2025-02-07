@@ -7,10 +7,9 @@
 
 # Below is a list of items required. Missing items will causes points to be deducted from multiple milestone submissions.
 
-1. Server URL or IP
-2. SSH username
-3. SSH password or key.
-    <br> If a ssh key is used please upload the key to the credentials folder.
+1. Server URL or IP: 172.31.11.107
+2. SSH username: ubuntu
+3. SSH password or key: See credentials folder for keys.
 4. Database URL or IP and port used.
     <br><strong> NOTE THIS DOES NOT MEAN YOUR DATABASE NEEDS A PUBLIC FACING PORT.</strong> But knowing the IP and port number will help with SSH tunneling into the database. The default port is more than sufficient for this class.
 5. Database username
