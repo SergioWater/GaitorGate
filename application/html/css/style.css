@@ -47,8 +47,13 @@ li {
 }
 
 a {
+    color:blue;
     font-size: clamp(24px, 30x, 36px);
     text-decoration: none;
+}
+
+.home-button {
+    color: black;
 }
 
 a:hover {
