@@ -7,6 +7,12 @@ header {
     padding-bottom: 64px;
 }
 
+
+h1, h2, h3, h4, h5, a, p, footer {
+    font-family: 'Courier New', Courier, monospace;
+    text-decoration: none;
+  }
+
 h1 {
     font-size: clamp(24px, 30x, 36px);
     padding-inline: 0px;
@@ -14,8 +20,8 @@ h1 {
 
 h2 {
     font-size: clamp(12px, 24px, 36px);
-    text-align: left;
-    padding-left: 296px;
+    text-align: center;
+    text-decoration: underline;
 }
 
 h3 {
@@ -43,6 +49,13 @@ li {
 a {
     font-size: clamp(24px, 30x, 36px);
     text-decoration: none;
+}
+
+a:hover {
+    color: violet;
+    font-size: clamp(24px, 36px, 42px);
+    text-decoration: none;
+    font-weight: bold;
 }
 
 footer {
