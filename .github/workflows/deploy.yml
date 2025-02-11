@@ -18,9 +18,8 @@ jobs:
           host: 18.222.76.244
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }} 
-	  port: 22
+          port: 22
           script: |
             cd /var/www/CSC-648-848-S02-Spring2025-TEAM03
             git pull origin main
-	    exit
-
+            exit
