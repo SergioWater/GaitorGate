@@ -17,6 +17,7 @@
 6. Database password: 12345
 7. Database name (basically the name that contains all your tables): team3db
 8. Instructions on how to use the above information.
+   
     Server Access: On local machine terminal, navigate to the file that contains the key and enter this command.       
                    ssh -i team3Key.pem ubuntu@18.222.76.244
     
