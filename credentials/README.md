@@ -23,18 +23,23 @@
     Database Access: 
     
     Method 1 (Database Access in MySQL CLI)
-    1. On local machine, open terminal and enter the following command for ssh tunnelling. 
+    1. On local machine, open terminal and enter the following command for ssh tunnelling.
+       
        ssh -i "absolute path to team3Key.pem" -L 3307:127.0.0.1:3306 ubuntu@18.222.76.244
 
     2. Once connected to the server, open a new terminal and run:
+
        mysql -u team3admin -p -h 127.0.0.1 -P 3307
 
     3. To verify connection, enter the following, team3db should be one of the listed databases.
-        SHOW DATABASES; 
 
-    4. It can also be connected to MySQL Workbench using the IP, Port, user name and password (SSH tunneling is  required). 
+       SHOW DATABASES; 
+
+    5. It can also be connected to MySQL Workbench using the IP, Port, user name and password (SSH tunneling is  required). 
+
 
     Method 2 (MySQL Workbench)
+   
     1. In MySQL Workbench, go to Database > Manage Connections > New Connection.
     2. Under Connection Method, select "Standard TCP/IP over SSH".
     3. Fill in the details:
