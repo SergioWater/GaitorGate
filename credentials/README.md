@@ -61,7 +61,7 @@
        
             Password: 12345
        
-            Click Test Connection
+            Click Test Connection.
 
 
 # Most important things to Remember
