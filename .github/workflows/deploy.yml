@@ -3,7 +3,7 @@ name: Auto-Deploy to EC2
 on:
   push:
     branches:
-      - main  # Change this if using a different branch
+      - main 
 
 jobs:
   deploy:
@@ -17,9 +17,18 @@ jobs:
         with:
           host: 18.222.76.244
           username: ubuntu
-          key: ${{ secrets.EC2_SSH_KEY }}
+          key: ${{ secrets.EC2_SSH_KEY }}  # Make sure the secret is correctly added
+          port: 22
           script: |
             cd /var/www/CSC-648-848-S02-Spring2025-TEAM03
             git pull origin main
-            exit
+          sync: false
+          use_insecure_cipher: false
+          timeout: "30s"
+          command_timeout: "10m"
+          proxy_port: 22
+          proxy_timeout: "30s"
+          proxy_use_insecure_cipher: false
+          script_stop: false
+          debug: false
 
