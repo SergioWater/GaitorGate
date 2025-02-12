@@ -64,7 +64,9 @@
             Click Test Connection.
 
 If accessing the root of mysql, 
+
 Username: root
+
 Password: MaThuZar2002$
 # Most important things to Remember
 ## These values need to kept update to date throughout the semester. <br>
