@@ -1,0 +1,125 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Grid layout */
+body {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  min-height: 100vh;
+  font-family: 'Lobster', cursive;
+  position: relative;
+}
+
+/* Sidebar base styles */
+.sidebar-left,
+.sidebar-right {
+  background-color: #f2f2f2;
+  overflow: hidden;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+/* Sidebar borders */
+.sidebar-left { border-right: 2px solid #ccc; }
+.sidebar-right { border-left: 2px solid #ccc; }
+
+/* Expanded/Collapsed widths */
+.sidebar-left.expanded, .sidebar-right.expanded {
+  width: 200px;
+  padding-top: 60px;
+}
+.sidebar-left.collapsed, .sidebar-right.collapsed {
+  width: 60px;
+  padding-top: 60px;
+}
+
+/* Hide text when collapsed */
+.sidebar-left.collapsed h2,
+.sidebar-left.collapsed span,
+.sidebar-right.collapsed h2,
+.sidebar-right.collapsed span,
+.sidebar-right.collapsed .profile-link .profile-name {
+  display: none;
+}
+
+/* Sidebar headings */
+.sidebar-left h2,
+.sidebar-right h2 {
+  font-size: 2em;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+/* Toggle button style */
+.toggle-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 9999;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.5em;
+  padding: 0.25rem 0.5rem;
+}
+.sidebar-right .toggle-btn {
+  left: auto;
+  right: 10px;
+}
+
+/* List & link styling */
+.sidebar-left ul,
+.sidebar-right ul {
+  list-style: none;
+  padding: 0 0.5rem;
+}
+.sidebar-left li,
+.sidebar-right li {
+  margin-bottom: 1rem;
+}
+.sidebar-left a,
+.sidebar-right a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #000;
+  font-size: 1.2em;
+}
+.sidebar-left a:hover,
+.sidebar-right a:hover {
+  text-decoration: underline;
+}
+
+/* Icon size */
+.sidebar-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 5px;
+}
+
+/* Main area */
+main {
+  background-color: #ffffff;
+}
+
+/* Profile section */
+.profile-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.profile-pic {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+}
+.profile-name {
+  font-size: 1.25em;
+}
