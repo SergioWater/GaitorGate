@@ -2,53 +2,48 @@
     text-align: center;
 }
 
-header {
-    padding: 0px;
-    padding-bottom: 64px;
+body {
+    font-family: 'Courier New', Courier, monospace;
 }
 
-
-h1, h2, h3, h4, h5, a, p, footer {
-    font-family: 'Courier New', Courier, monospace;
-    text-decoration: none;
-  }
+header {
+    background-color: #53565a;
+    text-align: center;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+}
 
 h1 {
-    font-size: clamp(24px, 30x, 36px);
-    padding-inline: 0px;
+    font-size: 36px;
 }
 
 h2 {
-    font-size: clamp(12px, 24px, 36px);
-    text-align: center;
+    font-size: 24px;
     text-decoration: underline;
 }
 
-h3 {
-    font-size: clamp(12px, 18px, 24px);
-    padding-inline: 0px;
+h3,
+h4 {
+    font-size: 16px;
 }
 
 h4 {
-    font-size: clamp(12px, 18px, 24px);
-    padding-inline: 0px;
     text-decoration: underline;
 }
 
 ul {
-    padding: 0px;
+    padding: 0;
 }
 
 li {
-    font-size: 30px;
-    padding: 0px;
-    padding-left: 0px;
+    font-size: 28px;
     list-style-type: none;
 }
 
 a {
-    color:blue;
-    font-size: clamp(24px, 30x, 36px);
+    color: black;
+    font-size: 36px;
     text-decoration: none;
 }
 
@@ -57,19 +52,127 @@ a {
 }
 
 a:hover {
-    color: violet;
-    font-size: clamp(24px, 36px, 42px);
-    text-decoration: none;
+    color: #C99700;
+    font-size: 40px;
     font-weight: bold;
 }
 
 footer {
-    padding: 0px;
-    padding-top: 64px;
+    background-color: #53565a;
+    text-align: center;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    z-index: 100;
 }
 
-img {
-    border: 8px;
-    border-style: groove;
-    border-color: black;
+footer a.about-button {
+    font-size: 24px;
+    color: black;
+    text-decoration: none;
+}
+
+footer a.about-button:hover {
+    color: #C99700;
+    text-decoration: underline;
+}
+
+.sidebar-left,
+.sidebar-right {
+    background-color: #463077;
+    padding: 20px;
+    text-align: left;
+    position: fixed;
+    top: 0;
+    height: 100%;
+    transition: width 0.3s ease;
+    z-index: 200;
+}
+
+.sidebar-left {
+    left: 0;
+}
+
+.sidebar-right {
+    right: 0;
+}
+
+.main-content {
+    flex-grow: 1;
+    background-color: #ffffff;
+    margin-left: 240px;
+    margin-right: 240px;
+    min-height: 100%;
+}
+
+.left-nav,
+.right-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.left-nav li,
+.right-nav li {
+    margin-bottom: 8px;
+}
+
+.left-nav a,
+.right-nav a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+}
+
+.left-nav a:hover,
+.right-nav a:hover {
+    color: #C99700;
+}
+
+.sidebar-icon,
+.profile-pic {
+    width: 28px;
+    height: 28px;
+    margin-right: 8px;
+    vertical-align: middle;
+    border-radius: 50%;
+}
+
+.profile-pic {
+    border-radius: 50%;
+}
+
+.left-nav .history,
+.left-nav .new_search,
+.left-nav .predictive_search,
+.right-nav .profile-link,
+.right-nav .settings {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-right.collapsed .right-nav li a,
+.sidebar-left.collapsed .left-nav li a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-indent: -9999px;
+}
+
+.toggle-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 48px;
+    z-index: 300;
+}
+
+.sidebar-left .toggle-button {
+    left: 8px;
+}
+
+.sidebar-right .toggle-button {
+    right: 8px;
 }
