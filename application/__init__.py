@@ -40,6 +40,16 @@ except OSError:
 @app.route("/")
 def home():
     return render_template("index.html")
+    # About Page
+    @app.route("/about") 
+    def about():
+        return render_template("about.html")
+
+    # Team members
+    # /members/<Team member name>
+    @app.route("/members/<name>")
+    def team_member(name):
+        return render_template(f"members/{escape(name)}.html")
 
 # Team members
 # /members/<Team member name>
