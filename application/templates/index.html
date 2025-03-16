@@ -15,6 +15,17 @@
 
     {% include 'partials/sidebars.html' %}
 
+    <main>
+        <form method="POST">
+            {% include 'partials/search.html' %}
+            <button type="submit">Search</button>
+        </form>
+    
+        {% if results %}
+            {% include 'partials/searchResults.html' with context%}
+        {% endif %}
+    </main>
+
     {% include 'partials/footer.html' %}
 
     <script src="{{ url_for('static', filename='js/toggleSides.js') }}"></script>

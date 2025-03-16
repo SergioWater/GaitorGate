@@ -1,0 +1,75 @@
+* {
+    text-align: center;
+}
+
+header {
+    padding: 0px;
+    padding-bottom: 64px;
+}
+
+
+h1, h2, h3, h4, h5, a, p, footer {
+    font-family: 'Courier New', Courier, monospace;
+    text-decoration: none;
+  }
+
+h1 {
+    font-size: clamp(24px, 30x, 36px);
+    padding-inline: 0px;
+}
+
+h2 {
+    font-size: clamp(12px, 24px, 36px);
+    text-align: center;
+    text-decoration: underline;
+}
+
+h3 {
+    font-size: clamp(12px, 18px, 24px);
+    padding-inline: 0px;
+}
+
+h4 {
+    font-size: clamp(12px, 18px, 24px);
+    padding-inline: 0px;
+    text-decoration: underline;
+}
+
+ul {
+    padding: 0px;
+}
+
+li {
+    font-size: 30px;
+    padding: 0px;
+    padding-left: 0px;
+    list-style-type: none;
+}
+
+a {
+    color:blue;
+    font-size: clamp(24px, 30x, 36px);
+    text-decoration: none;
+}
+
+.home-button {
+    color: black;
+}
+
+a:hover {
+    color: violet;
+    font-size: clamp(24px, 36px, 42px);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer {
+    padding: 0px;
+    padding-top: 64px;
+}
+
+img {
+    border: 8px;
+    border-style: groove;
+    border-color: black;
+}
