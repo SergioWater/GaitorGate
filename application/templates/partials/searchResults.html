@@ -1,5 +1,10 @@
 <div id="results-container" class="results-container">
-    {% for result in results %}
-        {{ result_card(result) }}
+    <!-- Line 2 - 9 displays the data from backend -->
+    {% for item in data %}
+    <tr>
+        <br>
+        <td> <!--{{item[0]}},  --> {{item[1]}}, {{item[2]}}, {{item[3]}}</td>
+        </br>
+    </tr>
     {% endfor %}
 </div>

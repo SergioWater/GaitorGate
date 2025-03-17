@@ -1,1 +1,7 @@
+<select name="filter" class="filter-dropdown">
+    {% for item in filters %}
+    <option value="{{ item[1] }}">{{ item[1] }}</option>
+    {% endfor %}
+</select>
 <input class="search-bar" type="text" name="search" placeholder="Search">
+<button type="submit">Search</button>

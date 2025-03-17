@@ -13,6 +13,19 @@ body {
     padding-top: 64px;
 }
 
+form {
+    display: flex;
+    align-items: center;
+}
+
+.filter-dropdown {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border: 1px solid;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
 .search-bar {
     background-color: #f0f0f0;
     padding: 10px;
@@ -20,11 +33,6 @@ body {
     font-size: 16px;
     width: 300px;
     text-align: left;
-}
-
-form {
-    display: flex;
-    align-items: center;
 }
 
 button[type="submit"] {
@@ -216,4 +224,18 @@ footer a.about-button:hover {
 
 .sidebar-right .toggle-button {
     right: 8px;
+}
+
+#results-container .results-container {
+    display: block;
+    margin-top: 20px;
+    margin-left: 210px;
+    margin-right: 210px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    position: relative;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
