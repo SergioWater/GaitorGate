@@ -26,6 +26,18 @@
         {% endif %}
     </main>
 
+    <!-- Line 30-39 displays the data from backend -->
+    <center>
+        
+        {% for item in data %}
+            <tr>
+                <br>
+                <td> <!--{{item[0]}},  --> {{item[1]}}, {{item[2]}}, {{item[3]}}</td>
+                </br>
+            </tr>
+        {% endfor %}
+    </center>
+
     {% include 'partials/footer.html' %}
 
     <script src="{{ url_for('static', filename='js/toggleSides.js') }}"></script>
