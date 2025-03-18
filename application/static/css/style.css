@@ -179,6 +179,8 @@ footer a.about-button:hover {
     margin-left: 240px;
     margin-right: 240px;
     min-height: calc(100vh - 128px); 
+    min-width: 480px;
+    max-width: 640px;
     overflow-y: auto; 
 }
 
