@@ -43,7 +43,7 @@ def home():
     return render_template("index.html")
 
 # About Page
-@app.route("/about") 
+@app.route("/about")
 def about():
     return render_template("about.html")
 
@@ -56,15 +56,14 @@ def team_member(name):
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     if request.method == "POST":
-        query = request.form['search'].strip() #get text entered in search bar
-        category_name = request.form.get('category') # get selected category
-        content_type = request.form.get('content_type') # get selected type
-        published_date = request.form.get('published_date') # get selected published date
-        print(
-            f"Category: {category_name}, Content Type: {content_type}, Published Date: {published_date}, Search Query: {query}")
 
+        selected_filter = request.form.get('filter', '').strip()
+        filter_option = request.form.get('filter-options', '').strip()
+        query = request.form.get('search', '').strip()
 
-        search = """
+        print(f"Filter Type: {selected_filter}, Filter Value: {filter_option}, Search Query: {query}")
+
+        sql = """
             SELECT d.docID, d.title, d.author, d.url,d.thumbnail_url ,d.published_date, C.name AS category
             FROM SearchIndex si
             JOIN Document d ON si.document_id = d.docID
@@ -74,40 +73,36 @@ def search():
 
         params = []
         has_filters = False
-
-        if not any ([query, category_name, content_type, published_date]):
+        if not any ([query, selected_filter, filter_option]):
             print("No filters or query, executing SELECT *")
-            cursor.execute(search)
         else:
-            if category_name:
-                search += " WHERE C.name = %s"
-                params.append(category_name)
-                has_filters = True
-
-            if content_type:
-                if has_filters:
-                    search += " AND t.name = %s"
-                else:
-                    search += " WHERE t.name = %s"
-                    has_filters = True
-                params.append(content_type)
+            if selected_filter == "categories" and filter_option:
+                sql += "WHERE C.name = %s"
+                params.append(filter_option)
 
 
-            if published_date:
-                if has_filters:
-                    search += " AND YEAR (d.published_date) = %s"
-                else:
-                    search += " WHERE YEAR (d.published_date) = %s"
-                    has_filters = True
-                params.append(published_date)
+            if selected_filter == "type" and filter_option:
+                sql += "WHERE t.name = %s"
+                params.append(filter_option)
 
 
-        # search by author or book
-        cursor.execute(search, tuple(params))
+            if selected_filter == "publishing" and filter_option:
+                sql += "WHERE YEAR (d.published_date) = %s"
+                params.append(filter_option)
+
+
+            # search by author or book
+
+        print(sql)
+        if params:
+            cursor.execute(sql, tuple(params))
+        else :
+            cursor.execute(sql)
+
         conn.commit()
         data = cursor.fetchall()
         # all in the search box will return all the tuples
-        # if len(data) == 0 and book == 'all': 
+        # if len(data) == 0 and book == 'all':
         #     cursor.execute("SELECT name, author from Book")
         #     conn.commit()
         #     data = cursor.fetchall()
