@@ -19,7 +19,6 @@
 | Andre Dargani | mdargani@sfsu.edu | madargani |
 | Ulices Gonzalez      | sgonzalez30@sfsu.edu              | ulicessgg                |
 | Mowtee Sailan | msailan@mail.sfsu.edu | MowteeCoding |
-| member5      |  aalakel@sfsu.edu | Akramalakel179                |
 | Sergio Aguilar      | saguilar11@sfsu.edu | SergioWater |
 | Jared Aung      | yaung2@sfsu.edu      | JaredAung     |
 
