@@ -69,7 +69,12 @@ button[type="submit"] {
     margin-left: 10px;
 }
 
-header {
+.about-head {
+    padding: 0px;
+    padding-bottom: 16px;
+}
+
+.gator{
     background-color: #C99700;
     text-align: center;
     position: fixed;
@@ -89,7 +94,8 @@ header h1 {
 }
 
 h1 {
-    font-size: 36px;
+    font-size: clamp(24px, 30x, 36px);
+    padding-inline: 0px;
 }
 
 h2 {
@@ -108,6 +114,17 @@ h4 {
 
 ul {
     padding: 0;
+    padding-bottom: 36px;
+    margin: 0;
+}
+
+.team-info a {
+    font-size: 18px;
+    color: black;
+}
+
+.team-info a:hover {
+    font-size: 21px;
 }
 
 li {
