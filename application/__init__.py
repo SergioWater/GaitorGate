@@ -79,17 +79,27 @@ def search():
             if selected_filter == "categories" and filter_option:
                 sql += "WHERE C.name = %s"
                 params.append(filter_option)
+                has_filters = True
 
 
             if selected_filter == "type" and filter_option:
                 sql += "WHERE t.name = %s"
                 params.append(filter_option)
+                has_filters = True
 
 
             if selected_filter == "publishing" and filter_option:
                 sql += "WHERE YEAR (d.published_date) = %s"
                 params.append(filter_option)
+                has_filters = True
 
+
+            if query:
+                if has_filters:
+                    sql += " AND LOWER(d.title) LIKE LOWER(%s)"
+                else:
+                    sql += " WHERE LOWER(d.title) LIKE LOWER(%s)"
+                params.append(f"%{query}%")
 
             # search by author or book
 
