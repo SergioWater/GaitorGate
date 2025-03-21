@@ -10,15 +10,12 @@
 </head>
 
 <body>
-
-    {% include 'partials/about/header.html' %}
+    
     {% include 'partials/header.html' %}
 
     {% include 'partials/sidebars.html' %}
 
     <main>
-        {% include 'partials/about/team.html' %}
-
         <form method="POST" action="/search">
             {% include 'partials/search.html' %}
         </form>
@@ -27,6 +24,7 @@
     </main>
 
     {% include 'partials/footer.html' %}
+
     <script src="{{ url_for('static', filename='js/toggleSides.js') }}"></script>
 
 </body>

@@ -2,8 +2,50 @@
     text-align: center;
 }
 
+  @font-face {
+    font-family: 'Source Sans 3'; 
+    src: url('static/fonts/Source_Sans_3/static/SourceSans3-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Source Sans 3'; 
+    src: url('static/fonts/Source_Sans_3/static/SourceSans3-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Source Sans 3'; 
+    src: url('static/fonts/Source_Sans_3/static/SourceSans3-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  @font-face {
+    font-family: 'Aktiv Grotesk'; 
+    src: url('static/fonts/Aktiv_Grotesk/static/AktivGrotesk-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Aktiv Grotesk'; 
+    src: url('static/fonts/Aktiv_Grotesk/static/AktivGrotesk-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Aktiv Grotesk'; 
+    src: url('static/fonts/Aktiv_Grotesk/static/AktivGrotesk-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+  }
+
 body {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Source Sans 3', sans-serif; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,7 +56,7 @@ body {
 }
 
 main {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Source Sans 3', sans-serif; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -70,6 +112,7 @@ button[type="submit"] {
 }
 
 .about-head {
+    font-family: 'Cormorant Garamond', serif;
     padding: 0px;
     padding-bottom: 16px;
 }
@@ -94,17 +137,20 @@ header h1 {
 }
 
 h1 {
+    font-family: 'Aktiv Grotesk', sans-serif;
     font-size: clamp(24px, 30x, 36px);
     padding-inline: 0px;
 }
 
 h2 {
+    font-family: 'Aktiv Grotesk', sans-serif;
     font-size: 24px;
     text-decoration: underline;
 }
 
 h3,
 h4 {
+    font-family: 'Aktiv Grotesk', sans-serif;
     font-size: 16px;
 }
 
@@ -119,6 +165,7 @@ ul {
 }
 
 .team-info a {
+    font-family: 'Aktiv Grotesk', sans-serif;
     font-size: 18px;
     color: black;
 }
@@ -215,6 +262,7 @@ footer a.about-button:hover {
 
 .left-nav a,
 .right-nav a {
+    font-family: 'Aktiv Grotesk', sans-serif;
     font-size: 16px;
     display: flex;
     align-items: center;
@@ -231,6 +279,7 @@ footer a.about-button:hover {
 .icon-container {
     width: 36px;
     height: 36px;
+    margin-left: 8px;
     margin-right: 8px;
     vertical-align: middle;
     border-radius: 50%;
@@ -265,6 +314,7 @@ footer a.about-button:hover {
 }
 
 .toggle-button {
+    font-family: 'Aktiv Grotesk', sans-serif;
     color: #53565a;
     background: none;
     border: none;
