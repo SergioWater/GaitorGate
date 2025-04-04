@@ -18,25 +18,6 @@ mysql.init_app(app)
 conn = mysql.connect()
 cursor = conn.cursor()
 
-# # create and configure the app
-# app.config.from_mapping(
-#     SECRET_KEY="dev",
-#     DATABASE=os.path.join(app.instance_path, "flaskr.sqlite"),
-# )
-
-# if test_config is None:
-#     # load the instance config, if it exists, when not testing
-#     app.config.from_pyfile("config.py", silent=True)
-# else:
-#     # load the test config if passed in
-#     app.config.from_mapping(test_config)
-
-# # ensure the instance folder exists
-# try:
-#     os.makedirs(app.instance_path)
-# except OSError:
-#     pass
-
 # Home Page
 @app.route("/")
 def home():
@@ -55,70 +36,63 @@ def team_member(name):
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
-    if request.method == "POST":
-
-        selected_filter = request.form.get('filter', '').strip()
-        filter_option = request.form.get('filter-options', '').strip()
-        query = request.form.get('search', '').strip()
-
-        print(f"Filter Type: {selected_filter}, Filter Value: {filter_option}, Search Query: {query}")
-
-        sql = """
-            SELECT d.docID, d.title, d.author, d.url,d.thumbnail_url ,d.published_date, C.name AS category
-            FROM SearchIndex si
-            JOIN Document d ON si.document_id = d.docID
-            LEFT JOIN Category C on C.categoryID = si.category_id
-            LEFT JOIN Type t ON t.idType = si.type_ID
-            """
-
-        params = []
-        has_filters = False
-        if not any ([query, selected_filter, filter_option]):
-            print("No filters or query, executing SELECT *")
-        else:
-            if selected_filter == "categories" and filter_option:
-                sql += "WHERE C.name = %s"
-                params.append(filter_option)
-                has_filters = True
-
-
-            if selected_filter == "type" and filter_option:
-                sql += "WHERE t.name = %s"
-                params.append(filter_option)
-                has_filters = True
-
-
-            if selected_filter == "publishing" and filter_option:
-                sql += "WHERE YEAR (d.published_date) = %s"
-                params.append(filter_option)
-                has_filters = True
-
-
-            if query:
-                if has_filters:
-                    sql += " AND LOWER(d.title) LIKE LOWER(%s)"
-                else:
-                    sql += " WHERE LOWER(d.title) LIKE LOWER(%s)"
-                params.append(f"%{query}%")
-
-            # search by author or book
-
-        print(sql)
-        if params:
-            cursor.execute(sql, tuple(params))
-        else :
-            cursor.execute(sql)
-
-        conn.commit()
-        data = cursor.fetchall()
-        # all in the search box will return all the tuples
-        # if len(data) == 0 and book == 'all':
-        #     cursor.execute("SELECT name, author from Book")
-        #     conn.commit()
-        #     data = cursor.fetchall()
-        print(*data, sep='\n')
-        return render_template('index.html', data=data)
+    if request.method == "GET":
         return redirect('/')
+    
+    # parse form input
+    selected_filter = request.form.get('filter', '').strip()
+    filter_option = request.form.get('filter-options', '').strip()
+    query = request.form.get('search', '').strip()
+
+    category = filter_option if selected_filter == 'categories' else None
+    res_type = filter_option if selected_filter == 'type' else None
+    pub_date = filter_option if selected_filter == 'publishing' else None
+
+    print(f"Filter Type: {selected_filter}, Filter Value: {filter_option}, Search Query: {query}")
+
+    sql = """
+        SELECT
+            d.docID,
+            d.title,
+            d.author,
+            d.url,
+            d.thumbnail_url,
+            d.published_date,
+            c.name AS category
+        FROM SearchIndex si
+        JOIN Document d ON si.document_id = d.docID
+        LEFT JOIN Category c on si.category_id = c.categoryID
+        LEFT JOIN Type t ON si.type_ID = t.idType
+        LEFT JOIN Keywords_Indexes ki ON ki.IndexID = si.IndexID
+        LEFT JOIN Keywords k ON ki.keywordID = k.idKeywords
+
+        WHERE
+            (%s IS NULL OR c.name = %s) AND
+            (%s IS NULL OR t.name = %s) AND
+            (%s IS NULL OR YEAR(d.published_date) = %s) AND
+            (
+                %s = '' OR
+                MATCH(d.title) AGAINST (%s IN NATURAL LANGUAGE MODE) OR
+                MATCH(k.name) AGAINST (%s IN NATURAL LANGUAGE MODE)
+            )
+        
+        GROUP BY d.title, d.docID, c.name;
+        """
+    params = [
+        category, category, 
+        res_type, res_type,
+        pub_date, pub_date, 
+        query, query, query]
+
+    print(sql)
+    cursor.execute(sql, tuple(params))
+
+    conn.commit()
+    data = cursor.fetchall()
+
+    print('Result:', *data, sep='\n')
+    return render_template('index.html', data=data)
+    
 
 if __name__ == '__main__':
     app.debug = True
