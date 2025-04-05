@@ -40,7 +40,10 @@ def search():
     if request.method == "GET":
         return redirect('/')
     
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    conn = mysql.connection
+    cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+
+    # possibly put everything below in a try block incase connection doesn't work
     
     # parse form input
     selected_filter = request.form.get('filter', '').strip()
@@ -99,53 +102,64 @@ def search():
 
     return render_template('index.html', data=data)
     
-# @app.route('/register', methods=['GET', 'POST'])
-# def register():
-#     msg = ''
-#     conn = mysql.connect()  # create new connection
-#     cursor = conn.cursor()
-#     if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
-#         username = request.form['username']
-#         password = request.form['password']
-#         email = request.form['email']
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    registrationMessage = ''
 
-#         cursor.execute('SELECT * FROM Account WHERE username = %s', (username,))
-#         account = cursor.fetchone()
-#         if account:
-#             msg = 'Account already exists!'
-#         elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
-#             msg = 'Invalid email address!'
-#         elif not re.match(r'[A-Za-z0-9]+', username):
-#             msg = 'Username must contain only letters and numbers!'
-#         elif not username or not password or not email:
-#             msg = 'Please fill out the form!'
-#         else:
-#             # Generate the next idUser and idAccount or need to auto increment in database schema
-#             cursor.execute("SELECT MAX(idUser) FROM User")
-#             max_user_id = cursor.fetchone()[0] or 0
-#             new_id_user = max_user_id + 1
-
-#             cursor.execute("SELECT MAX(idAccount) FROM Account")
-#             max_account_id = cursor.fetchone()[0] or 0
-#             new_id_account = max_account_id + 1
-
-#             # 3. Insert into User since Account has foreign key to User
-#             test_dob = "2000-01-01"  # or use a default string
-#             cursor.execute("INSERT INTO User (idUser, name, DOB) VALUES (%s, %s, %s)", (new_id_user, username, test_dob))
-
-#             # 4. Insert into Account table
-#             cursor.execute('''
-#                 INSERT INTO Account (idUser, idAccount, username, hashed_password, email)
-#                 VALUES (%s, %s, %s, %s, %s)
-#             ''', (new_id_user, new_id_account, username, password, email))
-
-#             conn.commit()
-#             msg = 'You have successfully registered!'
+    conn = mysql.connection
+    cursor = conn.cursor(MySQLdb.cursors.DictCursor)
 
 
-#     cursor.close()
-#     conn.close()  
-#     return render_template('registration.html', msg=msg)
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
+        username = request.form['username']
+        password = request.form['password']
+        email = request.form['email']
+
+        cursor.execute('SELECT * FROM Account WHERE username = %s', (username,))
+        account = cursor.fetchone()
+        if account:
+            registrationMessage = 'Account already exists!'
+            print(registrationMessage)
+        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+            registrationMessage = 'Invalid email address!'
+            print(registrationMessage)
+        elif not re.match(r'[A-Za-z0-9]+', username):
+            registrationMessage = 'Username must contain only letters and numbers!'
+            print(registrationMessage)
+        elif not username or not password or not email:
+            registrationMessage = 'Please fill out the form!'
+            print(registrationMessage)
+        else:
+            # Generate the next idUser and idAccount or need to auto increment in database schema
+            cursor.execute("SELECT MAX(idUser) FROM User")
+            result = cursor.fetchone()
+            max_user_id = list(result.values())[0] if result else 0
+            new_id_user = max_user_id + 1
+
+            cursor.execute("SELECT MAX(idAccount) FROM Account")
+            result = cursor.fetchone()
+            max_account_id = list(result.values())[0] if result else 0
+            new_id_account = max_account_id + 1
+
+
+            # 3. Insert into User since Account has foreign key to User
+            test_dob = "2000-01-01"  # or use a default string
+            cursor.execute("INSERT INTO User (idUser, name, DOB) VALUES (%s, %s, %s)", (new_id_user, username, test_dob))
+
+            # 4. Insert into Account table
+            cursor.execute('''
+                INSERT INTO Account (idUser, idAccount, username, hashed_password, email)
+                VALUES (%s, %s, %s, %s, %s)
+            ''', (new_id_user, new_id_account, username, password, email))
+
+            conn.commit()
+            registrationMessage = 'You have successfully registered!'
+            print(registrationMessage)
+
+
+    cursor.close()
+
+    return render_template('registration.html', registrationMessage=registrationMessage)
 
 
 
