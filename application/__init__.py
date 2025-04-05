@@ -2,7 +2,8 @@ import os
 from unicodedata import category
 
 from flask import Flask, render_template, request, redirect, url_for, session
-from flaskext.mysql import MySQL
+from flask_mysqldb import MySQL
+import MySQLdb.cursors
 import re
 
 from markupsafe import escape
@@ -10,12 +11,12 @@ from markupsafe import escape
 app = Flask(__name__, instance_relative_config=True)
 
 # Database connection
-app.config['MYSQL_DATABASE_USER'] = 'team3admin'
-app.config['MYSQL_DATABASE_PASSWORD'] = '12345'
-app.config['MYSQL_DATABASE_DB'] = 'TestDb'
-app.config['MYSQL_DATABASE_HOST'] = '18.222.76.244'
-mysql = MySQL()
-mysql.init_app(app)
+app.config['MYSQL_USER'] = 'team3admin'
+app.config['MYSQL_PASSWORD'] = '12345'
+app.config['MYSQL_DB'] = 'TestDb'
+app.config['MYSQL_HOST'] = '18.222.76.244'
+
+mysql = MySQL(app)
 
 
 # Home Page
@@ -39,8 +40,7 @@ def search():
     if request.method == "GET":
         return redirect('/')
     
-    conn = mysql.connect()
-    cursor = conn.cursor()
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     
     # parse form input
     selected_filter = request.form.get('filter', '').strip()
@@ -90,13 +90,12 @@ def search():
     print(sql)
     cursor.execute(sql, tuple(params))
 
-    conn.commit()
+    mysql.connection.commit()
     data = cursor.fetchall()
 
-    print('Result:', *data, sep='\n')
+    print('Result:', data, sep='\n')
 
     cursor.close()
-    conn.close()
 
     return render_template('index.html', data=data)
     

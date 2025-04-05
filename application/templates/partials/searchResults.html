@@ -3,8 +3,8 @@
     {% for item in data %}
     <tr>
         <br>
-        <td> <!--{{item[0]}},  --> {{item[1]}}, {{item[2]}}, {{item[3]}},{{item[4]}},{{item[5]}} </td>
-        <td><img src="{{ item[4] }}"  width="100px" ></td>
+        <td> {{ item.title }}, {{ item.author }}, {{ item.url }}, {{ item.category }}, {{ item.published_date }}</td>
+        <td><img src="{{ item.thumbnail_url }}" width="100px"></td>
         </br>
     </tr>
     {% endfor %}
