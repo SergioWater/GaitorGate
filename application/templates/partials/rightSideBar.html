@@ -4,7 +4,7 @@
         <ul class="right-nav">
             {% if session.username %}
             <li>
-                <a href="/account" class="profile-link">
+                <a href="/" class="profile-link">
                     {{ session.username }}
                     <div class="icon-container">
                         <img src="/static/imgs/avatar.png" alt="Profile Picture" class="sidebar-icon">
@@ -13,7 +13,7 @@
             </li>
             {% else %}
             <li>
-                <a href="/login" class="profile-link">
+                <a href="/register" class="profile-link">
                     Log In
                     <div class="icon-container">
                         <img src="/static/imgs/avatar.png" alt="Profile Picture" class="sidebar-icon">
@@ -22,7 +22,7 @@
             </li>
             {% endif %}
             <li>
-                <a href="/saved" class="saved">
+                <a href="/" class="saved">
                     Favorites
                     <div class="icon-container">
                         <img src="/static/imgs/saved.png" alt="Saved Icon" class="sidebar-icon">
@@ -30,7 +30,7 @@
                 </a>
             </li>
             <li>
-                <a href="/settings" class="settings">
+                <a href="/" class="settings">
                     Settings
                     <div class="icon-container">
                         <img src="/static/imgs/settings.png" alt="Settings Icon" class="sidebar-icon">
