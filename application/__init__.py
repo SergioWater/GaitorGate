@@ -18,11 +18,12 @@ app.config['MYSQL_HOST'] = '18.222.76.244'
 
 mysql = MySQL(app)
 
+RESULTS_PER_PAGE = 6
 
 # Home Page
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("index.html", data=[], current_page=1, total_pages=0)
 
 # About Page
 @app.route("/about")
@@ -49,6 +50,7 @@ def search():
     selected_filter = request.form.get('filter', '').strip()
     filter_option = request.form.get('filter-options', '').strip()
     query = request.form.get('search', '').strip()
+    page = request.args.get('page', 1, type=int) #added to create results pages
 
     category = filter_option if selected_filter == 'categories' else None
     res_type = filter_option if selected_filter == 'type' else None
@@ -98,9 +100,18 @@ def search():
 
     print('Result:', data, sep='\n')
 
+    ## i added this to start the paging of the search results works partially but only does single page
+    total_results = len(data)
+    total_pages = (total_results + RESULTS_PER_PAGE - 1) // RESULTS_PER_PAGE
+    offset = (page - 1) * RESULTS_PER_PAGE
+    page_data = data[offset:offset + RESULTS_PER_PAGE]
+
+    print(f'Page {page} Results:', page_data, sep='\n')
+    print(f'Total Results: {total_results}, Total Pages: {total_pages}')
+
     cursor.close()
 
-    return render_template('index.html', data=data)
+    return render_template('searchpage.html', data=page_data, current_page=page, total_pages=total_pages)
     
 @app.route('/register', methods=['GET', 'POST'])
 def register():

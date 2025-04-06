@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Author" content="Ulices Gonzalez" />
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <title>Search</title>
+</head>
+
+<body>
+    
+    {% include 'partials/header.html' %}
+
+    {% include 'partials/sidebars.html' %}
+
+    <main>
+        <form method="POST" action="/search">
+            {% include 'partials/search.html' %}
+        </form>
+    <!-- Line 22 displays the data from backend -->
+        {% include 'partials/searchResults.html' %}
+    </main>
+
+    {% include 'partials/footer.html' %}
+
+    <script src="{{ url_for('static', filename='js/toggleSides.js') }}"></script>
+
+</body>
+
+</html>
