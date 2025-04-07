@@ -196,6 +196,44 @@ def register():
 
     return render_template('registration.html', registrationMessage=registrationMessage)
 
+@app.route('/review', methods=['GET', 'POST'])
+def review():
+    reviewMessage = ''
+
+    with app.app_context():
+        conn = mysql.connection
+        cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+
+        if request.method == 'POST' and 'username' in request.form and 'review_text' in request.form and 'rating' in request.form and 'index' in request.form:
+            username = request.form['username']
+            review_text = request.form['review_text']
+            rating = request.form['rating']
+            index = request.form['index']
+
+            if not review_text or not rating:
+                reviewMessage = 'Please fill out the form!'
+                print(reviewMessage)
+            elif not re.match(r'^[1-5]$', rating):
+                reviewMessage = 'Rating must be between 1 and 5!'
+                print(reviewMessage)
+            else:
+                # Generate the next idReview
+                cursor.execute("SELECT idUser FROM User WHERE username = %s", (username,))
+                result = cursor.fetchone()
+                user_id = result['idUser'] if result else None
+
+           
+                cursor.execute("INSERT INTO Review (idUser, review_text, rating,idIndex) VALUES (%s, %s, %s,%s)",
+                               (user_id, review_text, rating, index))
+                conn.commit()
+                reviewMessage = 'Your review has been submitted!'
+                print(reviewMessage)
+
+
+        cursor.close()
+    return render_template('review.html', reviewMessage=reviewMessage)
+
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
