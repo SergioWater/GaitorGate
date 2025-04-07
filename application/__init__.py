@@ -100,37 +100,51 @@ def search():
 def register():
     registrationMessage = ''
 
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
-        username = request.form['username']
-        password = request.form['password']
-        email = request.form['email']
+    with app.app_context():  # <-- Add this context manager
+        conn = mysql.connection  # <-- Establish connection
+        cursor = conn.cursor(MySQLdb.cursors.DictCursor)
 
-        with app.app_context():
-            conn = mysql.connection
-            cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+        if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
+            username = request.form['username']
+            password = request.form['password']
+            email = request.form['email']
 
             cursor.execute('SELECT * FROM Account WHERE username = %s', (username,))
             account = cursor.fetchone()
+
             if account:
                 registrationMessage = 'Account already exists!'
-            elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
-                registrationMessage = 'Invalid email address!'
-            elif not re.match(r'[A-Za-z0-9]+', username):
-                registrationMessage = 'Username must contain only letters and numbers!'
+                print(registrationMessage)
             elif not username or not password or not email:
                 registrationMessage = 'Please fill out the form!'
+                print(registrationMessage)
+            elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+                registrationMessage = 'Invalid email address!'
+                print(registrationMessage)
+            elif not re.match(r'^[A-Za-z0-9]{4,20}$', username):
+                registrationMessage = 'Username must contain only letters and numbers!'
+                print(registrationMessage)
+            elif password != request.form.get('confirm_password'):
+                registrationMessage = 'Passwords do not match!'
+                print(registrationMessage)
             else:
+                # Generate the next idUser and idAccount or need to auto increment in database schema
                 cursor.execute("SELECT MAX(idUser) FROM User")
-                max_user_id = cursor.fetchone()['MAX(idUser)'] or 0
+                result = cursor.fetchone()
+                max_user_id = list(result.values())[0] if result else 0
                 new_id_user = max_user_id + 1
 
                 cursor.execute("SELECT MAX(idAccount) FROM Account")
-                max_account_id = cursor.fetchone()['MAX(idAccount)'] or 0
+                result = cursor.fetchone()
+                max_account_id = list(result.values())[0] if result else 0
                 new_id_account = max_account_id + 1
 
+                # 3. Insert into User since Account has foreign key to User
                 test_dob = "2000-01-01"
-                cursor.execute("INSERT INTO User (idUser, name, DOB) VALUES (%s, %s, %s)", (new_id_user, username, test_dob))
+                cursor.execute("INSERT INTO User (idUser, name, DOB) VALUES (%s, %s, %s)", 
+                    (new_id_user, username, test_dob))
 
+                # 4. Insert into Account table
                 cursor.execute('''
                     INSERT INTO Account (idUser, idAccount, username, hashed_password, email)
                     VALUES (%s, %s, %s, %s, %s)
@@ -138,8 +152,9 @@ def register():
 
                 conn.commit()
                 registrationMessage = 'You have successfully registered!'
+                print(registrationMessage)
 
-            cursor.close()
+        cursor.close()
 
     return render_template('registration.html', registrationMessage=registrationMessage)
 

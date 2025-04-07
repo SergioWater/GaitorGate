@@ -1,6 +1,12 @@
 <h2>Register</h2>
 <div class="registration-form">
-    <form method="POST" action="" enctype="application/x-www-form-urlencoded">
+    {% if registrationMessage %}
+    <div class="error-message">
+        {{ registrationMessage }}
+    </div>
+    {% endif %}
+
+    <form method="POST" action="/register" novalidate>
         <div class="registration-item">
             <label for="email">Email: </label>
             <input type="email" name="email" id="email" placeholder="user@email.ext" required />
