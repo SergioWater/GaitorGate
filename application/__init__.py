@@ -238,35 +238,36 @@ def review():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     loginMessage = ''
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+    with app.app_context():
+        if request.method == 'POST':
+            username = request.form['username']
+            password = request.form['password']
 
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute("SELECT idAccount, username, email FROM Account WHERE username = %s AND hashed_password = %s", (username, password))
-        user_data = cursor.fetchone()
-        cursor.close()
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute("SELECT idAccount, username, email FROM Account WHERE username = %s AND hashed_password = %s", (username, password))
+            user_data = cursor.fetchone()
+            cursor.close()
 
-        if user_data:
-            user = User(user_data['idAccount'], user_data['username'], user_data['email'])
-            login_user(user)
-            print("Succesfully logged in.")
-            #return redirect(url_for('dashboard')) 
-            return redirect(url_for('search')) # needs to be updated to dashboard
-            
-            
-        else:
-            loginMessage = 'Incorrect username or password!'
-            print('Incorrect username or password!')
-            
-
+            if user_data:
+                user = User(user_data['idAccount'], user_data['username'], user_data['email'])
+                login_user(user)
+                print("Succesfully logged in.")
+                #return redirect(url_for('dashboard')) 
+                return redirect(url_for('search')) # needs to be updated to dashboard
+                
+                
+            else:
+                loginMessage = 'Incorrect username or password!'
+                print('Incorrect username or password!')
+                
     return render_template('login.html', loginMessage=loginMessage)
 
 
 @app.route('/logout')
 @login_required
 def logout():
-    logout_user()
+    with app.app_context():
+        logout_user()
     return redirect(url_for('login'))
 
 
