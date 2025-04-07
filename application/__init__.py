@@ -1,14 +1,16 @@
 import os
 from unicodedata import category
-
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
+from flask_login import LoginManager, login_user, login_required, logout_user, UserMixin, current_user
+#from flask_bcrypt import Bcrypt
 import MySQLdb.cursors
 import re
-
 from markupsafe import escape
 
 app = Flask(__name__, instance_relative_config=True)
+
+app.secret_key = 'keyNeedsToBeChanged'  # Change  in production
 
 # Database connection
 app.config['MYSQL_USER'] = 'team3admin'
@@ -18,7 +20,42 @@ app.config['MYSQL_HOST'] = '18.222.76.244'
 
 mysql = MySQL(app)
 
+# Flask Login Setup 
+login_manager = LoginManager()
+login_manager.init_app(app)
+#login_manager.login_view = 'login'
+#bcrypt = Bcrypt(app)  
+
+
 RESULTS_PER_PAGE = 6
+
+# Flask-Login User Loader
+@login_manager.user_loader
+def load_user(user_id):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM Account WHERE idAccount = %s", (user_id,))
+    account = cursor.fetchone()
+    cursor.close()
+    if account:
+        return User(account['idAccount'], account['username'], account['email'])
+    return None
+
+# User class for Flask-Login 
+class User(UserMixin):
+    def __init__(self, user_id, username, email):
+        self.id = user_id
+        self.username = username
+        self.email = email
+
+    @staticmethod
+    def get(user_id):
+        cursor = mysql.connection.cursor()
+        cursor.execute('SELECT username, email FROM Account WHERE idAccount = %s', (user_id,))
+        result = cursor.fetchone()
+        cursor.close()
+        if result:
+            return User(user_id, result[0], result[1])
+
 
 # Home Page
 @app.route("/")
@@ -145,6 +182,7 @@ def register():
                     (new_id_user, username, test_dob))
 
                 # 4. Insert into Account table
+                # hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
                 cursor.execute('''
                     INSERT INTO Account (idUser, idAccount, username, hashed_password, email)
                     VALUES (%s, %s, %s, %s, %s)
@@ -157,6 +195,48 @@ def register():
         cursor.close()
 
     return render_template('registration.html', registrationMessage=registrationMessage)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    loginMessage = ''
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute("SELECT idAccount, username, email FROM Account WHERE username = %s AND hashed_password = %s", (username, password))
+        user_data = cursor.fetchone()
+        cursor.close()
+
+        if user_data:
+            user = User(user_data['idAccount'], user_data['username'], user_data['email'])
+            login_user(user)
+            print("Succesfully logged in.")
+            #return redirect(url_for('dashboard')) 
+            return redirect(url_for('search')) # needs to be updated to dashboard
+            
+            
+        else:
+            loginMessage = 'Incorrect username or password!'
+            print('Incorrect username or password!')
+            
+
+    return render_template('login.html', loginMessage=loginMessage)
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
+
+
+# @app.route('/dashboard')
+# @login_required
+# def dashboard():
+#     return "Dashboard page"
+
 
 
 if __name__ == '__main__':
