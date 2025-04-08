@@ -26,7 +26,6 @@ login_manager.init_app(app)
 #login_manager.login_view = 'login'
 #bcrypt = Bcrypt(app)  
 
-
 RESULTS_PER_PAGE = 6
 
 # Flask-Login User Loader
