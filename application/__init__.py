@@ -255,9 +255,8 @@ def login():
                 login_user(user)
                 session['username'] = user_data['username']  # Store the username in the session
                 print("Successfully logged in as: {session['username']}")
-                return redirect(url_for('search')) # needs to be updated to dashboard
-                
-                
+                return redirect(url_for('account')) 
+                 
             else:
                 loginMessage = 'Incorrect username or password!'
                 print('Incorrect username or password!')
