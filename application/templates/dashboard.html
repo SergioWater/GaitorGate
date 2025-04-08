@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="Author" content="Ulices Gonzalez" />
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
-    <title>Index</title>
+    <title>Dashboard</title>
 </head>
 
 <body>
@@ -16,7 +16,9 @@
     {% include 'partials/sidebars.html' %}
 
     <main>
-        <img src="/static/imgs/alli.png" width="50%" height="50%" alt="Alli Picture" />
+        <form method="POST" action="/search">
+            {% include 'partials/search.html' %}
+        </form>
     </main>
 
     {% include 'partials/footer.html' %}

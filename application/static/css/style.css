@@ -44,41 +44,52 @@
     font-style: italic;
   }
 
-body {
+  body {
     background-color: rgba(255, 255, 255, 1);
-    font-family: 'Source Sans 3', sans-serif; 
+    font-family: 'Source Sans 3', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     min-height: 100%;
     margin: 0;
-    padding-top: 32px;
+    padding-top: clamp(16px, 4vw, 32px);
+    padding-left: clamp(150px, 30vw, 206px);
+    padding-right: clamp(150px, 30vw, 206px); 
+    box-sizing: border-box;
 }
 
 main {
-    font-family: 'Source Sans 3', sans-serif; 
+    font-family: 'Source Sans 3', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     min-height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+img {
+    padding: clamp(8px, 1.25vw, 10px);
 }
 
 form {
-    display: block; /* Make the form a block-level element */
-    align-items: initial; /* Reset vertical alignment */
+    display: block; 
+    align-items: initial; 
+    width: 100%; 
+    box-sizing: border-box;
 }
 
 .filter-dropdown {
-    background-color: #38635A;    
+    background-color: #38635A;
     color: #f0f0f0;
-    padding: 10px;
+    padding: clamp(8px, 1.25vw, 10px);
     border: 1px solid;
-    border-radius: 8px;
-    font-size: 16px;
-    width: 128px;
-    margin-right: 10px;
+    border-radius: clamp(4px, 1vw, 8px);
+    font-size: clamp(14px, 1.25vw, 16px);
+    width: clamp(96px, 10vw, 128px);
+    margin-right: clamp(5px, 1.25vw, 10px);
     transition: 0.3s ease;
 }
 
@@ -88,36 +99,36 @@ form {
 
 .dropdown-option {
     background-color: #53565a;
-    font-size: 16px;
-    width: 128px;
+    font-size: clamp(14px, 1.25vw, 16px);
+    width: clamp(96px, 10vw, 128px);
     text-align: Left;
 }
 
 .dropdown-options li {
-    padding: 8px;
+    padding: clamp(4px, 1vw, 8px);
     cursor: pointer;
 }
 
 .search-bar {
     background-color: #f0f0f0;
-    padding: 10px;
+    padding: clamp(8px, 1.25vw, 10px);
     border: 1px solid;
-    border-radius: 8px;
-    font-size: 16px;
-    width: 360px;
+    border-radius: clamp(4px, 1vw, 8px);
+    font-size: clamp(14px, 1.25vw, 16px);
+    width: clamp(240px, 30vw, 360px);
     text-align: left;
 }
 
 .submit-button[type="submit"] {
-    padding: 10px 20px;
+    padding: clamp(8px, 1.25vw, 10px) clamp(16px, 2.5vw, 20px);
     background-color: #26547C;
     color: #f0f0f0;
-    font-size: 16px;
+    font-size: clamp(14px, 1.25vw, 16px);
     border: none;
-    border-radius: 8px;
+    border-radius: clamp(4px, 1vw, 8px);
     cursor: pointer;
-    width: 96px;
-    margin-left: 10px;
+    width: clamp(72px, 7.5vw, 96px);
+    margin-left: clamp(5px, 1.25vw, 10px);
     transition: 0.3s ease;
 }
 
@@ -128,7 +139,7 @@ form {
 .about-head {
     font-family: 'Cormorant Garamond', serif;
     padding: 0px;
-    padding-bottom: 16px;
+    padding-bottom: clamp(8px, 2vw, 16px);
 }
 
 .gator{
@@ -143,7 +154,7 @@ form {
 }
 
 header img.logo {
-    margin: 10px;
+    margin: clamp(5px, 1.25vw, 10px);
 }
 
 header h1 {
@@ -152,23 +163,27 @@ header h1 {
 
 h1 {
     font-family: 'Aktiv Grotesk', sans-serif;
-    font-size: clamp(24px, 30x, 36px);
+    font-size: clamp(20px, 4vw, 36px);
     padding-inline: 0px;
 }
 
 h2 {
     font-family: 'Aktiv Grotesk', sans-serif;
-    font-size: 24px;
+    font-size: clamp(18px, 3vw, 24px);
     text-decoration: underline;
-    margin-top: 64px;
-    margin-bottom: 18px;
-    text-align: center; 
+    margin-top: clamp(32px, 8vw, 64px);
+    margin-bottom: clamp(9px, 1.5vw, 18px);
+    text-align: center;
 }
 
 h3,
 h4 {
     font-family: 'Aktiv Grotesk', sans-serif;
-    font-size: 16px;
+    font-size: clamp(14px, 1.25vw, 16px);
+    text-decoration: underline;
+    margin-top: clamp(32px, 8vw, 64px);
+    margin-bottom: clamp(9px, 1.5vw, 18px);
+    text-align: center;
 }
 
 h4 {
@@ -177,41 +192,41 @@ h4 {
 
 ul {
     padding: 0;
-    padding-bottom: 36px;
+    padding-bottom: clamp(18px, 4.5vw, 36px);
     margin: 0;
 }
 
 .team-info a {
     font-family: 'Aktiv Grotesk', sans-serif;
-    font-size: 18px;
-    color: black;
+    font-size: clamp(16px, 1.75vw, 18px);
+    color: #000000;
     transition: 0.3s ease;
 }
 
 .team-info a:hover {
-    font-size: 21px;
+    font-size: clamp(18px, 2vw, 21px);
 }
 
 li {
-    font-size: 28px;
+    font-size: clamp(20px, 5vw, 28px);
     list-style-type: none;
 }
 
 a {
     color: #f0f0f0;;
-    font-size: 36px;
+    font-size: clamp(24px, 7vw, 36px);
     text-decoration: none;
     transition: 0.3s ease;
 
 }
 
 .home-button {
-    color: black;
+    color: #000000;
 }
 
 a:hover {
     color: #933311;
-    font-size: 40px;
+    font-size: clamp(28px, 8vw, 40px);
     font-weight: bold;
 }
 
@@ -225,8 +240,8 @@ footer {
 }
 
 footer a.about-button {
-    font-size: 24px;
-    color: black;
+    font-size: clamp(18px, 3vw, 24px);
+    color: #000000;
     text-decoration: none;
     transition: 0.3s ease;
 }
@@ -238,12 +253,12 @@ footer a.about-button:hover {
 .sidebar-left,
 .sidebar-right {
     background-color: #231161;
-    padding: 20px;
+    padding: clamp(10px, 2.5vw, 20px);
     text-align: left;
     position: fixed;
     top: 0;
     height: 100%;
-    max-width: 196px;
+    max-width: clamp(140px, 25vw, 196px);
     transition: 0.3s ease;
     z-index: 200;
     overflow-y: auto;
@@ -259,47 +274,45 @@ footer a.about-button:hover {
 
 .results-container {
     flex-grow: 1;
-    background-color: #f4f4f4;
-    padding: 32px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(96, 76, 17, 0.25);
-    width: calc(100% - 480px); 
-    margin-left: 240px;
-    margin-right: 240px;
-    margin-top: 24px; 
-    margin-bottom: 24px; 
-    min-width: 480px;
-    max-width: 640px;
-    overflow-y: auto; 
+    background-color: #f0f0f0;
+    padding: clamp(16px, 4vw, 32px);
+    border-radius: clamp(4px, 1vw, 8px);
+    box-shadow: 0 0 10px rgba(96, 76, 17, 1);
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: clamp(12px, 3vw, 24px);
+    margin-bottom: clamp(12px, 3vw, 24px);
+    overflow-y: auto;
+    display: flex; 
+    flex-direction: column;
+    align-items: stretch;
 }
 
 .result-item {
     background-color: rgba(83, 86, 90, 0.125);
-    border-radius: 8px;
-    padding: 16px;
-    margin-bottom: 10px;
-    text-align: left; 
+    border-radius: clamp(4px, 1vw, 8px);
+    padding: clamp(8px, 2vw, 16px);
+    margin-bottom: clamp(5px, 1.25vw, 10px);
+    text-align: left;
     display: flex;
-    gap: 24px; 
-    align-items: center; 
+    flex-direction: column;
+    align-items: stretch;
 }
 
 .result-item .result-info {
     color: #000000;
-    font-size: 16px;
+    font-size: clamp(14px, 1.25vw, 16px);
+    word-break: break-word; 
 }
 
 .result-item a {
     color: #933311;
-    font-size: 16px;
+    font-size: clamp(14px, 1.25vw, 16px);
+    word-break: break-word; 
 }
 
 .result-item a:hover {
     color: #38635A;
-}
-
-.result-item img {
-    display: block; 
 }
 
 .left-nav,
@@ -312,13 +325,13 @@ footer a.about-button:hover {
 
 .left-nav li,
 .right-nav li {
-    margin-bottom: 8px;
+    margin-bottom: clamp(4px, 1vw, 8px);
 }
 
 .left-nav a,
 .right-nav a {
     font-family: 'Aktiv Grotesk', sans-serif;
-    font-size: 16px;
+    font-size: clamp(14px, 1.25vw, 16px);
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -328,28 +341,33 @@ footer a.about-button:hover {
 
 .left-nav a:hover,
 .right-nav a:hover {
-    font-size: 16px;
+    font-size: clamp(14px, 1.25vw, 16px);
     color: #C99700;
 }
 
 .icon-container {
-    width: 36px;
-    height: 36px;
-    margin-left: 8px;
-    margin-right: 8px;
+    width: clamp(24px, 4vw, 36px);
+    height: clamp(24px, 4vw, 36px);
+    margin-left: clamp(4px, 1vw, 8px);
+    margin-right: clamp(4px, 1vw, 8px);
     vertical-align: middle;
     border-radius: 50%;
-    background-color: white;
-    border: 4px solid #604C11;
+    background-color: rgba(255, 255, 255, 1);
+    border: clamp(2px, 0.5vw, 4px) solid #604C11;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
 }
 
+.icon-container:hover {
+    border: clamp(2px, 0.5vw, 4px) solid #C99700;
+    transition: 0.3s ease;
+}
+
 .sidebar-icon {
-    width: 24px;
-    height: 24px;
+    width: clamp(16px, 2.5vw, 24px);
+    height: clamp(16px, 2.5vw, 24px);
     vertical-align: middle;
 }
 
@@ -375,52 +393,54 @@ footer a.about-button:hover {
     color: #53565a;
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: clamp(18px, 3vw, 24px);
     cursor: pointer;
     position: absolute;
-    bottom: 48px;
+    bottom: clamp(24px, 6vw, 48px);
     z-index: 300;
 }
 
 .sidebar-left .toggle-button {
-    left: 28px;
+    left: clamp(14px, 3.5vw, 28px);
 }
 
 .sidebar-right .toggle-button {
-    right: 28px;
+    right: clamp(14px, 3.5vw, 28px);
 }
 
 #results-container .results-container {
     display: block;
-    margin-top: 20px;
-    margin-left: 210px;
-    margin-right: 210px;
-    padding: 10px;
-    position: relative;
-    max-width: 1200px;
+    margin-top: clamp(10px, 2.5vw, 20px);
     margin-left: auto;
     margin-right: auto;
+    padding: clamp(5px, 1.25vw, 10px);
+    position: relative;
+    max-width: 1200px;
+    width: 100%; 
+    box-sizing: border-box;
 }
 
 .registration-form, .login-form {
-    background-color: #f4f4f4; 
-    padding: 32px;
-    border-radius: 8px;
+    background-color: #f0f0f0;
+    padding: clamp(16px, 4vw, 32px);
+    border-radius: clamp(4px, 1vw, 8px);
     box-shadow: 0 0 10px rgba(96, 76, 17, 0.25);
-    max-width: 640px;
-    margin-top: 24px; 
+    max-width: clamp(320px, 60vw, 640px);
+    margin-top: clamp(12px, 3vw, 24px);
+    width: 100%; 
+    box-sizing: border-box;
 }
 
 .registration-item, .login-item {
-    margin-bottom: 24px; 
+    margin-bottom: clamp(12px, 3vw, 24px);
 }
 
 .registration-item label, .login-item label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: clamp(4px, 1vw, 8px);
     font-weight: bold;
     color: #53565a;
-    text-align: left; 
+    text-align: left;
 }
 
 .registration-item input[type="email"],
@@ -429,10 +449,12 @@ footer a.about-button:hover {
 .login-item input[type="email"],
 .login-item input[type="text"],
 .login-item input[type="password"] {
-    width: 100%; 
+    width: 100%;
+    padding: clamp(8px, 1.5vw, 12px);
     border: 1px solid #53565a;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: clamp(14px, 1.25vw, 16px); 
+    box-sizing: border-box; 
 }
 
 .registration-item input::placeholder, .login-item input::placeholder {
@@ -441,28 +463,31 @@ footer a.about-button:hover {
 
 .registration-button .logging-button {
     display: flex;
-    gap: 16px;
+    gap: clamp(8px, 2vw, 16px);
     justify-content: center;
-    margin-top: 32px; 
-    flex-wrap: wrap; 
+    margin-top: clamp(16px, 4vw, 32px); 
+    flex-wrap: wrap;
+    width: 100%; 
+    box-sizing: border-box;
 }
 
 .register-button,
 .login-button,
 .reset-button {
-    padding: 12px 24px;
+    padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px); 
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
-    transition:  0.3s ease;
+    font-size: clamp(14px, 1.25vw, 16px); 
+    transition: 0.3s ease;
     text-align: center;
-    min-width: 100px;
+    min-width: clamp(80px, 15vw, 100px); 
+    box-sizing: border-box;
 }
 
 .register-button {
     background-color: #6B702B;
-    color: white;
+    color: #ffffff;
 }
 
 .register-button:hover {
@@ -471,7 +496,7 @@ footer a.about-button:hover {
 
 .login-button {
     background-color: #26547C;
-    color: white;
+    color: #ffffff;
 }
 
 .login-button:hover {
@@ -479,14 +504,14 @@ footer a.about-button:hover {
 }
 
 .login-button a, .register-button a {
-    font-size: 16px;
-    color: white;
+    font-size: clamp(14px, 1.25vw, 16px);
+    color: #ffffff;
     text-decoration: none;
 }
 
 .reset-button {
     background-color: #933311;
-    color: white;
+    color: #ffffff;
 }
 
 .reset-button:hover {
@@ -494,21 +519,24 @@ footer a.about-button:hover {
 }
 
 .paging {
-    margin-top: 20px;
+    margin-top: clamp(10px, 2.5vw, 20px);
     text-align: center;
+    width: 100%; 
+    box-sizing: border-box;
 }
 
 .paging a,
 .paging span,
 .paging .current-page {
-    font-size:24px;
+    font-size: clamp(18px, 3vw, 24px); 
     display: inline-block;
-    padding: 8px 12px;
-    margin-right: 5px;
+    padding: clamp(4px, 1vw, 8px) clamp(8px, 2vw, 12px);
+    margin-right: clamp(2px, 0.5vw, 5px);
     border: 1px solid #ccc;
     text-decoration: none;
     color: #333;
     border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .paging .current-page {
@@ -523,30 +551,37 @@ footer a.about-button:hover {
 }
 
 .error-message {
-    color: #ff0000;                   
-    background-color: #fde0e0;        
-    padding: 12px;
+    color: #933311;
+    background-color: #f4f4f4;
+    padding: clamp(8px, 2vw, 12px); 
     border-radius: 4px;
-    border: 1px solid #fad6d9;
-    margin-bottom: 20px;
+    border: 1px solid #f6f6f6;
+    margin-bottom: clamp(10px, 2.5vw, 20px); 
     font-family: 'Aktiv Grotesk', sans-serif;
-    font-weight: 600; 
+    font-weight: 600;
     letter-spacing: 0.3px;
+    font-size: clamp(14px, 1.25vw, 16px);
+    width: 100%; 
+    box-sizing: border-box;
 }
 
 .rating-container {
-    margin: 1rem 0;
-    padding: 1rem;
+    margin: clamp(0.5rem, 1vw, 1rem) 0;
+    padding: clamp(0.5rem, 1vw, 1rem);
     background: rgba(83, 86, 90, 0.05);
     border-radius: 8px;
+    width: 100%; 
+    box-sizing: border-box;
 }
 
 .star-rating {
+    color: #6B702B;
     display: flex;
-    gap: 6px; 
-    flex-direction: row; 
-    justify-content: flex-start; 
-    text-align: left; 
+    gap: clamp(3px, 0.75vw, 6px);
+    flex-direction: row;
+    justify-content: center;
+    width: 100%; 
+    box-sizing: border-box;
 }
 
 .star-rating input {
@@ -554,64 +589,70 @@ footer a.about-button:hover {
 }
 
 .star-rating label {
-    font-size: 2rem;
-    color: #ccc;
+    font-size: clamp(1.5rem, 3vw, 2rem); 
     cursor: pointer;
-    transition: color 0.1s ease-in-out; 
-    line-height: 1; 
+    transition: color 0.1s ease-in-out;
+    line-height: 1;
 }
 
 .star-rating input:checked + label,
 .star-rating input:checked + label ~ label,
 .star-rating label:hover,
 .star-rating label:hover ~ label {
-    color: #981cad; 
+    color: #463077;
 }
 
 .submit-rating {
     background: #38635A;
-    color: white;
+    color: #ffffff;
     border: none;
-    padding: 0.5rem 1rem;
+    padding: clamp(0.25rem, 0.5vw, 0.5rem) clamp(0.5rem, 1vw, 1rem); 
     border-radius: 4px;
     cursor: pointer;
-    margin-top: 0.5rem;
+    margin-top: clamp(0.25rem, 0.5vw, 0.5rem); 
     font-family: 'Aktiv Grotesk', sans-serif;
+    font-size: clamp(14px, 1.25vw, 16px);
+    box-sizing: border-box;
 }
 
 .submit-rating:hover {
-    background: #194f7e;
+    background: #26547C;
 }
 
-
 .review-container {
-    margin: 1rem 0;
-    padding: 1rem;
+    margin: clamp(0.5rem, 1vw, 1rem) 0;
+    padding: clamp(0.5rem, 1vw, 1rem); 
     background: rgba(83, 86, 90, 0.05);
     border-radius: 8px;
-  }
-  
-  .review-form textarea {
+    width: 100%; 
+    box-sizing: border-box;
+}
+
+.review-form textarea {
     width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ddd;
+    padding: clamp(0.25rem, 0.5vw, 0.5rem);
+    border: 1px solid #f4f4f4;
     border-radius: 4px;
     font-family: 'Aktiv Grotesk', sans-serif;
     resize: vertical;
-    min-height: 80px;
-  }
-  
-  .submit-review {
+    min-height: clamp(60px, 10vw, 80px);
+    font-size: clamp(14px, 1.25vw, 16px); 
+    box-sizing: border-box;
+}
+
+.submit-review {
     background: #38635A;
-    color: white;
+    color: #ffffff;
     border: none;
-    padding: 0.5rem 1rem;
+    padding: clamp(0.25rem, 0.5vw, 0.5rem) clamp(0.5rem, 1vw, 1rem); 
     border-radius: 4px;
     cursor: pointer;
-    margin-top: 0.5rem;
+    margin-top: clamp(0.25rem, 0.5vw, 0.5rem); 
     font-family: 'Aktiv Grotesk', sans-serif;
-  }
-  
-  .submit-review:hover {
-    background: #194f7e;
-  }
+    font-size: clamp(14px, 1.25vw, 16px); 
+    box-sizing: border-box;
+}
+
+.submit-review:hover {
+    background: #26547C;
+}

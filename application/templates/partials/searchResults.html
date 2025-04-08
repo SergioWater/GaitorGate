@@ -6,7 +6,7 @@
             {{ item.title }}, {{ item.author }}, <a href="{{ item.url }}" target="_blank">View</a>, {{ item.category }},
             {{ item.published_date }}
         </div>
-        <div><img src="{{ item.thumbnail_url }}" width="100px"></div>
+        <div><img src="{{ item.thumbnail_url }}" height="25%" width="25%"></div>
         
         {% set doc_id = item.docID %}
         {% include 'partials/rating-form.html' %}
@@ -21,20 +21,20 @@
     <div class="paging">
         {% if total_pages > 1 %}
         {% if current_page > 1 %}
-        <a href="{{ url_for('search', page=current_page - 1) }}">Previous</a>
+        <a href="{{ url_for('search', page=current_page - 1, search=request.form.get('search', request.args.get('search', '')), filter=request.form.get('filter', request.args.get('filter', '')), filter_options=request.form.get('filter-options', request.args.get('filter-options', ''))) }}">Previous</a>
         {% endif %}
-
+    
         {% for page in range(1, total_pages + 1) %}
         {% if page == current_page %}
         <span class="current-page">{{ page }}</span>
         {% else %}
-        <a href="{{ url_for('search', page=page) }}">{{ page }}</a>
+        <a href="{{ url_for('search', page=page, search=request.form.get('search', request.args.get('search', '')), filter=request.form.get('filter', request.args.get('filter', '')), filter_options=request.form.get('filter-options', request.args.get('filter-options', ''))) }}">{{ page }}</a>
         {% endif %}
         {% endfor %}
-
-        {% if current_page < total_pages %} 
-        <a href="{{ url_for('search', page=current_page + 1) }}">Next</a>
-            {% endif %}
-            {% endif %}
+    
+        {% if current_page < total_pages %}
+        <a href="{{ url_for('search', page=current_page + 1, search=request.form.get('search', request.args.get('search', '')), filter=request.form.get('filter', request.args.get('filter', '')), filter_options=request.form.get('filter-options', request.args.get('filter-options', ''))) }}">Next</a>
+        {% endif %}
+        {% endif %}
     </div>
 </div>

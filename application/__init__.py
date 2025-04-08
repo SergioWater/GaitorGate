@@ -72,11 +72,13 @@ def about():
 def team_member(name):
     return render_template(f"members/{escape(name)}.html")
 
+# Repurposed Temporarily to act as main page for new search
+@app.route('/dashboard')
+def dashboard():
+    return render_template("dashboard.html")
+
 @app.route('/search', methods=['GET', 'POST'])
 def search():
-    if request.method == "GET":
-        return redirect('/')
-
     with app.app_context():
         conn = mysql.connection
         cursor = conn.cursor(MySQLdb.cursors.DictCursor)
@@ -123,13 +125,13 @@ def search():
         cursor.execute(sql, tuple(params))
 
         data = cursor.fetchall()
+        cursor.close()
+
 
         total_results = len(data)
         total_pages = (total_results + RESULTS_PER_PAGE - 1) // RESULTS_PER_PAGE
         offset = (page - 1) * RESULTS_PER_PAGE
         page_data = data[offset:offset + RESULTS_PER_PAGE]
-
-        cursor.close()
 
     return render_template('searchpage.html', data=page_data, current_page=page, total_pages=total_pages)
 
@@ -251,8 +253,8 @@ def login():
             if user_data:
                 user = User(user_data['idAccount'], user_data['username'], user_data['email'])
                 login_user(user)
-                print("Succesfully logged in.")
-                #return redirect(url_for('dashboard')) 
+                session['username'] = user_data['username']  # Store the username in the session
+                print("Successfully logged in as: {session['username']}")
                 return redirect(url_for('search')) # needs to be updated to dashboard
                 
                 
@@ -262,19 +264,30 @@ def login():
                 
     return render_template('login.html', loginMessage=loginMessage)
 
+@app.route('/account')
+@login_required
+def account():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT username, email FROM Account WHERE idAccount = %s", (current_user.id,))
+    account_info = cursor.fetchone()
+    cursor.close()
+    return render_template('account.html', user=account_info, active_page='account')
 
 @app.route('/logout')
 @login_required
 def logout():
     with app.app_context():
+        session.pop('username', None) # Remove the username from the session
         logout_user()
     return redirect(url_for('login'))
+
+
 
 
 # @app.route('/dashboard')
 # @login_required
 # def dashboard():
-#     return "Dashboard page"
+#     return render_template("dashboard.html")
 
 
 

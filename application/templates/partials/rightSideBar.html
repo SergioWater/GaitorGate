@@ -2,39 +2,50 @@
     <button class="toggle-button" id="toggleRight">&#9776;</button>
     <nav>
         <ul class="right-nav">
+            {% if active_page == 'account' %}
+            <li>
+                <a href="/logout" class="profile-link">
+                    <div class="icon-container">
+                        <img src="/static/imgs/avatar.png" alt="Log Out Icon" class="sidebar-icon">
+                    </div>
+                    Log Out
+                </a>
+            </li>
+            {% else %}
             {% if session.username %}
             <li>
-                <a href="/" class="profile-link">
-                    {{ session.username }}
+                <a href="/account" class="profile-link">
                     <div class="icon-container">
                         <img src="/static/imgs/avatar.png" alt="Profile Picture" class="sidebar-icon">
                     </div>
+                    {{ session.username }}
                 </a>
             </li>
             {% else %}
             <li>
                 <a href="/login" class="profile-link">
-                    Log In
                     <div class="icon-container">
-                        <img src="/static/imgs/avatar.png" alt="Profile Picture" class="sidebar-icon">
+                        <img src="/static/imgs/avatar.png" alt="Log In Icon" class="sidebar-icon">
                     </div>
+                    Log In
                 </a>
             </li>
             {% endif %}
+            {% endif %}
             <li>
                 <a href="/" class="saved">
-                    Favorites
                     <div class="icon-container">
                         <img src="/static/imgs/saved.png" alt="Saved Icon" class="sidebar-icon">
                     </div>
+                    Favorites
                 </a>
             </li>
             <li>
                 <a href="/" class="settings">
-                    Settings
                     <div class="icon-container">
                         <img src="/static/imgs/settings.png" alt="Settings Icon" class="sidebar-icon">
                     </div>
+                    Settings
                 </a>
             </li>
         </ul>
