@@ -2,49 +2,70 @@
     text-align: center;
 }
 
-  @font-face {
-    font-family: 'Source Sans 3'; 
+@font-face {
+    font-family: 'Source Sans 3';
     src: url('static/fonts/Source_Sans_3/static/SourceSans3-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
-  }
-  
-  @font-face {
-    font-family: 'Source Sans 3'; 
+}
+
+@font-face {
+    font-family: 'Source Sans 3';
     src: url('static/fonts/Source_Sans_3/static/SourceSans3-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
-  }
-  
-  @font-face {
-    font-family: 'Source Sans 3'; 
+}
+
+@font-face {
+    font-family: 'Source Sans 3';
     src: url('static/fonts/Source_Sans_3/static/SourceSans3-Italic.ttf') format('truetype');
     font-weight: normal;
     font-style: italic;
-  }
+}
 
-  @font-face {
-    font-family: 'Aktiv Grotesk'; 
+@font-face {
+    font-family: 'Cormorant Garamond';
+    src: url('static/fonts/Cormorant_Garamond/static/CormorantGaramond-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cormorant Garamond';
+    src: url('static/fonts/Cormorant_Garamond/static/CormorantGaramond-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cormorant Garamond';
+    src: url('static/fonts/Cormorant_Garamond/static/CormorantGaramond-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk';
     src: url('static/fonts/Aktiv_Grotesk/static/AktivGrotesk-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
-  }
-  
-  @font-face {
-    font-family: 'Aktiv Grotesk'; 
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk';
     src: url('static/fonts/Aktiv_Grotesk/static/AktivGrotesk-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
-  }
-  
-  @font-face {
-    font-family: 'Aktiv Grotesk'; 
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk';
     src: url('static/fonts/Aktiv_Grotesk/static/AktivGrotesk-Italic.ttf') format('truetype');
     font-weight: normal;
     font-style: italic;
-  }
+}
 
-  body {
+body {
     background-color: rgba(255, 255, 255, 1);
     font-family: 'Source Sans 3', sans-serif;
     display: flex;
@@ -52,10 +73,11 @@
     align-items: center;
     justify-content: flex-start;
     min-height: 100%;
+    min-width: 375px;
     margin: 0;
     padding-top: clamp(16px, 4vw, 32px);
     padding-left: clamp(150px, 30vw, 206px);
-    padding-right: clamp(150px, 30vw, 206px); 
+    padding-right: clamp(150px, 30vw, 206px);
     box-sizing: border-box;
 }
 
@@ -70,15 +92,67 @@ main {
     box-sizing: border-box;
 }
 
-img {
-    padding: clamp(8px, 1.25vw, 10px);
+.alligator {
+    margin-top: clamp(32px, 8vw, 96px);
+    margin-bottom: clamp(9px, 1.5vw, 18px);
 }
 
 form {
-    display: block; 
-    align-items: initial; 
-    width: 100%; 
+    display: block;
+    align-items: initial;
+    width: 100%;
     box-sizing: border-box;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: clamp(5px, 1.25vw, 10px);
+}
+
+.search-form h2,
+.search-form .filter-dropdown,
+.search-form .search-bar,
+.search-form .submit-button {
+    margin-right: 0;
+    margin-bottom: clamp(5px, 1.25vw, 10px);
+    width: 100%;
+    text-align: center;
+}
+
+.search-form h2,
+.search-form .filter-dropdown,
+.search-form .search-bar,
+.search-form .submit-button {
+    justify-content: center;
+}
+
+.search-form .filter-dropdown,
+.search-form .submit-button {
+    width: auto;
+}
+
+
+@media (max-width: 900px) {
+    .search-form {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search-form h2,
+    .search-form .filter-dropdown,
+    .search-form .search-bar,
+    .search-form .submit-button {
+        margin-right: 0;
+        margin-bottom: clamp(5px, 1.25vw, 10px);
+        width: 100%;
+        text-align: center;
+    }
+
+    .search-form .filter-dropdown,
+    .search-form .submit-button {
+        width: auto;
+    }
 }
 
 .filter-dropdown {
@@ -142,7 +216,7 @@ form {
     padding-bottom: clamp(8px, 2vw, 16px);
 }
 
-.gator{
+.gator {
     background-color: #C99700;
     text-align: center;
     position: fixed;
@@ -162,16 +236,17 @@ header h1 {
 }
 
 h1 {
-    font-family: 'Aktiv Grotesk', sans-serif;
-    font-size: clamp(20px, 4vw, 36px);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: clamp(18px, 3vw, 54px);
     padding-inline: 0px;
 }
+
 
 h2 {
     font-family: 'Aktiv Grotesk', sans-serif;
     font-size: clamp(18px, 3vw, 24px);
     text-decoration: underline;
-    margin-top: clamp(32px, 8vw, 64px);
+    margin-top: clamp(32px, 8vw, 96px);
     margin-bottom: clamp(9px, 1.5vw, 18px);
     text-align: center;
 }
@@ -213,7 +288,7 @@ li {
 }
 
 a {
-    color: #f0f0f0;;
+    color: #f0f0f0;
     font-size: clamp(24px, 7vw, 36px);
     text-decoration: none;
     transition: 0.3s ease;
@@ -221,7 +296,10 @@ a {
 }
 
 .home-button {
-    color: #000000;
+    font-style: italic; 
+    color: #E9D597; 
+    text-shadow: 1px 1px 2px rgba(96, 76, 17, 0.925); 
+    letter-spacing: clamp(4px, 1vw, 8px); 
 }
 
 a:hover {
@@ -239,14 +317,15 @@ footer {
     z-index: 100;
 }
 
-footer a.about-button {
+.about-button {
     font-size: clamp(18px, 3vw, 24px);
     color: #000000;
     text-decoration: none;
     transition: 0.3s ease;
 }
 
-footer a.about-button:hover {
+.about-button:hover {
+    font-size: clamp(24px, 3vw, 36px);
     color: #463077;
 }
 
@@ -281,9 +360,9 @@ footer a.about-button:hover {
     width: 100%;
     box-sizing: border-box;
     margin-top: clamp(12px, 3vw, 24px);
-    margin-bottom: clamp(12px, 3vw, 24px);
+    margin-bottom: clamp(32px, 3vw, 80px);
     overflow-y: auto;
-    display: flex; 
+    display: flex;
     flex-direction: column;
     align-items: stretch;
 }
@@ -302,13 +381,13 @@ footer a.about-button:hover {
 .result-item .result-info {
     color: #000000;
     font-size: clamp(14px, 1.25vw, 16px);
-    word-break: break-word; 
+    word-break: break-word;
 }
 
 .result-item a {
     color: #933311;
     font-size: clamp(14px, 1.25vw, 16px);
-    word-break: break-word; 
+    word-break: break-word;
 }
 
 .result-item a:hover {
@@ -325,7 +404,7 @@ footer a.about-button:hover {
 
 .left-nav li,
 .right-nav li {
-    margin-bottom: clamp(4px, 1vw, 8px);
+    margin-bottom: clamp(16px, 1vw, 32px);
 }
 
 .left-nav a,
@@ -346,14 +425,14 @@ footer a.about-button:hover {
 }
 
 .icon-container {
-    width: clamp(24px, 4vw, 36px);
-    height: clamp(24px, 4vw, 36px);
+    width: clamp(16px, 4vw, 48px);
+    height: clamp(16px, 4vw, 48px);
     margin-left: clamp(4px, 1vw, 8px);
     margin-right: clamp(4px, 1vw, 8px);
     vertical-align: middle;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 1);
-    border: clamp(2px, 0.5vw, 4px) solid #604C11;
+    background-color: rgba(83, 86, 90, 0.925);
+    border: clamp(4px, 0.5vw, 8px) solid #604C11;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -361,13 +440,13 @@ footer a.about-button:hover {
 }
 
 .icon-container:hover {
-    border: clamp(2px, 0.5vw, 4px) solid #C99700;
+    border: clamp(4px, 0.5vw, 8px) solid #C99700;
     transition: 0.3s ease;
 }
 
 .sidebar-icon {
-    width: clamp(16px, 2.5vw, 24px);
-    height: clamp(16px, 2.5vw, 24px);
+    width: clamp(8px, 2.5vw, 36px);
+    height: clamp(8px, 2.5vw, 36px);
     vertical-align: middle;
 }
 
@@ -385,7 +464,7 @@ footer a.about-button:hover {
     white-space: nowrap;
     overflow: hidden;
     text-indent: -9999px;
-    transition: 3s ease;
+    transition: 9s ease;
 }
 
 .toggle-button {
@@ -398,6 +477,12 @@ footer a.about-button:hover {
     position: absolute;
     bottom: clamp(24px, 6vw, 48px);
     z-index: 300;
+    transition: 0.3s ease;
+}
+
+.toggle-button:hover {
+    color: #E9D597;
+    font-size: clamp(18px, 3vw, 24px);
 }
 
 .sidebar-left .toggle-button {
@@ -416,26 +501,29 @@ footer a.about-button:hover {
     padding: clamp(5px, 1.25vw, 10px);
     position: relative;
     max-width: 1200px;
-    width: 100%; 
+    width: 100%;
     box-sizing: border-box;
 }
 
-.registration-form, .login-form {
+.registration-form,
+.login-form {
     background-color: #f0f0f0;
     padding: clamp(16px, 4vw, 32px);
     border-radius: clamp(4px, 1vw, 8px);
     box-shadow: 0 0 10px rgba(96, 76, 17, 0.25);
     max-width: clamp(320px, 60vw, 640px);
     margin-top: clamp(12px, 3vw, 24px);
-    width: 100%; 
+    width: 100%;
     box-sizing: border-box;
 }
 
-.registration-item, .login-item {
+.registration-item,
+.login-item {
     margin-bottom: clamp(12px, 3vw, 24px);
 }
 
-.registration-item label, .login-item label {
+.registration-item label,
+.login-item label {
     display: block;
     margin-bottom: clamp(4px, 1vw, 8px);
     font-weight: bold;
@@ -453,11 +541,12 @@ footer a.about-button:hover {
     padding: clamp(8px, 1.5vw, 12px);
     border: 1px solid #53565a;
     border-radius: 4px;
-    font-size: clamp(14px, 1.25vw, 16px); 
-    box-sizing: border-box; 
+    font-size: clamp(14px, 1.25vw, 16px);
+    box-sizing: border-box;
 }
 
-.registration-item input::placeholder, .login-item input::placeholder {
+.registration-item input::placeholder,
+.login-item input::placeholder {
     color: #604C11;
 }
 
@@ -465,23 +554,23 @@ footer a.about-button:hover {
     display: flex;
     gap: clamp(8px, 2vw, 16px);
     justify-content: center;
-    margin-top: clamp(16px, 4vw, 32px); 
+    margin-top: clamp(16px, 4vw, 32px);
     flex-wrap: wrap;
-    width: 100%; 
+    width: 100%;
     box-sizing: border-box;
 }
 
 .register-button,
 .login-button,
 .reset-button {
-    padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px); 
+    padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px);
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    font-size: clamp(14px, 1.25vw, 16px); 
+    font-size: clamp(14px, 1.25vw, 16px);
     transition: 0.3s ease;
     text-align: center;
-    min-width: clamp(80px, 15vw, 100px); 
+    min-width: clamp(80px, 15vw, 100px);
     box-sizing: border-box;
 }
 
@@ -503,7 +592,8 @@ footer a.about-button:hover {
     background-color: #53565a;
 }
 
-.login-button a, .register-button a {
+.login-button a,
+.register-button a {
     font-size: clamp(14px, 1.25vw, 16px);
     color: #ffffff;
     text-decoration: none;
@@ -521,14 +611,14 @@ footer a.about-button:hover {
 .paging {
     margin-top: clamp(10px, 2.5vw, 20px);
     text-align: center;
-    width: 100%; 
+    width: 100%;
     box-sizing: border-box;
 }
 
 .paging a,
 .paging span,
 .paging .current-page {
-    font-size: clamp(18px, 3vw, 24px); 
+    font-size: clamp(18px, 3vw, 24px);
     display: inline-block;
     padding: clamp(4px, 1vw, 8px) clamp(8px, 2vw, 12px);
     margin-right: clamp(2px, 0.5vw, 5px);
@@ -553,15 +643,15 @@ footer a.about-button:hover {
 .error-message {
     color: #933311;
     background-color: #f4f4f4;
-    padding: clamp(8px, 2vw, 12px); 
+    padding: clamp(8px, 2vw, 12px);
     border-radius: 4px;
     border: 1px solid #f6f6f6;
-    margin-bottom: clamp(10px, 2.5vw, 20px); 
+    margin-bottom: clamp(10px, 2.5vw, 20px);
     font-family: 'Aktiv Grotesk', sans-serif;
     font-weight: 600;
     letter-spacing: 0.3px;
     font-size: clamp(14px, 1.25vw, 16px);
-    width: 100%; 
+    width: 100%;
     box-sizing: border-box;
 }
 
@@ -570,17 +660,17 @@ footer a.about-button:hover {
     padding: clamp(0.5rem, 1vw, 1rem);
     background: rgba(83, 86, 90, 0.05);
     border-radius: 8px;
-    width: 100%; 
+    width: 100%;
     box-sizing: border-box;
 }
 
 .star-rating {
     color: #6B702B;
     display: flex;
-    gap: clamp(3px, 0.75vw, 6px);
+    gap: clamp(2px, 0.75vw, 4px);
     flex-direction: row;
     justify-content: center;
-    width: 100%; 
+    width: 100%;
     box-sizing: border-box;
 }
 
@@ -589,16 +679,16 @@ footer a.about-button:hover {
 }
 
 .star-rating label {
-    font-size: clamp(1.5rem, 3vw, 2rem); 
+    font-size: clamp(1.25rem, 3vw, 2rem);
     cursor: pointer;
     transition: color 0.1s ease-in-out;
     line-height: 1;
 }
 
-.star-rating input:checked + label,
-.star-rating input:checked + label ~ label,
+.star-rating input:checked+label,
+.star-rating input:checked+label~label,
 .star-rating label:hover,
-.star-rating label:hover ~ label {
+.star-rating label:hover~label {
     color: #463077;
 }
 
@@ -606,10 +696,10 @@ footer a.about-button:hover {
     background: #38635A;
     color: #ffffff;
     border: none;
-    padding: clamp(0.25rem, 0.5vw, 0.5rem) clamp(0.5rem, 1vw, 1rem); 
+    padding: clamp(0.25rem, 0.5vw, 0.5rem) clamp(0.5rem, 1vw, 1rem);
     border-radius: 4px;
     cursor: pointer;
-    margin-top: clamp(0.25rem, 0.5vw, 0.5rem); 
+    margin-top: clamp(0.25rem, 0.5vw, 0.5rem);
     font-family: 'Aktiv Grotesk', sans-serif;
     font-size: clamp(14px, 1.25vw, 16px);
     box-sizing: border-box;
@@ -621,10 +711,10 @@ footer a.about-button:hover {
 
 .review-container {
     margin: clamp(0.5rem, 1vw, 1rem) 0;
-    padding: clamp(0.5rem, 1vw, 1rem); 
+    padding: clamp(0.5rem, 1vw, 1rem);
     background: rgba(83, 86, 90, 0.05);
     border-radius: 8px;
-    width: 100%; 
+    width: 100%;
     box-sizing: border-box;
 }
 
@@ -636,7 +726,7 @@ footer a.about-button:hover {
     font-family: 'Aktiv Grotesk', sans-serif;
     resize: vertical;
     min-height: clamp(60px, 10vw, 80px);
-    font-size: clamp(14px, 1.25vw, 16px); 
+    font-size: clamp(14px, 1.25vw, 16px);
     box-sizing: border-box;
 }
 
@@ -644,12 +734,12 @@ footer a.about-button:hover {
     background: #38635A;
     color: #ffffff;
     border: none;
-    padding: clamp(0.25rem, 0.5vw, 0.5rem) clamp(0.5rem, 1vw, 1rem); 
+    padding: clamp(0.25rem, 0.5vw, 0.5rem) clamp(0.5rem, 1vw, 1rem);
     border-radius: 4px;
     cursor: pointer;
-    margin-top: clamp(0.25rem, 0.5vw, 0.5rem); 
+    margin-top: clamp(0.25rem, 0.5vw, 0.5rem);
     font-family: 'Aktiv Grotesk', sans-serif;
-    font-size: clamp(14px, 1.25vw, 16px); 
+    font-size: clamp(14px, 1.25vw, 16px);
     box-sizing: border-box;
 }
 

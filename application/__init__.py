@@ -60,22 +60,22 @@ class User(UserMixin):
 # Home Page
 @app.route("/")
 def home():
-    return render_template("index.html", data=[], current_page=1, total_pages=0)
+    return render_template("index.html", data=[], current_page=1, total_pages=0, title='Gaitor Gate')
 
 # About Page
 @app.route("/about")
 def about():
-    return render_template("about.html")
+    return render_template("about.html", title='About')
 
 # Team members
 @app.route("/members/<name>")
 def team_member(name):
-    return render_template(f"members/{escape(name)}.html")
+    return render_template(f"members/{escape(name)}.html", title=name)
 
 # Repurposed Temporarily to act as main page for new search
 @app.route('/dashboard')
 def dashboard():
-    return render_template("dashboard.html")
+    return render_template("dashboard.html", title='Search')
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
@@ -133,7 +133,7 @@ def search():
         offset = (page - 1) * RESULTS_PER_PAGE
         page_data = data[offset:offset + RESULTS_PER_PAGE]
 
-    return render_template('searchpage.html', data=page_data, current_page=page, total_pages=total_pages)
+    return render_template('searchpage.html', data=page_data, current_page=page, total_pages=total_pages, title='Results')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -196,7 +196,7 @@ def register():
 
         cursor.close()
 
-    return render_template('registration.html', registrationMessage=registrationMessage)
+    return render_template('registration.html', registrationMessage=registrationMessage, title='Register')
 
 @app.route('/review', methods=['GET', 'POST'])
 def review():
@@ -233,7 +233,7 @@ def review():
 
 
         cursor.close()
-    return render_template('review.html', reviewMessage=reviewMessage)
+    return render_template('review.html', reviewMessage=reviewMessage, title='Review')
 
 
 
@@ -254,14 +254,14 @@ def login():
                 user = User(user_data['idAccount'], user_data['username'], user_data['email'])
                 login_user(user)
                 session['username'] = user_data['username']  # Store the username in the session
-                print("Successfully logged in as: {session['username']}")
+                print(f"Successfully logged in as: {session['username']}")
                 return redirect(url_for('account')) 
                  
             else:
                 loginMessage = 'Incorrect username or password!'
                 print('Incorrect username or password!')
                 
-    return render_template('login.html', loginMessage=loginMessage)
+    return render_template('login.html', loginMessage=loginMessage, title='Log In')
 
 @app.route('/account')
 @login_required
@@ -270,7 +270,8 @@ def account():
     cursor.execute("SELECT username, email FROM Account WHERE idAccount = %s", (current_user.id,))
     account_info = cursor.fetchone()
     cursor.close()
-    return render_template('account.html', user=account_info, active_page='account')
+    title = f"{account_info['username']}'s Account"
+    return render_template('account.html', user=account_info, active_page='account', title=title)
 
 @app.route('/logout')
 @login_required

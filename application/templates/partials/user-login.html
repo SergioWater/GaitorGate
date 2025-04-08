@@ -1,5 +1,11 @@
 <h2>Log In</h2>
 <div class="login-form">
+    {% if loginMessage %}
+    <div class="error-message">
+        {{ loginMessage }}
+    </div>
+    {% endif %}
+
     <form method="POST" action="" enctype="application/x-www-form-urlencoded">
         <div class="login-item">
             <label for="username">Username: </label>

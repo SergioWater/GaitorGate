@@ -16,7 +16,7 @@
             <li>
                 <a href="/account" class="profile-link">
                     <div class="icon-container">
-                        <img src="/static/imgs/avatar.png" alt="Profile Picture" class="sidebar-icon">
+                        <img src="/static/imgs/user.png" alt="Profile Picture" class="sidebar-icon">
                     </div>
                     {{ session.username }}
                 </a>
@@ -25,7 +25,7 @@
             <li>
                 <a href="/login" class="profile-link">
                     <div class="icon-container">
-                        <img src="/static/imgs/avatar.png" alt="Log In Icon" class="sidebar-icon">
+                        <img src="/static/imgs/user.png" alt="Log In Icon" class="sidebar-icon">
                     </div>
                     Log In
                 </a>
@@ -33,9 +33,17 @@
             {% endif %}
             {% endif %}
             <li>
+                <a href="/" class="alli">
+                    <div class="icon-container">
+                        <img src="/static/imgs/gatorchat.png" alt="Alli Icon" class="sidebar-icon">
+                    </div>
+                    Alli Chat
+                </a>
+            </li>
+            <li>
                 <a href="/" class="saved">
                     <div class="icon-container">
-                        <img src="/static/imgs/saved.png" alt="Saved Icon" class="sidebar-icon">
+                        <img src="/static/imgs/star.png" alt="Saved Icon" class="sidebar-icon">
                     </div>
                     Favorites
                 </a>
