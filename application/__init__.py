@@ -26,6 +26,7 @@ login_manager.init_app(app)
 #login_manager.login_view = 'login'
 #bcrypt = Bcrypt(app)  
 
+
 RESULTS_PER_PAGE = 6
 
 # Flask-Login User Loader
@@ -82,14 +83,35 @@ def search():
         conn = mysql.connection
         cursor = conn.cursor(MySQLdb.cursors.DictCursor)
 
-        selected_filter = request.form.get('filter', '').strip()
-        filter_option = request.form.get('filter-options', '').strip()
+        filters = request.form.getlist('filters[]')
+        filter_options = request.form.getlist('filter-options[]')
         query = request.form.get('search', '').strip()
         page = request.args.get('page', 1, type=int)
 
-        category = filter_option if selected_filter == 'categories' else None
-        res_type = filter_option if selected_filter == 'type' else None
-        pub_date = filter_option if selected_filter == 'publishing' else None
+        where_clauses = []
+        params = []
+
+        for i in range(len(filters)):
+            selected_filter = filters[i].strip()
+            filter_option = filter_options[i].strip()
+
+            if selected_filter == 'categories' and filter_option:
+                where_clauses.append("c.name = %s")
+                params.append(filter_option)
+            elif selected_filter == 'type' and filter_option:
+                where_clauses.append("t.name = %s")
+                params.append(filter_option)
+            elif selected_filter == 'publishing' and filter_option:
+                where_clauses.append("YEAR(d.published_date) = %s")
+                params.append(filter_option)
+
+        search_condition = """
+            %s = '' OR
+            MATCH(d.title) AGAINST (%s IN NATURAL LANGUAGE MODE) OR
+            MATCH(k.name) AGAINST (%s IN NATURAL LANGUAGE MODE)
+        """
+        where_clauses.append("(" + search_condition + ")")
+        params.extend([query, query, query])
 
         sql = """
             SELECT
@@ -106,26 +128,13 @@ def search():
             LEFT JOIN Type t ON si.type_ID = t.idType
             LEFT JOIN Keywords_Indexes ki ON ki.IndexID = si.IndexID
             LEFT JOIN Keywords k ON ki.keywordID = k.idKeywords
-
-            WHERE
-                (%s IS NULL OR c.name = %s) AND
-                (%s IS NULL OR t.name = %s) AND
-                (%s IS NULL OR YEAR(d.published_date) = %s) AND
-                (
-                    %s = '' OR
-                    MATCH(d.title) AGAINST (%s IN NATURAL LANGUAGE MODE) OR
-                    MATCH(k.name) AGAINST (%s IN NATURAL LANGUAGE MODE)
-                )
-
+            WHERE {}
             GROUP BY d.title, d.docID, c.name;
-            """
+        """.format(" AND ".join(where_clauses))
 
-        params = [category, category, res_type, res_type, pub_date, pub_date, query, query, query]
         cursor.execute(sql, tuple(params))
-
         data = cursor.fetchall()
         cursor.close()
-
 
         total_results = len(data)
         total_pages = (total_results + RESULTS_PER_PAGE - 1) // RESULTS_PER_PAGE
