@@ -273,6 +273,11 @@ def account():
     title = f"{account_info['username']}'s Account"
     return render_template('account.html', user=account_info, active_page='account', title=title)
 
+@app.route('/dataUpload')
+@login_required
+def dataUpload():
+    return render_template("dataUpload.html", title='Upload')
+
 @app.route('/logout')
 @login_required
 def logout():
@@ -280,9 +285,6 @@ def logout():
         session.pop('username', None) # Remove the username from the session
         logout_user()
     return redirect(url_for('login'))
-
-
-
 
 # @app.route('/dashboard')
 # @login_required

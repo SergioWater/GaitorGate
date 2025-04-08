@@ -506,7 +506,8 @@ footer {
 }
 
 .registration-form,
-.login-form {
+.login-form, 
+.upload-form {
     background-color: #f0f0f0;
     padding: clamp(16px, 4vw, 32px);
     border-radius: clamp(4px, 1vw, 8px);
@@ -518,12 +519,14 @@ footer {
 }
 
 .registration-item,
-.login-item {
+.login-item,
+.upload-item {
     margin-bottom: clamp(12px, 3vw, 24px);
 }
 
 .registration-item label,
-.login-item label {
+.login-item label,
+.upload-item label {
     display: block;
     margin-bottom: clamp(4px, 1vw, 8px);
     font-weight: bold;
@@ -536,7 +539,10 @@ footer {
 .registration-item input[type="password"],
 .login-item input[type="email"],
 .login-item input[type="text"],
-.login-item input[type="password"] {
+.login-item input[type="password"],
+.upload-item input[type="text"],
+.upload-item input[type="text"],
+.upload-item input[type="file"] {
     width: 100%;
     padding: clamp(8px, 1.5vw, 12px);
     border: 1px solid #53565a;
@@ -546,11 +552,12 @@ footer {
 }
 
 .registration-item input::placeholder,
-.login-item input::placeholder {
+.login-item input::placeholder,
+.upload-item input::placeholder {
     color: #604C11;
 }
 
-.registration-button .logging-button {
+.registration-button .logging-button, .uploading-button {
     display: flex;
     gap: clamp(8px, 2vw, 16px);
     justify-content: center;
@@ -562,7 +569,8 @@ footer {
 
 .register-button,
 .login-button,
-.reset-button {
+.reset-button,
+.upload-button {
     padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px);
     border: none;
     border-radius: 8px;
@@ -597,6 +605,15 @@ footer {
     font-size: clamp(14px, 1.25vw, 16px);
     color: #ffffff;
     text-decoration: none;
+}
+
+.upload-button {
+    background-color: #604C11;
+    color: #ffffff;
+}
+
+.upload-button:hover {
+    background-color: #53565a;
 }
 
 .reset-button {

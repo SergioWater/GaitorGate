@@ -5,6 +5,12 @@
             <img src="/static/imgs/avatar.png" width="300" height="300" alt="Profile Picture" />
             <p id="username">Username: {{ user.username }}</p>
             <p id="email">Email: {{ user.email }}</p>
+
+            {% if adminInfo %}
+            <div class="admin-info">
+                {{ adminInfo }}
+            </div>
+            {% endif %}
         </div>
     </div>
 </article>
