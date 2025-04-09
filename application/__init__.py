@@ -10,7 +10,7 @@ from markupsafe import escape
 
 app = Flask(__name__, instance_relative_config=True)
 
-app.secret_key = 'keyNeedsToBeChanged'  # Change  in production
+app.secret_key = '5e2eef1ab7c2d3eb6d3057afacea039a330acf8ab35dfdf362b0a844cda25051'
 
 # Database connection
 app.config['MYSQL_USER'] = 'team3admin'
