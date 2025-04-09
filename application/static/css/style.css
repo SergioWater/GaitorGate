@@ -99,9 +99,16 @@ main {
 
 form {
     display: block;
-    align-items: initial;
+    align-items: initial; 
     width: 100%;
     box-sizing: border-box;
+    text-align: center;
+}
+
+form .search-form {
+    align-items: center;
+    width: 67.5%;
+    display: inline-flex;
 }
 
 .search-form {
@@ -357,7 +364,7 @@ footer {
     padding: clamp(16px, 4vw, 32px);
     border-radius: clamp(4px, 1vw, 8px);
     box-shadow: 0 0 10px rgba(96, 76, 17, 1);
-    width: 100%;
+    width: 87.5%;
     box-sizing: border-box;
     margin-top: clamp(12px, 3vw, 24px);
     margin-bottom: clamp(32px, 3vw, 80px);
@@ -696,7 +703,7 @@ footer {
 }
 
 .star-rating label {
-    font-size: clamp(1.25rem, 3vw, 2rem);
+    font-size: clamp(.75rem, 3vw, 2rem);
     cursor: pointer;
     transition: color 0.1s ease-in-out;
     line-height: 1;
