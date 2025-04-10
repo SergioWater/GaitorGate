@@ -143,6 +143,27 @@ def search():
 
     return render_template('searchpage.html', data=page_data, current_page=page, total_pages=total_pages, title='Results')
 
+def dataUpload():
+    return render_template("dataUpload.html", title='Upload')
+
+
+# @app.route('/dataUpload', methods=['GET', 'POST'])
+# @login_required
+# def dataUpload():
+#     uploadMessage = ''
+#     if request.method == "POST":
+#         conn = mysql.connection  # <-- Establish connection
+#         cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+#         # add if statement and query database to make sure tool is not already in db.
+#         toolName = request.form['toolName']
+#         url = request.form['url']
+#         # add any other attributes from form
+#         cursor.execute("INSERT INTO AiTool (toolName, url) Values (%s, %s)", (toolName, url))
+#         conn.commit()
+#         return redirect("dataUpload.html", uploadMessage=uploadMessage)
+#     return render_template('dataUpload.html')
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     registrationMessage = ''
@@ -281,10 +302,6 @@ def account():
     title = f"{account_info['username']}'s Account"
     return render_template('account.html', user=account_info, active_page='account', title=title)
 
-@app.route('/dataUpload')
-@login_required
-def dataUpload():
-    return render_template("dataUpload.html", title='Upload')
 
 @app.route('/logout')
 @login_required
