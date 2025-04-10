@@ -143,9 +143,6 @@ def search():
 
     return render_template('searchpage.html', data=page_data, current_page=page, total_pages=total_pages, title='Results')
 
-def dataUpload():
-    return render_template("dataUpload.html", title='Upload')
-
 
 # @app.route('/dataUpload', methods=['GET', 'POST'])
 # @login_required
