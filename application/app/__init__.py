@@ -103,35 +103,36 @@ def search():
 
         search_condition = """
             %s = '' OR
-            MATCH(d.title) AGAINST (%s IN NATURAL LANGUAGE MODE) OR
+            MATCH(t.name) AGAINST (%s IN NATURAL LANGUAGE MODE) OR
             MATCH(k.name) AGAINST (%s IN NATURAL LANGUAGE MODE)
         """
         where_clauses.append("(" + search_condition + ")")
         params.extend([query, query, query])
 
         sql = """
+            
             SELECT
-                d.docID,
-                d.title,
-                d.author,
-                d.url,
-                d.thumbnail_url,
-                d.published_date,
+                t.idTool,
+                t.name,
+                t.company,
+                t.url,
+                t.thumbnail_url,
+                t.published_date,
                 c.name AS category
             FROM SearchIndex si
-            JOIN Document d ON si.document_id = d.docID
-            LEFT JOIN Category c on si.category_id = c.categoryID
-            LEFT JOIN Type t ON si.type_ID = t.idType
-            LEFT JOIN Keywords_Indexes ki ON ki.IndexID = si.IndexID
+            JOIN Tools t ON si.idTool = t.idTool
+            LEFT JOIN Category c ON si.idCategory = c.idCategory
+            LEFT JOIN Platform p ON si.idPlatform = p.idPlatform
+            LEFT JOIN Keywords_Indexes ki ON ki.IndexID = si.idIndex
             LEFT JOIN Keywords k ON ki.keywordID = k.idKeywords
             WHERE {}
-            GROUP BY d.title, d.docID, c.name;
+            GROUP BY t.idTool, t.name, c.name;
         """.format(" AND ".join(where_clauses))
 
         cursor.execute(sql, tuple(params))
         data = cursor.fetchall()
         cursor.close()
-
+        print(data)
         total_results = len(data)
         total_pages = (total_results + RESULTS_PER_PAGE - 1) // RESULTS_PER_PAGE
         offset = (page - 1) * RESULTS_PER_PAGE
@@ -223,42 +224,42 @@ def register():
 
     return render_template('registration.html', registrationMessage=registrationMessage, title='Register')
 
-@app.route('/review', methods=['GET', 'POST'])
-def review():
-    reviewMessage = ''
+# @app.route('/review', methods=['GET', 'POST'])
+# def review():
+#     reviewMessage = ''
 
-    with app.app_context():
-        conn = mysql.connection
-        cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+#     with app.app_context():
+#         conn = mysql.connection
+#         cursor = conn.cursor(MySQLdb.cursors.DictCursor)
 
-        if request.method == 'POST' and 'username' in request.form and 'review_text' in request.form and 'rating' in request.form and 'index' in request.form:
-            username = request.form['username']
-            review_text = request.form['review_text']
-            rating = request.form['rating']
-            index = request.form['index']
+#         if request.method == 'POST' and 'username' in request.form and 'review_text' in request.form and 'rating' in request.form and 'index' in request.form:
+#             username = request.form['username']
+#             review_text = request.form['review_text']
+#             rating = request.form['rating']
+#             index = request.form['index']
 
-            if not review_text or not rating:
-                reviewMessage = 'Please fill out the form!'
-                print(reviewMessage)
-            elif not re.match(r'^[1-5]$', rating):
-                reviewMessage = 'Rating must be between 1 and 5!'
-                print(reviewMessage)
-            else:
-                # Generate the next idReview
-                cursor.execute("SELECT idUser FROM User WHERE username = %s", (username,))
-                result = cursor.fetchone()
-                user_id = result['idUser'] if result else None
+#             if not review_text or not rating:
+#                 reviewMessage = 'Please fill out the form!'
+#                 print(reviewMessage)
+#             elif not re.match(r'^[1-5]$', rating):
+#                 reviewMessage = 'Rating must be between 1 and 5!'
+#                 print(reviewMessage)
+#             else:
+#                 # Generate the next idReview
+#                 cursor.execute("SELECT idUser FROM User WHERE username = %s", (username,))
+#                 result = cursor.fetchone()
+#                 user_id = result['idUser'] if result else None
 
            
-                cursor.execute("INSERT INTO Review (idUser, review_text, rating,idIndex) VALUES (%s, %s, %s,%s)",
-                               (user_id, review_text, rating, index))
-                conn.commit()
-                reviewMessage = 'Your review has been submitted!'
-                print(reviewMessage)
+#                 cursor.execute("INSERT INTO Review (idUser, review_text, rating,idIndex) VALUES (%s, %s, %s,%s)",
+#                                (user_id, review_text, rating, index))
+#                 conn.commit()
+#                 reviewMessage = 'Your review has been submitted!'
+#                 print(reviewMessage)
 
 
-        cursor.close()
-    return render_template('review.html', reviewMessage=reviewMessage, title='Review')
+#         cursor.close()
+#     return render_template('review.html', reviewMessage=reviewMessage, title='Review')
 
 
 
