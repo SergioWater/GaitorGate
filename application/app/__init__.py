@@ -3,7 +3,7 @@ from unicodedata import category
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
 from flask_login import LoginManager, login_user, login_required, logout_user, UserMixin, current_user
-#from flask_bcrypt import Bcrypt
+from flask_bcrypt import Bcrypt
 import MySQLdb.cursors
 import re
 from markupsafe import escape
@@ -24,38 +24,34 @@ mysql = MySQL(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 #login_manager.login_view = 'login'
-#bcrypt = Bcrypt(app)  
+bcrypt = Bcrypt(app)  
 
 
 RESULTS_PER_PAGE = 6
 
-# Flask-Login User Loader
-@login_manager.user_loader
-def load_user(user_id):
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute("SELECT * FROM Account WHERE idAccount = %s", (user_id,))
-    account = cursor.fetchone()
-    cursor.close()
-    if account:
-        return User(account['idAccount'], account['username'], account['email'])
-    return None
 
 # User class for Flask-Login 
 class User(UserMixin):
-    def __init__(self, user_id, username, email):
+    def __init__(self, user_id, username, password,  email):
         self.id = user_id
         self.username = username
+        self.password = password
         self.email = email
 
     @staticmethod
     def get(user_id):
-        cursor = mysql.connection.cursor()
-        cursor.execute('SELECT username, email FROM Account WHERE idAccount = %s', (user_id,))
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT username, hashed_password, email FROM Account WHERE idAccount = %s', (user_id,))
         result = cursor.fetchone()
         cursor.close()
         if result:
-            return User(user_id, result[0], result[1])
+            return User(user_id, result['username'], result['hashed_password'], result['email'])
 
+
+# Flask-Login User Loader
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(user_id)
 
 # Home Page
 @app.route("/")
@@ -148,17 +144,18 @@ def search():
 # @login_required
 # def dataUpload():
 #     uploadMessage = ''
-#     if request.method == "POST":
-#         conn = mysql.connection  # <-- Establish connection
-#         cursor = conn.cursor(MySQLdb.cursors.DictCursor)
-#         # add if statement and query database to make sure tool is not already in db.
-#         toolName = request.form['toolName']
-#         url = request.form['url']
-#         # add any other attributes from form
-#         cursor.execute("INSERT INTO AiTool (toolName, url) Values (%s, %s)", (toolName, url))
-#         conn.commit()
-#         return redirect("dataUpload.html", uploadMessage=uploadMessage)
-#     return render_template('dataUpload.html')
+#     with app.app_context():  # <-- Add this context manager
+#         if request.method == "POST":
+#             conn = mysql.connection  # <-- Establish connection
+#             cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+#             # add if statement and query database to make sure tool is not already in db.
+#             toolName = request.form['toolName']
+#             url = request.form['url']
+#             # add any other attributes from form
+#             cursor.execute("INSERT INTO AiTool (toolName, url) Values (%s, %s)", (toolName, url))
+#             conn.commit()
+#             return redirect("dataUpload.html", uploadMessage=uploadMessage)
+#         return render_template('dataUpload.html')
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -210,11 +207,13 @@ def register():
                     (new_id_user, username, test_dob))
 
                 # 4. Insert into Account table
-                # hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+                hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+                print(f"Password: {password}")
+                print(f"Hashed Password: {hashed_password}")
                 cursor.execute('''
                     INSERT INTO Account (idUser, idAccount, username, hashed_password, email)
                     VALUES (%s, %s, %s, %s, %s)
-                ''', (new_id_user, new_id_account, username, password, email))
+                ''', (new_id_user, new_id_account, username, hashed_password, email))
 
                 conn.commit()
                 registrationMessage = 'You have successfully registered!'
@@ -272,12 +271,12 @@ def login():
             password = request.form['password']
 
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cursor.execute("SELECT idAccount, username, email FROM Account WHERE username = %s AND hashed_password = %s", (username, password))
+            cursor.execute("SELECT idAccount, username, hashed_password FROM Account WHERE username = %s", (username,))
             user_data = cursor.fetchone()
             cursor.close()
-
-            if user_data:
-                user = User(user_data['idAccount'], user_data['username'], user_data['email'])
+    
+            if user_data and bcrypt.check_password_hash(user_data['hashed_password'], password):
+                user = User.get(user_data['idAccount'])
                 login_user(user)
                 session['username'] = user_data['username']  # Store the username in the session
                 print(f"Successfully logged in as: {session['username']}")
