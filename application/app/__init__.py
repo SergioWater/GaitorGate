@@ -141,22 +141,34 @@ def search():
     return render_template('searchpage.html', data=page_data, current_page=page, total_pages=total_pages, title='Results')
 
 
-# @app.route('/dataUpload', methods=['GET', 'POST'])
-# @login_required
-# def dataUpload():
-#     uploadMessage = ''
-#     with app.app_context():  # <-- Add this context manager
-#         if request.method == "POST":
-#             conn = mysql.connection  # <-- Establish connection
-#             cursor = conn.cursor(MySQLdb.cursors.DictCursor)
-#             # add if statement and query database to make sure tool is not already in db.
-#             toolName = request.form['toolName']
-#             url = request.form['url']
-#             # add any other attributes from form
-#             cursor.execute("INSERT INTO AiTool (toolName, url) Values (%s, %s)", (toolName, url))
-#             conn.commit()
-#             return redirect("dataUpload.html", uploadMessage=uploadMessage)
-#         return render_template('dataUpload.html')
+@app.route('/dataUpload', methods=['GET', 'POST'])
+@login_required
+def dataUpload():
+    uploadMessage = ''
+    with app.app_context():  # <-- Add this context manager
+        if request.method == "POST":
+            conn = mysql.connection  # <-- Establish connection
+            cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+
+            name = request.form['name']
+            company = request.form['company']
+            url = request.form['url']
+            thumbnailUrl = request.form['thumbnail']
+            version = request.form['version']
+            pricing = request.form['pricing']
+
+            cursor.execute('SELECT * FROM Tools WHERE name = %s', (name,))
+            tool = cursor.fetchone()
+            if tool:
+                uploadMessage = "Tool already exists"
+                print(uploadMessage)
+            else:
+                cursor.execute("INSERT INTO Tools (name, company, url, thumbnail, " \
+                "version, pricing) Values (%s, %s)", (name, company, url, thumbnailUrl, version, pricing))
+                conn.commit()
+                print(uploadMessage)
+                return redirect("dataUpload.html", uploadMessage=uploadMessage)
+        return render_template('dataUpload.html')
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -263,6 +275,16 @@ def register():
 
 
 
+@app.route('/account')
+@login_required
+def account():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT username, email FROM Account WHERE idAccount = %s", (current_user.id,))
+    account_info = cursor.fetchone()
+    cursor.close()
+    title = f"{account_info['username']}'s Account"
+    return render_template('account.html', user=account_info, active_page='account', title=title)
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     loginMessage = ''
@@ -288,16 +310,6 @@ def login():
                 print('Incorrect username or password!')
                 
     return render_template('login.html', loginMessage=loginMessage, title='Log In')
-
-@app.route('/account')
-@login_required
-def account():
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute("SELECT username, email FROM Account WHERE idAccount = %s", (current_user.id,))
-    account_info = cursor.fetchone()
-    cursor.close()
-    title = f"{account_info['username']}'s Account"
-    return render_template('account.html', user=account_info, active_page='account', title=title)
 
 
 @app.route('/logout')
