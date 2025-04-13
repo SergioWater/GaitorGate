@@ -116,11 +116,11 @@ def review():
         return redirect(url_for('search.search'))
     
 
-@app.route('/rating', methods=['POST'])
-def rating():
-    tool_id = request.form.get('tool_id')
-    rating_value = request.form.get('radio')
-    return redirect(url_for('search.search'))
+# @app.route('/rating', methods=['POST'])
+# def rating():
+#     tool_id = request.form.get('tool_id')
+#     rating_value = request.form.get('radio')
+#     return redirect(url_for('search.search'))
 
     
 
