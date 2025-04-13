@@ -95,13 +95,34 @@ def dataUpload():
 
 @app.route('/review', methods=['GET', 'POST'])
 def review():
-    doc_id = request.form.get('doc_id')
-    review_text = request.form.get('review_text')
+    with app.app_context():
+        if request.method == "POST":
+            conn = mysql.connection
+            cursor = conn.cursor(MySQLdb.cursors.DictCursor)
 
-    print(request.form)
+            tool_id = request.form.get('tool_id')
+            review_text = request.form.get('review_text')
+            account_id = current_user.id
 
-        
-    return "SUbmitted", 200
+            cursor.execute('SELECT idIndex FROM SearchIndex Join TestDb.Tools T on SearchIndex.idTool = T.idTool WHERE T.idTool = %s;', (tool_id,))
+            index = cursor.fetchone()
+            index_id = index['idIndex'] 
+            print(f"Review submitted by Account ID: {account_id} for Tool ID: {index}")
+
+            cursor.execute("INSERT INTO Review (idAccount, idIndex, review_text) VALUES (%s, %s, %s)",
+                           (account_id, index_id, review_text))
+            conn.commit()
+            cursor.close()
+        return redirect(url_for('search.search'))
+    
+
+@app.route('/rating', methods=['POST'])
+def rating():
+    tool_id = request.form.get('tool_id')
+    rating_value = request.form.get('radio')
+    return redirect(url_for('search.search'))
+
+    
 
 # @app.route('/dashboard')
 # @login_required
