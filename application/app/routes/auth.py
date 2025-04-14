@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template, request, redirect, session, current_app
+from flask import Blueprint, render_template, request, redirect, session, current_app, url_for
 from flask_login import LoginManager, login_user, login_required, logout_user, UserMixin, current_user
 from markupsafe import escape
+import re
 import MySQLdb.cursors
 
 auth_bp = Blueprint('auth', __name__)
@@ -20,13 +21,14 @@ def login():
         cursor.execute("SELECT idAccount, username, hashed_password FROM Account WHERE username = %s", (username,))
         user_data = cursor.fetchone()
         cursor.close()
-
+        
         if user_data and bcrypt.check_password_hash(user_data['hashed_password'], password):
+            from app.__init__ import User
             user = User.get(user_data['idAccount'])
             login_user(user)
             session['username'] = user_data['username']  # Store the username in the session
             print(f"Successfully logged in as: {session['username']}")
-            return redirect(url_for('account')) 
+            return redirect(url_for('main.account')) 
              
         else:
             loginMessage = 'Incorrect username or password!'
@@ -40,7 +42,7 @@ def login():
 def logout():
     session.pop('username', None) # Remove the username from the session
     logout_user()
-    return redirect(url_for('login'))
+    return redirect(url_for('auth.login'))
 
 # Register
 @auth_bp.route('/register', methods=['GET', 'POST'])

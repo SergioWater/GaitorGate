@@ -100,27 +100,31 @@ def review():
             conn = mysql.connection
             cursor = conn.cursor(MySQLdb.cursors.DictCursor)
 
-            tool_id = request.form.get('tool_id')
+            index_id = request.form.get('index_id')
             review_text = request.form.get('review_text')
-            account_id = current_user.id
-
-            cursor.execute('SELECT idIndex FROM SearchIndex Join TestDb.Tools T on SearchIndex.idTool = T.idTool WHERE T.idTool = %s;', (tool_id,))
-            index = cursor.fetchone()
-            index_id = index['idIndex'] 
-            print(f"Review submitted by Account ID: {account_id} for Tool ID: {index}")
 
             cursor.execute("INSERT INTO Review (idAccount, idIndex, review_text) VALUES (%s, %s, %s)",
-                           (account_id, index_id, review_text))
+                           (current_user.id, index_id, review_text))
             conn.commit()
             cursor.close()
         return redirect(url_for('search.search'))
     
 
-# @app.route('/rating', methods=['POST'])
-# def rating():
-#     tool_id = request.form.get('tool_id')
-#     rating_value = request.form.get('radio')
-#     return redirect(url_for('search.search'))
+@app.route('/rating', methods=['POST'])
+def rating():
+    with app.app_context():
+        conn = mysql.connection
+        cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+
+        index_id = request.form.get('tool')
+        rating_value = request.form.get('rating')
+        print(f"Rating submitted for Index ID: {index_id} with value: {rating_value}")
+
+        cursor.execute('Insert into Rating (rating,idIndex,idAccount) VALUES (%s,%s,%s)',
+                       (rating_value, index_id, current_user.id))
+        conn.commit()
+        cursor.close()
+    return redirect(url_for('search.search'))
 
     
 

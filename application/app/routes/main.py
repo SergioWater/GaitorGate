@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, request, redirect, session
+from flask import Blueprint, render_template, request, redirect, session, current_app,url_for
 from flask_login import login_required, current_user
 from markupsafe import escape
-
+import MySQLdb.cursors
 main_bp = Blueprint('main', __name__)
 
 @main_bp.route('/')
@@ -19,7 +19,8 @@ def team_member(name):
 @main_bp.route('/account')
 @login_required
 def account():
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    conn = current_app.config['MYSQL'].connection
+    cursor = conn.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute("SELECT username, email FROM Account WHERE idAccount = %s", (current_user.id,))
     account_info = cursor.fetchone()
     cursor.close()

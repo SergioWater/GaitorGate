@@ -47,6 +47,7 @@ def search():
         sql = """
             
             SELECT
+                si.idIndex,
                 t.idTool,
                 t.name,
                 t.company,
@@ -61,7 +62,7 @@ def search():
             LEFT JOIN Keywords_Indexes ki ON ki.IndexID = si.idIndex
             LEFT JOIN Keywords k ON ki.keywordID = k.idKeywords
             WHERE {}
-            GROUP BY t.idTool, t.name, c.name;
+            GROUP BY si.idIndex,t.idTool, t.name, c.name;
         """.format(" AND ".join(where_clauses))
 
         cursor.execute(sql, tuple(params))
