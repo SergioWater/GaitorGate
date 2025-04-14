@@ -1,12 +1,12 @@
 <div class="rating-container">
-    <form class="star-rating-form" method="POST">
+    <form class="star-rating-form" method="POST" action="/rating">
       <!-- Backend route later -->
-      <input type="hidden" name="doc_id" value="{{ doc_id }}">
+      <input type="hidden" name="tool" value="{{ tool_id }}">
   
       <div class="star-rating">
         {% for i in range(1, 6) %}
-          <input type="radio" id="star{{ i }}-{{ doc_id }}" name="rating-{{ doc_id }}" value="{{ i }}" required>
-          <label for="star{{ i }}-{{ doc_id }}">★</label>
+          <input type="radio" id="star{{ i }}-{{ tool_id }}" name="rating-{{ tool_id }}" value="{{ i }}" required>
+          <label for="star{{ i }}-{{ tool_id }}">★</label>
         {% endfor %}
       </div>
   
