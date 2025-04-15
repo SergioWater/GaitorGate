@@ -97,6 +97,13 @@ main {
     margin-bottom: clamp(9px, 1.5vw, 18px);
 }
 
+.school {
+    border-radius: 50%;
+    border: clamp(6px, 0.5vw, 12px) solid #E9D597;
+    margin-top: clamp(32px, 8vw, 96px);
+    margin-bottom: clamp(9px, 1.5vw, 18px);
+}
+
 form {
     display: block;
     align-items: initial; 
