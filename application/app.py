@@ -8,11 +8,11 @@ import MySQLdb.cursors
 import re
 from markupsafe import escape
 
-from .routes.main import main_bp
-from .routes.search import search_bp
-from .routes.auth import auth_bp
-from .routes.review import review_bp
-from .routes.upload import upload_bp
+from routes.main import main_bp
+from routes.search import search_bp
+from routes.auth import auth_bp
+from routes.review import review_bp
+from routes.upload import upload_bp
 
 app = Flask(__name__, instance_relative_config=True)
 
