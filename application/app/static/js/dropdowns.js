@@ -2,9 +2,10 @@ const searchForm = document.querySelector(".search-form");
 const addFilterButton = document.querySelector(".add-filter-button");
 const removeFilterButton = document.querySelector(".remove-filter-button");
 const optionsData = {
-  categories: ["Healthcare", "Environment", "Technology"],
-  publishing: ["2025", "2024", "2023"],
-  type: ["Picture", "Video", "Article"],
+  categories: ["Academic Assistance", "Productivity", "Career Development", "Mental Health Support", "Creative Applications",
+               "Writing & Editing", "Image Generation", "Productivity & Workflow", "Code Assistance", "Video & Audio Editing"],
+  platform: ["Web App", "Mobile App", "Browser Extension", "Desktop", "Software", "API"],
+  publishing: ["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"],
 };
 let filterCount = 1;
 
@@ -18,8 +19,8 @@ function createFilterDropdowns() {
   filterSelect.innerHTML = `
         <option class="dropdown-option" value="">Filter</option>
         <option class="dropdown-option" value="categories">Categories</option>
-        <option class="dropdown-option" value="publishing">Publishing</option>
-        <option class="dropdown-option" value="type">Type</option>
+        <option class="dropdown-option" value="platform">Platform</option>
+        <option class="dropdown-option" value="publishing">Publishing Date</option>
     `;
 
   const optionsSelect = document.createElement("select");

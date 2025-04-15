@@ -11,6 +11,7 @@ from markupsafe import escape
 from .routes.main import main_bp
 from .routes.search import search_bp
 from .routes.auth import auth_bp
+from .routes.review import review_bp
 
 app = Flask(__name__, instance_relative_config=True)
 
@@ -18,6 +19,7 @@ app = Flask(__name__, instance_relative_config=True)
 app.register_blueprint(main_bp)
 app.register_blueprint(search_bp)
 app.register_blueprint(auth_bp)
+app.register_blueprint(review_bp)
 
 app.secret_key = '5e2eef1ab7c2d3eb6d3057afacea039a330acf8ab35dfdf362b0a844cda25051'
 
@@ -58,78 +60,3 @@ class User(UserMixin):
 @login_manager.user_loader
 def load_user(user_id):
     return User.get(user_id)
-
-# Repurposed Temporarily to act as main page for new search
-@app.route('/dashboard')
-def dashboard():
-    return render_template("dashboard.html", title='Search')
-
-@app.route('/dataUpload', methods=['GET', 'POST'])
-@login_required
-def dataUpload():
-    uploadMessage = ''
-    with app.app_context():  # <-- Add this context manager
-        if request.method == "POST":
-            conn = mysql.connection  # <-- Establish connection
-            cursor = conn.cursor(MySQLdb.cursors.DictCursor)
-
-            name = request.form['name']
-            company = request.form['company']
-            url = request.form['url']
-            thumbnailUrl = request.form['thumbnail']
-            version = request.form['version']
-            pricing = request.form['pricing']
-
-            cursor.execute('SELECT * FROM Tools WHERE name = %s', (name,))
-            tool = cursor.fetchone()
-            if tool:
-                uploadMessage = "Tool already exists"
-                print(uploadMessage)
-            else:
-                cursor.execute("INSERT INTO Tools (name, company, url, thumbnail, " \
-                "version, pricing) Values (%s, %s)", (name, company, url, thumbnailUrl, version, pricing))
-                conn.commit()
-                print(uploadMessage)
-                return redirect("dataUpload.html", uploadMessage=uploadMessage)
-        return render_template('dataUpload.html')
-
-@app.route('/review', methods=['GET', 'POST'])
-def review():
-    with app.app_context():
-        if request.method == "POST":
-            conn = mysql.connection
-            cursor = conn.cursor(MySQLdb.cursors.DictCursor)
-
-            index_id = request.form.get('index_id')
-            review_text = request.form.get('review_text')
-
-            cursor.execute("INSERT INTO Review (idAccount, idIndex, review_text) VALUES (%s, %s, %s)",
-                           (current_user.id, index_id, review_text))
-            conn.commit()
-            cursor.close()
-        return redirect(url_for('search.search'))
-    
-
-@app.route('/rating', methods=['POST'])
-def rating():
-    with app.app_context():
-        conn = mysql.connection
-        cursor = conn.cursor(MySQLdb.cursors.DictCursor)
-
-        index_id = request.form.get('tool')
-        rating_value = request.form.get('rating')
-        print(f"Rating submitted for Index ID: {index_id} with value: {rating_value}")
-
-        cursor.execute('Insert into Rating (rating,idIndex,idAccount) VALUES (%s,%s,%s)',
-                       (rating_value, index_id, current_user.id))
-        conn.commit()
-        cursor.close()
-    return redirect(url_for('search.search'))
-
-    
-
-# @app.route('/dashboard')
-# @login_required
-# def dashboard():
-#     return render_template("dashboard.html")
-
