@@ -61,6 +61,3 @@ class User(UserMixin):
 def load_user(user_id):
     return User.get(user_id)
 
-if __name__ == '__main__':
-    app.run()
-    
