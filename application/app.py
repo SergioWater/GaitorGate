@@ -8,10 +8,10 @@ import MySQLdb.cursors
 import re
 from markupsafe import escape
 
-from .routes.main import main_bp
-from .routes.search import search_bp
-from .routes.auth import auth_bp
-from .routes.review import review_bp
+from routes.main import main_bp
+from routes.search import search_bp
+from routes.auth import auth_bp
+from routes.review import review_bp
 
 app = Flask(__name__, instance_relative_config=True)
 
@@ -60,3 +60,7 @@ class User(UserMixin):
 @login_manager.user_loader
 def load_user(user_id):
     return User.get(user_id)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+    
