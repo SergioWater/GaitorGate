@@ -5,19 +5,45 @@ import MySQLdb.cursors
 
 RESULTS_PER_PAGE = 6
 
-search_bp = Blueprint('search', __name__)
+search_bp = Blueprint("search", __name__)
 
-@search_bp.route('/search', methods=['GET', 'POST'])
+
+def addToHistory(
+    idAccount,
+    query_text,
+):
+    conn = current_app.config["MYSQL"].connection
+    cursor = conn.cursor()
+
+    result = cursor.execute(
+        """
+        INSERT INTO Search_History
+        (idAccount, query_text)
+        VALUES (%s, %s)
+        """,
+        (idAccount, query_text),
+    )
+
+    conn.commit()
+    print("result:", result)
+
+
+@search_bp.route("/search", methods=["GET", "POST"])
 def search():
-    print("HERE")
+    # add to search history if logged in
+    idAccount = current_user.get_id()
+    if idAccount is not None:
+        query_text = request.form.get("search", "").strip()
+        addToHistory(idAccount, query_text)
+
     with current_app.app_context():
-        conn = current_app.config['MYSQL'].connection
+        conn = current_app.config["MYSQL"].connection
         cursor = conn.cursor(MySQLdb.cursors.DictCursor)
 
-        filters = request.form.getlist('filters[]')
-        filter_options = request.form.getlist('filter-options[]')
-        query = request.form.get('search', '').strip()
-        page = request.args.get('page', 1, type=int)
+        filters = request.form.getlist("filters[]")
+        filter_options = request.form.getlist("filter-options[]")
+        query = request.form.get("search", "").strip()
+        page = request.args.get("page", 1, type=int)
 
         where_clauses = []
         params = []
@@ -26,13 +52,13 @@ def search():
             selected_filter = filters[i].strip()
             filter_option = filter_options[i].strip()
 
-            if selected_filter == 'categories' and filter_option:
+            if selected_filter == "categories" and filter_option:
                 where_clauses.append("c.name = %s")
                 params.append(filter_option)
-            elif selected_filter == 'type' and filter_option:
+            elif selected_filter == "type" and filter_option:
                 where_clauses.append("t.name = %s")
                 params.append(filter_option)
-            elif selected_filter == 'publishing' and filter_option:
+            elif selected_filter == "publishing" and filter_option:
                 where_clauses.append("YEAR(d.published_date) = %s")
                 params.append(filter_option)
 
@@ -72,6 +98,12 @@ def search():
         total_results = len(data)
         total_pages = (total_results + RESULTS_PER_PAGE - 1) // RESULTS_PER_PAGE
         offset = (page - 1) * RESULTS_PER_PAGE
-        page_data = data[offset:offset + RESULTS_PER_PAGE]
+        page_data = data[offset : offset + RESULTS_PER_PAGE]
 
-    return render_template('searchpage.html', data=page_data, current_page=page, total_pages=total_pages, title='Results')
+    return render_template(
+        "searchpage.html",
+        data=page_data,
+        current_page=page,
+        total_pages=total_pages,
+        title="Results",
+    )

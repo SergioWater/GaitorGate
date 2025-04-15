@@ -1,6 +1,5 @@
 from flask import Blueprint, current_app
-from flask_login import login_user, login_required, logout_user, UserMixin, current_user
-import MySQLdb.cursors
+from flask_login import current_user
 
 history_bp = Blueprint("history", __name__)
 
@@ -11,12 +10,13 @@ def history():
     conn = current_app.config["MYSQL"].connection
     cursor = conn.cursor()
 
-    cursor.execute("""
-        SELECT * FROM Search_History;
-    """)
+    cursor.execute(
+        """
+        SELECT *
+        FROM Search_History
+        WHERE idAccount = %s
+    """,
+        (current_user.get_id(),),
+    )
 
-    print("USER:", current_user)
-
-    print(cursor.fetchall())
-
-    return [1, 2, 3]
+    return f"{cursor.fetchall()}"
