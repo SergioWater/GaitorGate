@@ -50,17 +50,6 @@ def dataUpload():
 def dashboard():
     return render_template("dashboard.html", title='Search')
 
-@main_bp.route('/history')
-@login_required
-def history():
-    conn = current_app.config['MYSQL'].connection
-    cursor = conn.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute("SELECT username, email FROM Account WHERE idAccount = %s", (current_user.id,))
-    account_info = cursor.fetchone()
-    cursor.close()
-    title = f"{account_info['username']}'s History"
-    return render_template('history.html', user=account_info, title=title)
-
 @main_bp.route('/account')
 @login_required
 def account():

@@ -5,7 +5,7 @@ history_bp = Blueprint("history", __name__)
 
 
 @history_bp.route("/history", methods=["GET"])
-# @login_required
+@login_required
 def history():
     conn = current_app.config["MYSQL"].connection
     cursor = conn.cursor()
@@ -19,4 +19,12 @@ def history():
         (current_user.get_id(),),
     )
 
-    return f"{cursor.fetchall()}"
+    data = cursor.fetchall()
+
+    cursor.execute("SELECT username, email FROM Account WHERE idAccount = %s", (current_user.id,))
+
+    account_info = cursor.fetchone()
+
+    cursor.close()
+    title = f"{account_info['username']}'s History"
+    return render_template('history.html', user=account_info, data=data, title=title)
