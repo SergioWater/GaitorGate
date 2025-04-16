@@ -1,5 +1,7 @@
-from flask import Blueprint, current_app
-from flask_login import current_user
+from flask import Blueprint, render_template, request, redirect, session, current_app,url_for
+from flask_login import login_required, current_user
+from markupsafe import escape
+import MySQLdb.cursors
 
 history_bp = Blueprint("history", __name__)
 
@@ -21,10 +23,14 @@ def history():
 
     data = cursor.fetchall()
 
+    cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+    
     cursor.execute("SELECT username, email FROM Account WHERE idAccount = %s", (current_user.id,))
 
     account_info = cursor.fetchone()
 
-    cursor.close()
     title = f"{account_info['username']}'s History"
+
+    cursor.close()
+
     return render_template('history.html', user=account_info, data=data, title=title)

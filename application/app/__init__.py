@@ -20,7 +20,13 @@ from .routes.search import search_bp
 from .routes.auth import auth_bp
 from .routes.history import history_bp
 
-app = Flask(__name__, instance_relative_config=True)
+template_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'templates')
+static_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static')
+
+app = Flask(__name__,
+            instance_relative_config=True,
+            template_folder=template_dir,
+            static_folder=static_dir)
 
 # register blueprints
 app.register_blueprint(main_bp)
