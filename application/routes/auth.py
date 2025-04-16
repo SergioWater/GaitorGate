@@ -23,7 +23,7 @@ def login():
         cursor.close()
         
         if user_data and bcrypt.check_password_hash(user_data['hashed_password'], password):
-            from app.__init__ import User
+            from app import User
             user = User.get(user_data['idAccount'])
             login_user(user)
             session['username'] = user_data['username']  # Store the username in the session
