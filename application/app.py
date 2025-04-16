@@ -13,6 +13,7 @@ from routes.search import search_bp
 from routes.auth import auth_bp
 from routes.review import review_bp
 from routes.upload import upload_bp
+from routes.history import history_bp
 
 app = Flask(__name__, instance_relative_config=True)
 
@@ -22,6 +23,7 @@ app.register_blueprint(search_bp)
 app.register_blueprint(auth_bp)
 app.register_blueprint(review_bp)
 app.register_blueprint(upload_bp)
+app.register_blueprint(history_bp)
 
 app.secret_key = '5e2eef1ab7c2d3eb6d3057afacea039a330acf8ab35dfdf362b0a844cda25051'
 
