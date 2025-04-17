@@ -75,12 +75,16 @@ def search():
             SELECT
                 si.idIndex,
                 t.idTool,
+                t.description,
                 t.name,
                 t.company,
                 t.url,
                 t.thumbnail_url,
                 t.published_date,
-                c.name AS category
+                t.pricing,
+                t.version,
+                c.name AS category,
+                p.name AS platform
             FROM SearchIndex si
             JOIN Tools t ON si.idTool = t.idTool
             LEFT JOIN Category c ON si.idCategory = c.idCategory
