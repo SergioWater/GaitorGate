@@ -45,6 +45,9 @@ def search():
         query = request.form.get("search", "").strip()
         page = request.args.get("page", 1, type=int)
 
+        filter_pairs = sorted(list(zip(filters, filter_options)))
+        print(filter_pairs)
+
         where_clauses = []
         params = []
 
@@ -55,10 +58,10 @@ def search():
             if selected_filter == "categories" and filter_option:
                 where_clauses.append("c.name = %s")
                 params.append(filter_option)
-            elif selected_filter == "type" and filter_option:
-                where_clauses.append("t.name = %s")
+            elif selected_filter == "platform" and filter_option:
+                where_clauses.append("p.name = %s")
                 params.append(filter_option)
-            elif selected_filter == "publishing" and filter_option:
+            elif selected_filter == "publishing date" and filter_option:
                 where_clauses.append("YEAR(d.published_date) = %s")
                 params.append(filter_option)
 
