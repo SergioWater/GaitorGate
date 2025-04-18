@@ -61,18 +61,41 @@ def account():
     title = f"{account_info['username']}'s Account"
     return render_template('account.html', user=account_info, active_page='account', title=title)
 
-@main_bp.route('/saved')
+@main_bp.route('/settings')
 @login_required
-def saved():
+def settings():
     conn = current_app.config['MYSQL'].connection
     cursor = conn.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute("SELECT username, email FROM Account WHERE idAccount = %s", (current_user.id,))
     account_info = cursor.fetchone()
     cursor.close()
-    title = f"{account_info['username']}'s Saved"
-    return render_template('saved.html', user=account_info, title=title)
+    title = f"{account_info['username']}'s Settings"
+    return render_template('settings.html', user=account_info, title=title)
 
-# Repurposed Temporarily to act as main page for new search
-@main_bp.route('/settings')
-def settings():
-    return render_template("settings.html", title='Settings')
+@main_bp.route('/update_description', methods=['POST'])
+def update_description():
+    try:
+        description = request.form.get('description', '')
+        
+        if not description:
+            return redirect(url_for('main.about'))
+            
+        image_url = request.form.get('image_url', '')
+        
+        # Connect to database
+        conn = current_app.config['MYSQL'].connection
+        cursor = conn.cursor()
+        
+        # Insert into description table
+        cursor.execute(
+            "INSERT INTO Website_Description (description, image_url) VALUES (%s, %s)",
+            (description, image_url)
+        )
+        
+        conn.commit()
+        cursor.close()
+        
+        return redirect(url_for('main.about'))
+    except Exception as e:
+        print(f"Error updating description: {e}")
+        return redirect(url_for('main.about'))

@@ -777,3 +777,50 @@ footer {
 .submit-review:hover {
     background: #26547C;
 }
+
+/* Favorite Button Styles */
+.favorite-container {
+    margin: clamp(0.5rem, 1vw, 1rem) 0;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.favorite-button {
+    background-color: #ffffff;
+    color: #333333;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    padding: clamp(0.25rem, 0.5vw, 0.5rem) clamp(0.5rem, 1vw, 1rem);
+    font-size: clamp(14px, 1.25vw, 16px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.favorite-button:hover {
+    background-color: #f8f8f8;
+    border-color: #cccccc;
+}
+
+.favorite-button.favorited {
+    background-color: #ffeded;
+    color: #e63946;
+    border-color: #ffcccc;
+}
+
+.favorite-button.favorited:hover {
+    background-color: #ffe6e6;
+}
+
+.favorite-button i {
+    font-size: clamp(14px, 1.25vw, 16px);
+}
+
+.favorite-actions {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}

@@ -9,6 +9,7 @@
         <div><img src="{{ item.thumbnail_url }}" height="25%" width="25%"></div>
         
         {% set index_id = item.idIndex %}
+        {% include 'partials/favorite-button.html' %}
         {% include 'partials/rating-form.html' %}
         {% include 'partials/review-form.html' %}
         </br>
