@@ -16,34 +16,34 @@ def about():
 def team_member(name):
     return render_template(f"members/{escape(name)}.html", title=name)
 
-@main_bp.route('/dataUpload', methods=['GET', 'POST'])
-@login_required
-def dataUpload():
-    uploadMessage = ''
-    with current_app.app_context():  
-        if request.method == "POST":
-            conn = mysql.connection 
-            cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+# @main_bp.route('/dataUpload', methods=['GET', 'POST'])
+# @login_required
+# def dataUpload():
+#     uploadMessage = ''
+#     with current_app.app_context():  
+#         if request.method == "POST":
+#             conn = mysql.connection 
+#             cursor = conn.cursor(MySQLdb.cursors.DictCursor)
 
-            name = request.form['name']
-            company = request.form['company']
-            url = request.form['url']
-            thumbnailUrl = request.form['thumbnail']
-            version = request.form['version']
-            pricing = request.form['pricing']
+#             name = request.form['name']
+#             company = request.form['company']
+#             url = request.form['url']
+#             thumbnailUrl = request.form['thumbnail']
+#             version = request.form['version']
+#             pricing = request.form['pricing']
 
-            cursor.execute('SELECT * FROM Tools WHERE name = %s', (name,))
-            tool = cursor.fetchone()
-            if tool:
-                uploadMessage = "Tool already exists"
-                print(uploadMessage)
-            else:
-                cursor.execute("INSERT INTO Tools (name, company, url, thumbnail, " \
-                "version, pricing) Values (%s, %s)", (name, company, url, thumbnailUrl, version, pricing))
-                conn.commit()
-                print(uploadMessage)
-                return redirect("dataUpload.html", uploadMessage=uploadMessage)
-        return render_template('dataUpload.html', title='Upload')
+#             cursor.execute('SELECT * FROM Tools WHERE name = %s', (name,))
+#             tool = cursor.fetchone()
+#             if tool:
+#                 uploadMessage = "Tool already exists"
+#                 print(uploadMessage)
+#             else:
+#                 cursor.execute("INSERT INTO Tools (name, company, url, thumbnail, " \
+#                 "version, pricing) Values (%s, %s)", (name, company, url, thumbnailUrl, version, pricing))
+#                 conn.commit()
+#                 print(uploadMessage)
+#                 return redirect("dataUpload.html", uploadMessage=uploadMessage)
+#         return render_template('dataUpload.html', title='Upload')
 
 # Repurposed Temporarily to act as main page for new search
 @main_bp.route('/dashboard')
