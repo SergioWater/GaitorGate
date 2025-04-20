@@ -74,7 +74,6 @@ def search():
         params.extend([query, query, query])
 
         sql = """
-            
             SELECT
                 si.idIndex,
                 t.idTool,
@@ -87,15 +86,18 @@ def search():
                 t.pricing,
                 t.version,
                 c.name AS category,
-                p.name AS platform
+                p.name AS platform,
+                AVG(r.rating) AS average_rating
             FROM SearchIndex si
             JOIN Tools t ON si.idTool = t.idTool
             LEFT JOIN Category c ON si.idCategory = c.idCategory
             LEFT JOIN Platform p ON si.idPlatform = p.idPlatform
             LEFT JOIN Keywords_Indexes ki ON ki.IndexID = si.idIndex
             LEFT JOIN Keywords k ON ki.keywordID = k.idKeywords
+            LEFT JOIN Rating r ON si.idIndex = r.idIndex
             WHERE {}
-            GROUP BY si.idIndex,t.idTool, t.name, c.name;
+            GROUP BY si.idIndex, t.idTool, t.description, t.name, t.company, t.url, t.thumbnail_url, t.published_date, t.pricing, t.version, c.name, p.name
+            ORDER BY si.idIndex
         """.format(" AND ".join(where_clauses))
 
         cursor.execute(sql, tuple(params))

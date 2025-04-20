@@ -45,10 +45,9 @@ def team_member(name):
 #                 return redirect("dataUpload.html", uploadMessage=uploadMessage)
 #         return render_template('dataUpload.html', title='Upload')
 
-# Repurposed Temporarily to act as main page for new search
-@main_bp.route('/dashboard')
-def dashboard():
-    return render_template("dashboard.html", title='Search')
+@main_bp.route('/mainSearch')
+def mainSearch():
+    return render_template("mainSearch.html", title='Search')
 
 @main_bp.route('/account')
 @login_required

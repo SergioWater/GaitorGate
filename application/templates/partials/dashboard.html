@@ -1,0 +1,22 @@
+<article class="user-dash">
+    <div class="organizer">
+        <div class="dash-info">
+            {% if session.username %}
+            {% if session.account_type == 'admin' %}
+            <div class="admin-info">
+                <!--basic dash for admin-->
+            </div>
+            {% endif %}
+            {% if session.account_type == 'user' %}
+            <div class="user-info">
+                <!--basic dash for user-->
+            </div>
+            {% endif %}
+            {% else %}
+            <div class="guest-info">
+                <!--basic dash for guest-->
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</article>
