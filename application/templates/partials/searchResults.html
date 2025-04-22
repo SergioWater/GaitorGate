@@ -4,7 +4,7 @@
     <div class="result-item"> <br>
         <div class="result-info">
             <ul>
-                <li><a href="#" target="_blank">{{ item.name }}</a></li> <!--update after viewTool route is created-->
+                <li><a href="{{ url_for ('view_tool.view_tool', idIndex = item.idIndex)  }}">{{ item.name }}</a></li> <!--update after viewTool route is created-->
                 <li><img src="{{ item.thumbnail_url }}" height="25%" width="25%"></li>
                 <li>{{ item.description }}</li>
                 <li>

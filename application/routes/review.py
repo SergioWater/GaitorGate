@@ -18,21 +18,26 @@ def review():
                            (current_user.id, index_id, review_text))
             conn.commit()
             cursor.close()
-        return redirect(url_for('search.search'))
+        
+    return redirect(request.referrer)
     
 
 @review_bp.route('/rating', methods=['POST'])
 def rating():
     with current_app.app_context():
-        conn = current_app.config['MYSQL'].connection
-        cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+        if request.method == "POST":
+            conn = current_app.config['MYSQL'].connection
+            cursor = conn.cursor(MySQLdb.cursors.DictCursor)
 
-        index_id = request.form.get('tool')
-        rating_value = request.form.get('rating')
-        print(f"Rating submitted for Index ID: {index_id} with value: {rating_value}")
+            index_id = request.form.get('tool')
+            rating_value = request.form.get('rating')
+            print(f"Rating submitted for Index ID: {index_id} with value: {rating_value}")
 
-        cursor.execute('Insert into Rating (rating,idIndex,idAccount) VALUES (%s,%s,%s)',
-                       (rating_value, index_id, current_user.id))
-        conn.commit()
-        cursor.close()
-    return redirect(url_for('search.search'))
+            cursor.execute('Insert into Rating (rating,idIndex,idAccount) VALUES (%s,%s,%s)',
+                        (rating_value, index_id, current_user.id))
+            conn.commit()
+            cursor.close()
+    return redirect(request.referrer)
+        
+        
+    

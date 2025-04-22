@@ -50,7 +50,7 @@ def search():
 
         where_clauses = []
         params = []
-
+        # Added LIKE query for search
         for i in range(len(filters)):
             selected_filter = filters[i].strip()
             filter_option = filter_options[i].strip()
@@ -62,16 +62,20 @@ def search():
                 where_clauses.append("p.name = %s")
                 params.append(filter_option)
             elif selected_filter == "publishing date" and filter_option:
-                where_clauses.append("YEAR(d.published_date) = %s")
+                where_clauses.append("YEAR(t.published_date) = %s")
                 params.append(filter_option)
 
         search_condition = """
-            %s = '' OR
+            (%s = '' OR
+            LOWER(t.name) LIKE %s OR
+            LOWER(t.description) LIKE %s OR
+            LOWER(k.name) LIKE %s OR
             MATCH(t.name) AGAINST (%s IN NATURAL LANGUAGE MODE) OR
-            MATCH(k.name) AGAINST (%s IN NATURAL LANGUAGE MODE)
+            MATCH(k.name) AGAINST (%s IN NATURAL LANGUAGE MODE))
         """
         where_clauses.append("(" + search_condition + ")")
-        params.extend([query, query, query])
+        like_query = f"%{query}%"
+        params.extend([query,like_query, like_query,like_query, query, query])
 
         sql = """
             SELECT
@@ -97,9 +101,10 @@ def search():
             LEFT JOIN Rating r ON si.idIndex = r.idIndex
             WHERE {}
             GROUP BY si.idIndex, t.idTool, t.description, t.name, t.company, t.url, t.thumbnail_url, t.published_date, t.pricing, t.version, c.name, p.name
-            ORDER BY si.idIndex
+            ORDER BY average_rating DESC
         """.format(" AND ".join(where_clauses))
-
+        print("SQL:", sql)
+        print("Params:", params)
         cursor.execute(sql, tuple(params))
         data = cursor.fetchall()
         cursor.close()

@@ -1,15 +1,14 @@
 <div id="tool-{{ id }}" class="results-container">
-    {% if data %}
-    {% for item in data %}
+    
     <div class="result-item"> <br>
         <div class="result-info">
             <a href="{{ item.url }}" target="_blank">{{ item.name }}</a>
             <img src="{{ item.thumbnail_url }}" height="25%" width="25%">
-            {% if item.average_rating %}
-            Rating: {{ "{:.2f}".format(item.average_rating) }}
-            <span class="average-rating" style="--rating: {{ item.average_rating / 5 * 100 }}%;">★★★★★</span>
+            {% if average_rating %}
+                Rating: {{ average_rating | default ((0)) | round(2) }}
+                <span class="average-rating" style="--rating: {{ (average_rating.average_rating or 0) / 5 * 100 }}%;">★★★★★</span>
             {% else %}
-            No ratings yet
+                No ratings yet
             {% endif %}
             {{ item.description }}
             {{ item.company }},
@@ -24,6 +23,9 @@
             {% if reviewdata %}
             {% for item in reviewdata %}
             <!-- where all reviews go-->
+                {{ item.username }} 
+                {{ item.review_text}}
+                {{ item.created_at}}
             {% endfor %}
             {% elif request.method == 'POST' %}
             <p>No results found.</p>
@@ -35,9 +37,6 @@
         {% include 'partials/review-form.html' %}
         </br>
     </div>
-    {% endfor %}
-    {% elif request.method == 'POST' %}
-    <p>No results found.</p>
-    {% endif %}
+  
 </div>
 <script src="{{ url_for('static', filename='js/stars.js') }}"></script>
