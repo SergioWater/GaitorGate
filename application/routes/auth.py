@@ -60,9 +60,9 @@ def register():
 
         cursor.execute('SELECT * FROM Account WHERE username = %s', (username,))
         account = cursor.fetchone()
-
+#also look for email in the database for "account alredy exists"
         if account:
-            registrationMessage = 'Account already exists!'
+            registrationMessage = 'Account already exists!' #username already exists
             print(registrationMessage)
         elif not username or not password or not email:
             registrationMessage = 'Please fill out the form!'

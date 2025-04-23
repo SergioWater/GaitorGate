@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, session, current_app
 from flask_login import login_required, current_user
 from markupsafe import escape
+import re
 import MySQLdb.cursors
 
 RESULTS_PER_PAGE = 6
@@ -44,6 +45,18 @@ def search():
         filter_options = request.form.getlist("filter-options[]")
         query = request.form.get("search", "").strip()
         page = request.args.get("page", 1, type=int)
+
+        if not re.match(r'^[A-Za-z0-9\s]{0,40}$', query):
+            # Check if the query is too long or contains invalid characters
+            print("Query too long or include invalid characters")
+            return render_template(
+                "searchpage.html",
+                data=[],
+                current_page=1,
+                total_pages=0,
+                title="Results",
+                message="Query too long or Include Invalid Characters. Query only allow letters, numbers and spaaces", #display error message in the front end
+            )
 
         filter_pairs = sorted(list(zip(filters, filter_options)))
         print(filter_pairs)
@@ -120,4 +133,5 @@ def search():
         current_page=page,
         total_pages=total_pages,
         title="Results",
+        message = 'Success'
     )

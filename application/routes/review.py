@@ -5,6 +5,7 @@ import MySQLdb.cursors
 review_bp = Blueprint('review', __name__)
 
 @review_bp.route('/review', methods=['GET', 'POST'])
+@login_required
 def review():
     with current_app.app_context():
         if request.method == "POST":
@@ -23,6 +24,7 @@ def review():
     
 
 @review_bp.route('/rating', methods=['POST'])
+@login_required
 def rating():
     with current_app.app_context():
         if request.method == "POST":
