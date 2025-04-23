@@ -12,8 +12,6 @@ def dataUpload():
         if request.method == "POST":
             conn = current_app.config['MYSQL'].connection
             cursor = conn.cursor(MySQLdb.cursors.DictCursor)
-            title = request.form['title'] # not sure where to put these in the database
-            description = request.form['description'] # not sure where to put these in the database
             name = request.form['name']
             company = request.form['company']
             url = request.form['url']
@@ -22,8 +20,6 @@ def dataUpload():
             pricing = request.form['pricing']
             platform = request.form['platform']
             category = request.form['category']
-            imageUpload = request.files.get('imageUpload') # not sure where to put these in the database
-
             cursor.execute('SELECT * FROM Tools WHERE name = %s AND company = %s', (name, company))
             tool = cursor.fetchone()
             if tool:
