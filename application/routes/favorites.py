@@ -13,41 +13,28 @@ def toggle_favorite():
         cursor = conn.cursor(MySQLdb.cursors.DictCursor)
 
         index_id = request.form.get('index_id')
-        
-        # First get the idUser from the Account table
-        cursor.execute(
-            "SELECT idUser FROM Account WHERE idAccount = %s",
-            (current_user.id,)
-        )
-        user_result = cursor.fetchone()
-        
-        if not user_result:
-            print(f"Could not find User ID for Account ID {current_user.id}")
-            return redirect(request.referrer or url_for('search.search'))
-            
-        user_id = user_result['idUser']
-        
+        account_id = current_user.id
         # Check if this is already a favorite
         cursor.execute(
-            "SELECT idFavorite FROM Favorite WHERE idUser = %s AND idIndex = %s",
-            (user_id, index_id)
+            "SELECT idFavorite FROM Favorite WHERE idAccount = %s AND idIndex = %s",
+            (account_id, index_id)
         )
         existing_favorite = cursor.fetchone()
         
         if existing_favorite:
             # Remove favorite
             cursor.execute(
-                "DELETE FROM Favorite WHERE idUser = %s AND idIndex = %s",
-                (user_id, index_id)
+                "DELETE FROM Favorite WHERE idAccount = %s AND idIndex = %s",
+                (account_id, index_id)
             )
-            print(f"Removed favorite for User ID {user_id}, Index ID {index_id}")
+            print(f"Removed favorite for User ID {account_id}, Index ID {index_id}")
         else:
             # Add favorite
             cursor.execute(
-                "INSERT INTO Favorite (idUser, idIndex) VALUES (%s, %s)",
-                (user_id, index_id)
+                "INSERT INTO Favorite (idAccount, idIndex) VALUES (%s, %s)",
+                (account_id, index_id)
             )
-            print(f"Added favorite for User ID {user_id}, Index ID {index_id}")
+            print(f"Added favorite for User ID {account_id}, Index ID {index_id}")
         
         conn.commit()
         cursor.close()
@@ -79,7 +66,7 @@ def view_saved():
         user_id = user_result['idUser']
         username = user_result['username']
         email = user_result.get('email', '')
-        
+        account_id = current_user.id
         # Get all favorites with tool information
         cursor.execute("""
             SELECT 
@@ -101,9 +88,9 @@ def view_saved():
             JOIN Tools t ON si.idTool = t.idTool
             LEFT JOIN Category c ON si.idCategory = c.idCategory
             LEFT JOIN Platform p ON si.idPlatform = p.idPlatform
-            WHERE f.idUser = %s
+            WHERE f.idAccount = %s
             ORDER BY f.idFavorite DESC
-        """, (user_id,))
+        """, (account_id,))
         
         favorites = cursor.fetchall()
         cursor.close()
@@ -117,9 +104,9 @@ def view_saved():
         )
 
 # Helper function to check if an item is favorited
-def is_favorited(index_id, user_id):
+def is_favorited(index_id, account_id):
     """Check if an item is favorited by the user"""
-    if not user_id:
+    if not account_id:
         return False
         
     with current_app.app_context():
@@ -129,7 +116,7 @@ def is_favorited(index_id, user_id):
         # First get the idUser from the Account table
         cursor.execute(
             "SELECT idUser FROM Account WHERE idAccount = %s",
-            (user_id,)
+            (account_id,)
         )
         user_result = cursor.fetchone()
         
@@ -139,8 +126,8 @@ def is_favorited(index_id, user_id):
         actual_user_id = user_result['idUser']
         
         cursor.execute(
-            "SELECT 1 FROM Favorite WHERE idUser = %s AND idIndex = %s",
-            (actual_user_id, index_id)
+            "SELECT 1 FROM Favorite WHERE idAccount = %s AND idIndex = %s",
+            (account_id, index_id)
         )
         result = cursor.fetchone() is not None
         cursor.close()

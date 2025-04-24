@@ -96,7 +96,7 @@ def search():
                 t.idTool,
                 t.description,
                 t.name,
-                t.company,
+                Co.company_name AS company,
                 t.url,
                 t.thumbnail_url,
                 t.published_date,
@@ -107,6 +107,7 @@ def search():
                 AVG(r.rating) AS average_rating
             FROM SearchIndex si
             JOIN Tools t ON si.idTool = t.idTool
+            LEFT JOIN Company Co ON t.company = Co.idAccount
             LEFT JOIN Category c ON si.idCategory = c.idCategory
             LEFT JOIN Platform p ON si.idPlatform = p.idPlatform
             LEFT JOIN Keywords_Indexes ki ON ki.IndexID = si.idIndex
