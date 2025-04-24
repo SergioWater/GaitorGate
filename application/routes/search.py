@@ -45,8 +45,9 @@ def search():
         filter_options = request.form.getlist("filter-options[]")
         query = request.form.get("search", "").strip()
         page = request.args.get("page", 1, type=int)
+        order_by = request.args.get("order_by", "rating")
 
-        if not re.match(r'^[A-Za-z0-9\s]{0,40}$', query):
+        if not re.match(r"^[A-Za-z0-9\s]{0,40}$", query):
             # Check if the query is too long or contains invalid characters
             print("Query too long or include invalid characters")
             return render_template(
@@ -55,7 +56,7 @@ def search():
                 current_page=1,
                 total_pages=0,
                 title="Results",
-                message="Query too long or Include Invalid Characters. Query only allow letters, numbers and spaaces", #display error message in the front end
+                message="Query too long or Include Invalid Characters. Query only allow letters, numbers and spaaces",  # display error message in the front end
             )
 
         filter_pairs = sorted(list(zip(filters, filter_options)))
@@ -88,7 +89,13 @@ def search():
         """
         where_clauses.append("(" + search_condition + ")")
         like_query = f"%{query}%"
-        params.extend([query,like_query, like_query,like_query, query, query])
+        params.extend([query, like_query, like_query, like_query, query, query])
+
+        order_by_statement = {
+            "rating": "average_rating DESC",
+            "name": "t.name",
+            "date": "t.published_date DESC",
+        }[order_by]
 
         sql = """
             SELECT
@@ -115,8 +122,8 @@ def search():
             LEFT JOIN Rating r ON si.idIndex = r.idIndex
             WHERE {}
             GROUP BY si.idIndex, t.idTool, t.description, t.name, t.company, t.url, t.thumbnail_url, t.published_date, t.pricing, t.version, c.name, p.name
-            ORDER BY average_rating DESC
-        """.format(" AND ".join(where_clauses))
+            ORDER BY {}
+        """.format(" AND ".join(where_clauses), order_by_statement)
         print("SQL:", sql)
         print("Params:", params)
         cursor.execute(sql, tuple(params))
@@ -134,5 +141,5 @@ def search():
         current_page=page,
         total_pages=total_pages,
         title="Results",
-        message = 'Success'
+        message="Success",
     )
