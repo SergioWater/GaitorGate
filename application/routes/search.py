@@ -34,7 +34,7 @@ def search():
     # add to search history if logged in
     idAccount = current_user.get_id()
     if idAccount is not None:
-        query_text = request.form.get("search", "").strip()
+        query_text = request.args.get("search", request.form.get("search", "")).strip()
         addToHistory(idAccount, query_text)
 
     with current_app.app_context():
@@ -43,7 +43,7 @@ def search():
 
         filters = request.form.getlist("filters[]")
         filter_options = request.form.getlist("filter-options[]")
-        query = request.form.get("search", "").strip()
+        query = request.args.get("search", request.form.get("search", "")).strip()
         page = request.args.get("page", 1, type=int)
         order_by = request.args.get("order_by", "rating")
 
@@ -57,6 +57,7 @@ def search():
                 total_pages=0,
                 title="Results",
                 message="Query too long or Include Invalid Characters. Query only allow letters, numbers and spaaces",  # display error message in the front end
+                search=query
             )
 
         filter_pairs = sorted(list(zip(filters, filter_options)))
@@ -142,4 +143,5 @@ def search():
         total_pages=total_pages,
         title="Results",
         message="Success",
+        search=query,
     )
