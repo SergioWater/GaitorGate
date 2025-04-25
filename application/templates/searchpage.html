@@ -13,11 +13,6 @@
         <form method="GET" action="/search">
             {% include 'partials/search.html' %}
         </form>
-
-        <!-- DEBUG: -->
-<p>Search term value: "{{ search if search else 'NOT SET' }}"</p>
-<p>Request args: "{{ request.args.get('search', 'NOT SET') }}"</p>
-
     <!-- Line 22 displays the data from backend -->
         {% include 'partials/searchResults.html' %}
     </main>
