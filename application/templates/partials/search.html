@@ -11,7 +11,12 @@
             <option class="dropdown-option" value="">Option</option>
         </select>
     </div>
-    <input class="search-bar" type="text" name="search" placeholder="Search">
+    <input 
+        class="search-bar" 
+        type="text" 
+        name="search" 
+        placeholder="Search"
+        value="{{ search if search else request.args.get('search', '') }}">
     <div class="filter-buttons">
         <button type="add-button" class="add-filter-button">+</button>
         <button type="remove-button" class="remove-filter-button">-</button>
