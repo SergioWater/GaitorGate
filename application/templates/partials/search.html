@@ -1,5 +1,18 @@
 <h2>Search</h2>
 <div class="search-form">
+    <div class="sort-container">
+        <select name="order_by" class="sort-dropdown">
+            <option value="rating" {% if request.args.get('order_by')=='rating' %}selected{% endif %}>
+                Top Rated
+            </option>
+            <option value="date" {% if request.args.get('order_by')=='date' %}selected{% endif %}>
+                Newest
+            </option>
+            <option value="name" {% if request.args.get('order_by')=='name' %}selected{% endif %}>
+                A-Z
+            </option>
+        </select>
+    </div>
     <div class="filter-container">
         <select name="filters[]" class="filter-dropdown">
             <option class="dropdown-option" value="">Filter</option>
