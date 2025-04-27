@@ -12,8 +12,7 @@
                     {{ item.category }},
                     {{ item.platform }},
                     {% if item.average_rating %}
-                    Rating: {{ "{:.2f}".format(item.average_rating) }}
-                        <span class="average-rating" style="--rating: {{ item.average_rating / 5 * 100 }}%;">★★★★★</span>
+                    Rating: <span class="average-rating-value">{{ "{:.2f}".format(item.average_rating) }}</span>
                     {% else %}
                     No ratings yet
                     {% endif %}

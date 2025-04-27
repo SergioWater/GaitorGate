@@ -880,3 +880,135 @@ footer {
     text-decoration: underline;
     margin: 0;
 }
+
+.tool-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+
+  .tool-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .tool-link {
+    color: #0066cc;
+    text-decoration: none;
+  }
+
+  .tool-thumbnail {
+    max-width: 200px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+  .tool-rating {
+    margin: 10px 0;
+  }
+  .average-rating {
+    --star-size: 24px;
+    position: relative;
+    display: inline-block;
+    font-size: var(--star-size);
+    letter-spacing: 2px;
+  }
+  .average-rating::before {
+    content: "★★★★★";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--rating);
+    overflow: hidden;
+    color: gold;
+  }
+  .rating-value {
+    font-weight: bold;
+    margin-left: 10px;
+  }
+  .no-rating {
+    color: #666;
+  }
+
+  .tool-meta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 15px 0;
+    color: #555;
+  }
+  
+  .tool-description {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f8f8;
+    border-radius: 8px;
+  }
+  
+  .tool-reviews {
+    margin-top: 30px;
+  }
+  .review {
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+  }
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    color: #666;
+    margin-bottom: 5px;
+  }
+  .review-text {
+    margin: 0;
+  }
+  
+  .tool-actions {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+  }
+
+.tool-header {
+    display: flex;
+    justify-content: center; 
+    margin-bottom: 20px;
+}
+
+.tool-title {
+    text-decoration: none;
+    color: inherit; 
+    transition: color 0.3s ease;
+  }
+  
+  .tool-title:hover {
+    color: #38635A; 
+  }
+  
+  .star {
+    font-size: 20px;
+    color: gray;
+  }
+  
+  .star.full {
+    color: gold;
+  }
+  
+  .star.half {
+    position: relative;
+    display: inline-block;
+    color: gray;
+  }
+  
+  .star.half::before {
+    content: '★';
+    position: absolute;
+    left: 0;
+    width: 50%;
+    overflow: hidden;
+    color: gold;
+  }
+  
+
