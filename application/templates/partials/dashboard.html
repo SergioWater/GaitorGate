@@ -1,22 +1,22 @@
-<article class="user-dash">
-    <div class="organizer">
+<div id="user-container" class="user-container">
+    <div class=" organizer">
         <div class="dash-info">
             {% if session.username %}
             {% if session.account_type == 'admin' %}
             <div class="admin-info">
-                <!--basic dash for admin-->
+                {% include 'partials/admin-dash.html' %}
             </div>
             {% endif %}
             {% if session.account_type == 'user' %}
             <div class="user-info">
-                <!--basic dash for user-->
+                {% include 'partials/user-dash.html' %}
             </div>
             {% endif %}
             {% else %}
             <div class="guest-info">
-                <!--basic dash for guest-->
+                {% include 'partials/guest-dash.html' %}
             </div>
             {% endif %}
         </div>
     </div>
-</article>
+</div>
