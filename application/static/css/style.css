@@ -114,7 +114,6 @@ form {
 
 form .search-form {
     align-items: center;
-    width: 67.5%;
     display: inline-flex;
 }
 
@@ -160,6 +159,7 @@ form .search-form {
         margin-right: 0;
         margin-bottom: clamp(5px, 1.25vw, 10px);
         width: 100%;
+        min-width: 128px;
         text-align: center;
     }
 
@@ -260,23 +260,27 @@ h2 {
     font-family: 'Aktiv Grotesk', sans-serif;
     font-size: clamp(18px, 3vw, 24px);
     text-decoration: underline;
-    margin-top: clamp(32px, 8vw, 96px);
+    margin-top: clamp(36px, 8vw, 128px);
     margin-bottom: clamp(9px, 1.5vw, 18px);
     text-align: center;
 }
 
-h3,
+h3 {
+    font-family: 'Aktiv Grotesk', sans-serif;
+    font-size: clamp(14px, 1.25vw, 16px);
+    text-decoration: underline;
+    margin-top: clamp(36px, 8vw, 128px);
+    margin-bottom: clamp(9px, 1.5vw, 18px);
+    text-align: center;
+}
+
 h4 {
     font-family: 'Aktiv Grotesk', sans-serif;
     font-size: clamp(14px, 1.25vw, 16px);
     text-decoration: underline;
-    margin-top: clamp(32px, 8vw, 64px);
+    margin-top: clamp(36px, 8vw, 48px);
     margin-bottom: clamp(9px, 1.5vw, 18px);
     text-align: center;
-}
-
-h4 {
-    text-decoration: underline;
 }
 
 ul {
@@ -837,7 +841,6 @@ footer {
     display: flex;
     align-items: center;
     gap: clamp(5px, 1.25vw, 10px);
-    width: 100%;
     justify-content: center;
 }
 
@@ -933,7 +936,7 @@ footer {
     color: #666;
   }
 
-  .tool-meta {
+  .tool-body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
@@ -993,7 +996,7 @@ footer {
   }
   
   .star.full {
-    color: gold;
+    color: #C99700;
   }
   
   .star.half {
@@ -1008,7 +1011,7 @@ footer {
     left: 0;
     width: 50%;
     overflow: hidden;
-    color: gold;
+    color: #C99700;
   }
   
 

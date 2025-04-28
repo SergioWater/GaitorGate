@@ -7,7 +7,6 @@ import MySQLdb.cursors
 view_tool_bp = Blueprint('view_tool',__name__)
 
 @view_tool_bp.route('/view_tool', methods=['GET'])
-@login_required
 def view_tool():
     conn = current_app.config['MYSQL'].connection
     cursor = conn.cursor(MySQLdb.cursors.DictCursor)
