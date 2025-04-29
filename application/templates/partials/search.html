@@ -31,8 +31,8 @@
         placeholder="Search"
         value="{{ search if search else request.args.get('search', '') }}">
     <div class="filter-buttons">
-        <button type="add-button" class="add-filter-button">+</button>
-        <button type="remove-button" class="remove-filter-button">-</button>
+        <button type="add-button" class="add-filter-button">Add Filter(s)</button>
+        <button type="remove-button" class="remove-filter-button">Remove Filter(s)</button>
     </div>
     <button class="submit-button" type="submit">Search</button>
     <script src="{{ url_for('static', filename='js/dropdowns.js') }}"></script>

@@ -6,7 +6,7 @@ main_bp = Blueprint('main', __name__)
 
 @main_bp.route('/')
 def home():
-    return render_template("index.html", data=[], current_page=1, total_pages=0, title='Gaitor Gate')
+    return render_template("index.html", title='Gaitor Gate')
 
 @main_bp.route('/about')
 def about():
@@ -15,35 +15,6 @@ def about():
 @main_bp.route('/members/<name>')
 def team_member(name):
     return render_template(f"members/{escape(name)}.html", title=name)
-
-# @main_bp.route('/dataUpload', methods=['GET', 'POST'])
-# @login_required
-# def dataUpload():
-#     uploadMessage = ''
-#     with current_app.app_context():  
-#         if request.method == "POST":
-#             conn = mysql.connection 
-#             cursor = conn.cursor(MySQLdb.cursors.DictCursor)
-
-#             name = request.form['name']
-#             company = request.form['company']
-#             url = request.form['url']
-#             thumbnailUrl = request.form['thumbnail']
-#             version = request.form['version']
-#             pricing = request.form['pricing']
-
-#             cursor.execute('SELECT * FROM Tools WHERE name = %s', (name,))
-#             tool = cursor.fetchone()
-#             if tool:
-#                 uploadMessage = "Tool already exists"
-#                 print(uploadMessage)
-#             else:
-#                 cursor.execute("INSERT INTO Tools (name, company, url, thumbnail, " \
-#                 "version, pricing) Values (%s, %s)", (name, company, url, thumbnailUrl, version, pricing))
-#                 conn.commit()
-#                 print(uploadMessage)
-#                 return redirect("dataUpload.html", uploadMessage=uploadMessage)
-#         return render_template('dataUpload.html', title='Upload')
 
 @main_bp.route('/mainSearch')
 def mainSearch():
@@ -63,14 +34,10 @@ def account():
 @main_bp.route('/settings')
 @login_required
 def settings():
-    conn = current_app.config['MYSQL'].connection
-    cursor = conn.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute("SELECT username, email FROM Account WHERE idAccount = %s", (current_user.id,))
-    account_info = cursor.fetchone()
-    cursor.close()
-    title = f"{account_info['username']}'s Settings"
-    return render_template('settings.html', user=account_info, title=title)
+    return render_template('settings.html', title=title)
 
+
+ # When possible this should be moved into its own file to keep up with our
 @main_bp.route('/update_description', methods=['POST'])
 def update_description():
     try:
