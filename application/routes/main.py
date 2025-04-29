@@ -6,7 +6,7 @@ main_bp = Blueprint('main', __name__)
 
 @main_bp.route('/')
 def home():
-    return render_template("index.html", data=[], current_page=1, total_pages=0, title='Gaitor Gate')
+    return render_template("index.html", title='Gaitor Gate')
 
 @main_bp.route('/about')
 def about():
