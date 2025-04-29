@@ -53,9 +53,11 @@ def clear_history():
             (current_user.get_id(),)
         )
         conn.commit()
-        return {"status": "success", "message": "History cleared successfully"}, 200
+        response = {"status": "success", "message": "History cleared successfully"}
+        return response, 200, {'Content-Type': 'application/json'}
     except Exception as e:
         conn.rollback()
-        return {"status": "error", "message": str(e)}, 500
+        response = {"status": "error", "message": str(e)}
+        return response, 500, {'Content-Type': 'application/json'}
     finally:
         cursor.close()
