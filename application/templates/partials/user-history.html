@@ -1,7 +1,10 @@
 <article class="user-history">
     <div class="organizer">
         <div class="user-info">
-            <h3>{{ title }}</h3>
+            <div class="header-container">
+                <h3>{{ title }}</h3>
+                <button type="button" onclick="clearHistory(); return false;" class="favorite-button">Clear History</button>
+            </div>
             {% if data %}
                 <ul class="search-results">
                     {% for item in data %}

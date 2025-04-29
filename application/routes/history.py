@@ -39,3 +39,23 @@ def history():
     cursor.close()
 
     return render_template('history.html', user=account_info, data=data, title=title, current_page=page, total_pages=total_pages)
+
+@history_bp.route("/clear_history", methods=["POST"])
+@login_required
+def clear_history():
+    """Clear all search history for the current user"""
+    conn = current_app.config["MYSQL"].connection
+    cursor = conn.cursor()
+    
+    try:
+        cursor.execute(
+            "DELETE FROM Search_History WHERE idAccount = %s",
+            (current_user.get_id(),)
+        )
+        conn.commit()
+        return {"status": "success", "message": "History cleared successfully"}, 200
+    except Exception as e:
+        conn.rollback()
+        return {"status": "error", "message": str(e)}, 500
+    finally:
+        cursor.close()

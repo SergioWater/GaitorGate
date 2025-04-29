@@ -1,7 +1,10 @@
 <article class="user-saved">
     <div class="organizer">
         <div class="user-info">
-            <h3>{{ user.username }}'s Saved Results</h3>
+            <div class="header-container">
+                <h3>{{ user.username }}'s Saved Results</h3>
+                <button type="button" onclick="clearFavorites(); return false;" class="favorite-button">Clear Favorites</button>
+            </div>
             {% if data %}
                 {% for item in data %}
                 <div class="result-item">

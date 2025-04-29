@@ -103,6 +103,26 @@ def view_saved():
             title=title
         )
 
+@favorites_bp.route('/clear_favorites', methods=['POST'])
+@login_required
+def clear_favorites():
+    """Clear all favorites for the current user"""
+    conn = current_app.config['MYSQL'].connection
+    cursor = conn.cursor()
+    
+    try:
+        cursor.execute(
+            "DELETE FROM Favorite WHERE idAccount = %s",
+            (current_user.id,)
+        )
+        conn.commit()
+        return {"status": "success", "message": "Favorites cleared successfully"}, 200
+    except Exception as e:
+        conn.rollback()
+        return {"status": "error", "message": str(e)}, 500
+    finally:
+        cursor.close()
+
 # Helper function to check if an item is favorited
 def is_favorited(index_id, account_id):
     """Check if an item is favorited by the user"""
