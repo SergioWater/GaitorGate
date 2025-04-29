@@ -699,14 +699,6 @@ footer {
     box-sizing: border-box;
 }
 
-.average-rating {
-    color: #000000;
-    background: linear-gradient(to right, #000000 var(--rating), #ddd var(--rating));
-    color: transparent;
-    font-size: 1em;
-    letter-spacing: 0.1em;
-}
-
 .star-rating {
     color: #6B702B;
     display: flex;
