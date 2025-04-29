@@ -12,6 +12,7 @@ def dataUpload():
         if request.method == "POST":
             conn = current_app.config['MYSQL'].connection
             cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+            # Get input from user
             name = request.form['name']
             company = request.form['company']
             url = request.form['url']
@@ -20,15 +21,27 @@ def dataUpload():
             pricing = request.form['pricing']
             platform = request.form['platform']
             category = request.form['category']
-            cursor.execute('SELECT * FROM Tools WHERE name = %s AND company = %s', (name, company))
-            tool = cursor.fetchone()
-            if tool:
+            # description = request.form['description']
+            cursor.execute('SELECT * FROM Tools WHERE name = %s', (name,))
+            tool_name = cursor.fetchone()
+            # Check if tool already exists
+            if tool_name:
                 uploadMessage = "Tool already exists"
                 print(uploadMessage)
             else:
+                id_user = current_user.id
+                print(f"USER ID: {id_user}")
+
+                cursor.execute("INSERT INTO Company (idAccount, company_name, website) " \
+                "Values(%s, %s, %s)", (id_user, company, url ))
+                
+                cursor.execute("SELECT idAccount FROM Company " \
+                "WHERE company_name = %s AND website = %s", (company, url))
+                company_id = cursor.fetchone()['idAccount']
                 cursor.execute("INSERT INTO Tools (name, company, url, thumbnail_url, " \
-                "version, pricing) Values (%s, %s, %s, %s, %s, %s)", (name, company, url, thumbnailUrl, version, pricing))
-                cursor.execute("SELECT idTool FROM Tools WHERE name = %s AND company = %s",(name, company))
+                "version, pricing) Values (%s, %s, %s, %s, %s, %s)", 
+                (name, company_id, url, thumbnailUrl, version, pricing)) # ADD DESCRIPTION ONCE FRONTEND ADDS TO FORM
+                cursor.execute("SELECT idTool FROM Tools WHERE name = %s AND company = %s",(name, company_id))
                 toolId = cursor.fetchone()['idTool']
                 cursor.execute("Select idCategory FROM Category WHERE name = %s", (category,))
                 categoryId = cursor.fetchone()['idCategory']
