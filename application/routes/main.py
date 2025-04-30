@@ -34,7 +34,7 @@ def account():
 @main_bp.route('/settings')
 @login_required
 def settings():
-    return render_template('settings.html', title=title)
+    return render_template('settings.html', title="Settings")
 
 
  # When possible this should be moved into its own file to keep up with our

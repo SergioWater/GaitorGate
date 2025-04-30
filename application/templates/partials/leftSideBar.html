@@ -3,30 +3,17 @@
     <nav>
         <ul class="left-nav">
             {% if session.username %}
-            {% if session.account_type == 'admin' %}
-            <li>
-                <a href="/dataUpload" class="data_upload">
-                    <div class="icon-container">
-                        <img src="/static/imgs/upload.png" alt="Data Upload Icon" class="sidebar-icon">
-                    </div>
-                    Upload
-                </a>
-            </li>
-            {% else %}
-            {% endif %}
-            {% endif %}
-
-
-            {% if session.username %}
-            <li>
-                <a href="/dataUpload" class="data_upload">
-                    <div class="icon-container">
-                        <img src="/static/imgs/upload.png" alt="Data Upload Icon" class="sidebar-icon">
-                    </div>
-                    Upload
-                </a>
-            </li>
-            {% else %}
+                {% if session.account_type == 'Company' %}
+                <li>
+                    <a href="/dataUpload" class="data_upload">
+                        <div class="icon-container">
+                            <img src="/static/imgs/upload.png" alt="Data Upload Icon" class="sidebar-icon">
+                        </div>
+                        Upload
+                    </a>
+                </li>
+                {% else %}
+                {% endif %}
             {% endif %}
             <li>
                 <a href="/mainSearch" class="new_search">
@@ -36,15 +23,6 @@
                     Search
                 </a>
             </li>
-            <!-- Left in here in case we come back to it after P1s are done and we have time
-            <li>
-                <a href="/" class="predictive_search">
-                    <div class="icon-container">
-                        <img src="/static/imgs/predict.png" alt="Predictive Search Icon" class="sidebar-icon">
-                    </div>
-                    AI Predict
-                </a>
-            </li>-->
             <li>
                 <a href="/history" class="history">
                     <div class="icon-container">

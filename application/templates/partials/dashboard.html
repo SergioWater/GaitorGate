@@ -2,12 +2,12 @@
     <div class=" organizer">
         <div class="dash-info">
             {% if session.username %}
-            {% if session.account_type == 'admin' %}
+            {% if session.account_type == 'Company' %}
             <div class="admin-info">
                 {% include 'partials/admin-dash.html' %}
             </div>
             {% endif %}
-            {% if session.account_type == 'user' %}
+            {% if session.account_type == 'General' or session.account_type == 'Student' %}
             <div class="user-info">
                 {% include 'partials/user-dash.html' %}
             </div>
