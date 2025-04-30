@@ -25,7 +25,7 @@ def mainSearch():
 def account():
     conn = current_app.config['MYSQL'].connection
     cursor = conn.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute("SELECT username, email FROM Account WHERE idAccount = %s", (current_user.id,))
+    cursor.execute("SELECT username, email, Account_Type FROM Account WHERE idAccount = %s", (current_user.id,))
     account_info = cursor.fetchone()
     cursor.close()
     title = f"{account_info['username']}'s Account"
@@ -34,7 +34,7 @@ def account():
 @main_bp.route('/settings')
 @login_required
 def settings():
-    return render_template('settings.html', title="Settings")
+    return render_template('settings.html', title="title")
 
 
  # When possible this should be moved into its own file to keep up with our

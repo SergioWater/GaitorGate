@@ -18,7 +18,7 @@ def login():
 
         conn = current_app.config['MYSQL'].connection
         cursor = conn.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute("SELECT idAccount, username, hashed_password FROM Account WHERE username = %s", (username,))
+        cursor.execute("SELECT idAccount, username, Account_Type, hashed_password FROM Account WHERE username = %s", (username,))
         user_data = cursor.fetchone()
         cursor.close()
         

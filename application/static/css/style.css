@@ -239,7 +239,8 @@ form .search-form {
 
 .filter-dropdown,
 .add-filter-button,
-.remove-filter-button {
+.remove-filter-button,
+.role-dropdown {
   background-color: #38635a;
   color: #f0f0f0;
   padding: clamp(8px, 1.25vw, 10px);
@@ -252,7 +253,14 @@ form .search-form {
   text-align-last: center;
 }
 
-.filter-dropdown:hover {
+.role-dropdown {
+  width: 100%;
+}
+
+.filter-dropdown:hover,
+.add-filter-button:hover,
+.remove-filter-button:hover,
+.role-dropdown:hover {
   background-color: #53565a;
 }
 
