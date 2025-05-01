@@ -22,9 +22,12 @@
         </div>
 
         {% set index_id = item.idIndex %}
-        {% include 'partials/favorite-button.html' %}
-        {% include 'partials/rating-form.html' %}
-        {% include 'partials/review-form.html' %}
+        {% if session.username %}
+            {% include 'partials/favorite-button.html' %}
+            {% include 'partials/rating-form.html' %}
+            {% include 'partials/review-form.html' %}
+        {% else %}
+        {% endif %}
         </br>
     </div>
     {% endfor %}

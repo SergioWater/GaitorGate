@@ -12,25 +12,25 @@
                 </a>
             </li>
             {% else %}
-            {% if session.username %}
-            <li>
-                <a href="/account" class="profile-link">
-                    <div class="icon-container">
-                        <img src="/static/imgs/user.png" alt="Profile Picture" class="sidebar-icon">
-                    </div>
-                    {{ session.username }}
-                </a>
-            </li>
-            {% else %}
-            <li>
-                <a href="/login" class="profile-link">
-                    <div class="icon-container">
-                        <img src="/static/imgs/user.png" alt="Log In Icon" class="sidebar-icon">
-                    </div>
-                    Log In
-                </a>
-            </li>
-            {% endif %}
+                {% if session.username %}
+                <li>
+                    <a href="/account" class="profile-link">
+                        <div class="icon-container">
+                            <img src="/static/imgs/user.png" alt="Profile Picture" class="sidebar-icon">
+                        </div>
+                        {{ session.username }}
+                    </a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="/login" class="profile-link">
+                        <div class="icon-container">
+                            <img src="/static/imgs/user.png" alt="Log In Icon" class="sidebar-icon">
+                        </div>
+                        Log In
+                    </a>
+                </li>
+                {% endif %}
             {% endif %}
             <!-- Left in here in case we come back to it after P1s are done and we have time
             <li>
@@ -41,6 +41,7 @@
                     Alli Chat
                 </a>
             </li>-->
+            {% if session.username %}
             <li>
                 <a href="/saved" class="saved">
                     <div class="icon-container">
@@ -49,18 +50,20 @@
                     Saved
                 </a>
             </li>
-            {% if session.username %}
-            {% if session.Account_Type == 'Company' %}
-            <li>
-                <a href="/settings" class="settings">
-                    <div class="icon-container">
-                        <img src="/static/imgs/settings.png" alt="Settings Icon" class="sidebar-icon">
-                    </div>
-                    Settings
-                </a>
-            </li>
             {% else %}
             {% endif %}
+            {% if session.username %}
+                {% if session.Account_Type == 'Company' %}
+                <li>
+                    <a href="/settings" class="settings">
+                        <div class="icon-container">
+                            <img src="/static/imgs/settings.png" alt="Settings Icon" class="sidebar-icon">
+                        </div>
+                        Settings
+                    </a>
+                </li>
+                {% else %}
+                {% endif %}
             {% endif %}
         </ul>
     </nav>

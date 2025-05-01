@@ -26,7 +26,8 @@ def login():
             from app import User
             user = User.get(user_data['idAccount'])
             login_user(user)
-            session['username'] = user_data['username']  # Store the username in the session
+            session['username'] = user_data['username']  
+            session['Account_Type'] = user_data['Account_Type']  
             print(f"Successfully logged in as: {session['username']}")
             return redirect(url_for('main.account')) 
              

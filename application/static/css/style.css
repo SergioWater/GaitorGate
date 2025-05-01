@@ -4,72 +4,63 @@
 
 @font-face {
   font-family: "Source Sans 3";
-  src: url("static/fonts/Source_Sans_3/static/SourceSans3-Regular.ttf")
-    format("truetype");
+  src: url("static/fonts/Source_Sans_3/static/SourceSans3-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Source Sans 3";
-  src: url("static/fonts/Source_Sans_3/static/SourceSans3-Bold.ttf")
-    format("truetype");
+  src: url("static/fonts/Source_Sans_3/static/SourceSans3-Bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Source Sans 3";
-  src: url("static/fonts/Source_Sans_3/static/SourceSans3-Italic.ttf")
-    format("truetype");
+  src: url("static/fonts/Source_Sans_3/static/SourceSans3-Italic.ttf") format("truetype");
   font-weight: normal;
   font-style: italic;
 }
 
 @font-face {
   font-family: "Cormorant Garamond";
-  src: url("static/fonts/Cormorant_Garamond/static/CormorantGaramond-Regular.ttf")
-    format("truetype");
+  src: url("static/fonts/Cormorant_Garamond/static/CormorantGaramond-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Cormorant Garamond";
-  src: url("static/fonts/Cormorant_Garamond/static/CormorantGaramond-Bold.ttf")
-    format("truetype");
+  src: url("static/fonts/Cormorant_Garamond/static/CormorantGaramond-Bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Cormorant Garamond";
-  src: url("static/fonts/Cormorant_Garamond/static/CormorantGaramond-Italic.ttf")
-    format("truetype");
+  src: url("static/fonts/Cormorant_Garamond/static/CormorantGaramond-Italic.ttf") format("truetype");
   font-weight: normal;
   font-style: italic;
 }
 
 @font-face {
   font-family: "Aktiv Grotesk";
-  src: url("static/fonts/Aktiv_Grotesk/static/AktivGrotesk-Regular.ttf")
-    format("truetype");
+  src: url("static/fonts/Aktiv_Grotesk/static/AktivGrotesk-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Aktiv Grotesk";
-  src: url("static/fonts/Aktiv_Grotesk/static/AktivGrotesk-Bold.ttf")
-    format("truetype");
+  src: url("static/fonts/Aktiv_Grotesk/static/AktivGrotesk-Bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Aktiv Grotesk";
-  src: url("static/fonts/Aktiv_Grotesk/static/AktivGrotesk-Italic.ttf")
-    format("truetype");
+  src: url("static/fonts/Aktiv_Grotesk/static/AktivGrotesk-Italic.ttf") format("truetype");
   font-weight: normal;
   font-style: italic;
 }
@@ -154,12 +145,12 @@ form .search-form {
 }
 
 .search-form .search-bar {
-    margin-right: 0;
-    margin-bottom: clamp(5px, 1.25vw, 10px);
-    width: 75%;
-    text-align: center;
-    justify-content: center;
-  }
+  margin-right: 0;
+  margin-bottom: clamp(5px, 1.25vw, 10px);
+  width: 75%;
+  text-align: center;
+  justify-content: center;
+}
 
 .sort-dropdown {
   background-color: #38635a;
@@ -197,19 +188,19 @@ form .search-form {
 
 @media (max-width: 1280px) {
   form .search-form {
-  align-items: center;
-  display: inline-flex;
-  min-width: 375px;
-  max-width: 500px;
-}
+    align-items: center;
+    display: inline-flex;
+    min-width: 375px;
+    max-width: 500px;
+  }
 
-.search-form {
+  .search-form {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: clamp(8px, 1vw, 16px);
   }
-  
+
 
   .search-form h2,
   .search-form .filter-dropdown,
@@ -309,7 +300,7 @@ form .search-form {
 }
 
 .gator {
-  background-color: #c99700;
+  background-color: #C99700;
   text-align: center;
   position: fixed;
   top: 0px;
@@ -334,10 +325,10 @@ h1 {
 }
 
 h2 {
-  font-family: "Aktiv Grotesk", sans-serif;
-  font-size: clamp(12px, 3vw, 24px);
+  font-family: 'Aktiv Grotesk', sans-serif;
+  font-size: clamp(18px, 3vw, 24px);
   text-decoration: underline;
-  margin-top: clamp(36px, 8vw, 128px);
+  margin-top: clamp(32px, 8vw, 124px);
   margin-bottom: clamp(9px, 1.5vw, 18px);
   text-align: center;
 }
@@ -483,6 +474,12 @@ footer {
   word-break: break-word;
 }
 
+.view-link {
+  color: #933311;
+  font-size: clamp(14px, 1.25vw, 16px);
+  word-break: break-word;
+}
+
 .result-item a:hover {
   color: #38635a;
 }
@@ -518,8 +515,8 @@ footer {
 }
 
 .icon-container {
-  width: clamp(16px, 4vw, 48px);
-  height: clamp(16px, 4vw, 48px);
+  width: clamp(27px, 4vw, 48px);
+  height: clamp(27px, 4vw, 48px);
   margin-left: clamp(4px, 1vw, 8px);
   margin-right: clamp(4px, 1vw, 8px);
   vertical-align: middle;
@@ -538,8 +535,8 @@ footer {
 }
 
 .sidebar-icon {
-  width: clamp(8px, 2.5vw, 36px);
-  height: clamp(8px, 2.5vw, 36px);
+  width: clamp(21px, 2.5vw, 36px);
+  height: clamp(21px, 2.5vw, 36px);
   vertical-align: middle;
 }
 
@@ -559,6 +556,7 @@ footer {
 }
 
 @media (max-width: 1280px) {
+
   .left-nav li a,
   .right-nav li a {
     white-space: nowrap;
@@ -736,7 +734,6 @@ footer {
 }
 
 .paging {
-  margin-top: clamp(10px, 2.5vw, 20px);
   text-align: center;
   width: 100%;
   box-sizing: border-box;
@@ -812,10 +809,10 @@ footer {
   line-height: 1;
 }
 
-.star-rating input:checked + label,
-.star-rating input:checked + label ~ label,
+.star-rating input:checked+label,
+.star-rating input:checked+label~label,
 .star-rating label:hover,
-.star-rating label:hover ~ label {
+.star-rating label:hover~label {
   color: #463077;
 }
 
@@ -920,12 +917,34 @@ footer {
   width: 100%;
 }
 
+.favorite-item {
+  background-color: rgba(83, 86, 90, 0.125);
+  border-radius: clamp(4px, 1vw, 8px);
+  padding: clamp(8px, 2vw, 16px);
+  margin-bottom: clamp(5px, 1.25vw, 10px);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
 .tool-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+  width: 37.5%;
+  margin-top: clamp(36px, 8vw, 128px);
+  margin-bottom: clamp(36px, 8vw, 128px);
+  background-color: rgba(83, 86, 90, 0.125);
+  border-radius: clamp(4px, 1vw, 8px);
+  padding: clamp(8px, 2vw, 16px);
   font-family: Arial, sans-serif;
   line-height: 1.6;
+}
+
+.tool-container h2 {
+  margin-top: clamp(24px, 8vw, 36px);
+}
+
+.tool-container h4 {
+  margin-top: clamp(6px, 8vw, 18px);
 }
 
 .tool-header {
@@ -936,12 +955,16 @@ footer {
 }
 
 .tool-link {
-  color: #0066cc;
-  text-decoration: none;
+  color: #933311;
+  font-size: clamp(14px, 1.25vw, 16px);
+  word-break: break-word;
+}
+
+.tool-link:hover {
+  color: #38635a;
 }
 
 .tool-thumbnail {
-  max-width: 200px;
   border-radius: 8px;
   margin-bottom: 20px;
 }
@@ -983,22 +1006,22 @@ footer {
   gap: 10px;
   margin: 15px 0;
   color: #555;
-}
-
-.tool-description {
-  margin: 20px 0;
   padding: 15px;
   background: #f8f8f8;
   border-radius: 8px;
 }
 
-.tool-reviews {
-  margin-top: 30px;
+.tool-description {
+  padding: 15px;
+  background: #f8f8f8;
+  border-radius: 8px;
 }
 
 .review {
-  border-bottom: 1px solid #eee;
-  padding: 15px 0;
+  margin: 20px 0;
+  padding: 15px;
+  background: #f8f8f8;
+  border-radius: 8px;
 }
 
 .review-header {
@@ -1032,6 +1055,92 @@ footer {
 
 .tool-title:hover {
   color: #38635a;
+}
+
+@media (max-width: 1280px) {
+
+  .tool-container {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: clamp(32px, 8vw, 96px);
+    margin-bottom: clamp(36px, 1.5vw, 54px);
+    /* Increase padding for better touch targets */
+  }
+
+  .tool-container h2 {
+    margin-top: clamp(12px, 8vw, 24px);
+  }
+
+  /* Adjust tool header to center text */
+  .tool-header {
+    justify-content: center;
+    flex-direction: column;
+    /* Stack title and link if needed */
+    align-items: center;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  /* Make tool link more prominent and centered */
+  .tool-link {
+    font-size: clamp(16px, 1.5vw, 18px);
+    text-align: center;
+    display: block;
+    /* Make it take full width if stacked */
+    margin-top: 5px;
+    /* Add some space if stacked */
+  }
+
+  /* Center the thumbnail */
+  .tool-thumbnail {
+    max-width: 80%;
+    display: block;
+    margin: 0 auto 15px auto;
+  }
+
+  /* Adjust the grid layout for tool body to be single column */
+  .tool-body {
+    grid-template-columns: 1fr;
+    /* Single column layout */
+    gap: clamp(8px, 2vw, 16px);
+    margin: clamp(10px, 3vw, 20px) 0;
+  }
+
+  /* Increase padding and text size for description */
+  .tool-description {
+    padding: clamp(15px, 3vw, 25px);
+    font-size: clamp(14px, 1.1vw, 16px);
+    margin: clamp(15px, 3vw, 25px) 0;
+  }
+
+  /* Center the actions */
+  .tool-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+    /* Allow buttons to wrap onto new lines */
+    gap: clamp(10px, 2vw, 15px);
+    margin-top: 20px;
+  }
+
+  .registration-form,
+  .login-form,
+  .upload-form {
+    background-color: #f0f0f0;
+    padding: clamp(16px, 4vw, 32px);
+    border-radius: clamp(4px, 1vw, 8px);
+    box-shadow: 0 0 10px rgba(96, 76, 17, 0.25);
+    max-width: clamp(320px, 60vw, 640px);
+    margin-top: clamp(12px, 3vw, 24px);
+    width: 50%;
+    box-sizing: border-box;
+  }
+
+  .favorite-item {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .star {

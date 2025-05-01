@@ -4,7 +4,7 @@
     </h2>
 
     {% if item.thumbnail_url %}
-    <img src="{{ item.thumbnail_url }}" alt="{{ item.name }} thumbnail" class="tool-thumbnail">
+    <img src="{{ item.thumbnail_url }}" alt="{{ item.name }} thumbnail" class="tool-thumbnail" height="21.25%" width="21.25%">
     {% endif %}
 
     <div class="tool-rating">
@@ -46,11 +46,13 @@
         {% endif %}
     </div>
 
-    <div class="tool-actions">
+    {% set index_id = item.idIndex %}
+    {% if session.username %}
         {% include 'partials/favorite-button.html' %}
         {% include 'partials/rating-form.html' %}
         {% include 'partials/review-form.html' %}
-    </div>
+    {% else %}
+    {% endif %}
 </div>
 
 <script src="{{ url_for('static', filename='js/stars.js') }}"></script>

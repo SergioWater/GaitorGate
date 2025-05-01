@@ -51,20 +51,21 @@ app.config['BCRYPT'] = bcrypt
 
 # User class for Flask-Login 
 class User(UserMixin):
-    def __init__(self, user_id, username, password,  email):
+    def __init__(self, user_id, username, password,  email, Account_Type):
         self.id = user_id
         self.username = username
         self.password = password
         self.email = email
+        self.Account_Type = Account_Type
 
     @staticmethod
     def get(user_id):
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT username, hashed_password, email FROM Account WHERE idAccount = %s', (user_id,))
+        cursor.execute('SELECT username, hashed_password, email, Account_Type FROM Account WHERE idAccount = %s', (user_id,))
         result = cursor.fetchone()
         cursor.close()
         if result:
-            return User(user_id, result['username'], result['hashed_password'], result['email'])
+            return User(user_id, result['username'], result['hashed_password'], result['email'], result['Account_Type'])
 
 # Flask-Login User Loader
 @login_manager.user_loader
