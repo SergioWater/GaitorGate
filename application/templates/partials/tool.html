@@ -9,9 +9,7 @@
 
     <div class="tool-rating">
         {% if average_rating %}
-        <span class="average-rating"
-            style="--rating: {{ (average_rating.average_rating or 0) / 5 * 100 }}%;">★★★★★</span>
-        <span class="rating-value">{{ average_rating | default(0) | round(2) }}</span>
+        <span class="rating-value">{{ average_rating | default(0) | round(2) }}/5</span>
         {% else %}
         <span class="no-rating">No ratings yet</span>
         {% endif %}
