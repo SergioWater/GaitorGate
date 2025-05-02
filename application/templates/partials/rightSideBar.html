@@ -6,7 +6,7 @@
             <li>
                 <a href="/logout" class="profile-link">
                     <div class="icon-container">
-                        <img src="/static/imgs/avatar.png" alt="Log Out Icon" class="sidebar-icon">
+                        <img src="/static/imgs/logout.png" alt="Log Out Icon" class="sidebar-icon">
                     </div>
                     Log Out
                 </a>
@@ -16,7 +16,7 @@
                 <li>
                     <a href="/account" class="profile-link">
                         <div class="icon-container">
-                            <img src="/static/imgs/user.png" alt="Profile Picture" class="sidebar-icon">
+                            <img src="{{ session.profile_pic_url }}" alt="Profile Picture" class="pfp-icon">
                         </div>
                         {{ session.username }}
                     </a>

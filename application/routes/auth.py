@@ -18,7 +18,7 @@ def login():
 
         conn = current_app.config['MYSQL'].connection
         cursor = conn.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute("SELECT idAccount, username, Account_Type, hashed_password FROM Account WHERE username = %s", (username,))
+        cursor.execute("SELECT profile_pic_url, idAccount, username, Account_Type, hashed_password FROM Account WHERE username = %s", (username,))
         user_data = cursor.fetchone()
         cursor.close()
         
@@ -26,6 +26,7 @@ def login():
             from app import User
             user = User.get(user_data['idAccount'])
             login_user(user)
+            session['profile_pic_url'] = user_data['profile_pic_url'] 
             session['username'] = user_data['username']  
             session['Account_Type'] = user_data['Account_Type']  
             print(f"Successfully logged in as: {session['username']}")
@@ -54,7 +55,8 @@ def register():
     conn = current_app.config['MYSQL'].connection
     cursor = conn.cursor(MySQLdb.cursors.DictCursor)
 
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
+    if request.method == 'POST' and 'profile_pic_url' in request.form and 'username' in request.form and 'password' in request.form and 'email' in request.form:
+        profile_pic_url = request.form['profile_pic_url']
         username = request.form['username']
         password = request.form['password']
         email = request.form['email']
@@ -105,9 +107,9 @@ def register():
             print(f"Password: {password}")
             print(f"Hashed Password: {hashed_password}")
             cursor.execute('''
-                INSERT INTO Account (idUser, idAccount, username, hashed_password, email)
-                VALUES (%s, %s, %s, %s, %s)
-            ''', (new_id_user, new_id_account, username, hashed_password, email))
+                INSERT INTO Account (profile_pic_url, idUser, idAccount, username, hashed_password, email)
+                VALUES (%s, %s, %s, %s, %s, %s)
+            ''', (profile_pic_url, new_id_user, new_id_account, username, hashed_password, email))
 
             conn.commit()
             registrationMessage = 'You have successfully registered!'

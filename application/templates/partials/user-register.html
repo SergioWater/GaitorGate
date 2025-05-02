@@ -8,6 +8,11 @@
 
     <form method="POST" action="/register" novalidate>
         <div class="registration-item">
+            <label for="thumbnailUrl">Thumbnail URL:</label>
+            <input type="url" name="thumbnailUrl" id="thumbnailUrl" placeholder="https://example.com/image.jpg" />
+        </div>
+        
+        <div class="registration-item">
             <label for="email">Email: </label>
             <input type="email" name="email" id="email" placeholder="user@email.ext" required />
         </div>

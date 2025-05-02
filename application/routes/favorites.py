@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, request, redirect, session, curren
 from flask_login import login_required, current_user
 import MySQLdb.cursors
 
+RESULTS_PER_PAGE = 3
+
 favorites_bp = Blueprint('favorites', __name__)
 
 @favorites_bp.route('/toggle_favorite', methods=['POST'])
@@ -93,15 +95,16 @@ def view_saved():
         """, (account_id,))
         
         favorites = cursor.fetchall()
+        total_results = len(favorites)
+        total_pages = (total_results + RESULTS_PER_PAGE - 1) // RESULTS_PER_PAGE
+
+        page = request.args.get("page", 1, type=int)
+        offset = (page - 1) * RESULTS_PER_PAGE
+        data = favorites[offset : offset + RESULTS_PER_PAGE]
         cursor.close()
         
         title = f"{username}'s Favorites"
-        return render_template(
-            'saved.html',
-            data=favorites,
-            user={'username': username, 'email': email},
-            title=title
-        )
+        return render_template('saved.html', data=data, user={'username': username, 'email': email}, title=title, current_page=page, total_pages=total_pages)
 
 @favorites_bp.route('/clear_favorites', methods=['POST'])
 @login_required

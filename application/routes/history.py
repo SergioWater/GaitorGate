@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from markupsafe import escape
 import MySQLdb.cursors
 
-RESULTS_PER_PAGE = 12
+RESULTS_PER_PAGE = 8
 
 history_bp = Blueprint("history", __name__)
 

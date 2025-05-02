@@ -14,7 +14,7 @@
                     {% endfor %}
                     <button type="button" onclick="clearHistory(); return false;" class="favorite-button">Clear History</button>
                 </ul>
-                <div class="paging">
+                <div class="user-paging">
                     {% if total_pages > 1 %}
                         {% if current_page > 1 %}
                             <a href="{{ url_for('history.history', page=current_page - 1) }}">Previous</a>

@@ -480,6 +480,11 @@ footer {
   word-break: break-word;
 }
 
+.view-link:hover {
+  color: #38635a;
+  font-size: clamp(18px, 1.25vw, 24px);
+}
+
 .result-item a:hover {
   color: #38635a;
 }
@@ -521,7 +526,7 @@ footer {
   margin-right: clamp(4px, 1vw, 8px);
   vertical-align: middle;
   border-radius: 50%;
-  background-color: rgba(83, 86, 90, 0.925);
+  background-color: rgba(83, 86, 90, 1);
   border: clamp(4px, 0.5vw, 8px) solid #604c11;
   display: inline-flex;
   justify-content: center;
@@ -535,6 +540,14 @@ footer {
 }
 
 .sidebar-icon {
+  border-radius: 37.5%;
+  width: clamp(21px, 2.5vw, 36px);
+  height: clamp(21px, 2.5vw, 36px);
+  vertical-align: middle;
+}
+
+.pfp-icon {
+  border-radius: 50%;
   width: clamp(21px, 2.5vw, 36px);
   height: clamp(21px, 2.5vw, 36px);
   vertical-align: middle;
@@ -764,6 +777,38 @@ footer {
   color: #ffffff;
 }
 
+.user-paging {
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: clamp(48px, 3vw, 128px);
+}
+
+.user-paging a,
+.user-paging span,
+.user-paging .current-page {
+  font-size: clamp(18px, 3vw, 24px);
+  display: inline-block;
+  padding: clamp(4px, 1vw, 8px) clamp(8px, 2vw, 12px);
+  margin-right: clamp(2px, 0.5vw, 5px);
+  border: 1px solid #ccc;
+  text-decoration: none;
+  color: #333;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.user-paging .current-page {
+  background-color: #38635a;
+  color: #ffffff;
+}
+
+.user-paging a:hover,
+.user-paging span:hover {
+  background-color: #604c11;
+  color: #ffffff;
+}
+
 .error-message {
   color: #933311;
   background-color: #f4f4f4;
@@ -922,10 +967,13 @@ footer {
   border-radius: clamp(4px, 1vw, 8px);
   padding: clamp(8px, 2vw, 16px);
   margin-bottom: clamp(5px, 1.25vw, 10px);
-  text-align: left;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .tool-container {
