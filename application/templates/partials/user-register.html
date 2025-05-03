@@ -31,6 +31,54 @@
             </select>
         </div>
 
+        <div id="student_fields" style="display:none;">
+            <div class="registration-item">
+                <label for="university">University:</label>
+                <input type="text" name="university" id="university" placeholder="University" />
+            </div>
+            <div class="registration-item">
+                <label for="major">Major:</label>
+                <input type="text" name="major" id="major" placeholder="Major" />
+            </div>
+            <div class="registration-item">
+                <label for="graduation_year">Graduation Year:</label>
+                <input type="text" name="graduation_year" id="graduation_year" placeholder="Graduation Year" />
+            </div>
+            <div class="registration-item">
+                <label for="category">Category:</label>
+                <select name="category" id="category">
+                    <option value="Academic Assistance">Academic Assistance</option>
+                    <option value="Creative Applications">Creative Applications</option>
+                    <option value="Productivity & Workflow">Productivity & Workflow</option>
+                    <option value="Code Assistance">Code Assistance</option>
+                    <option value="Career Development">Career Development</option>
+                    <option value="Mental Health Support">Mental Health Support</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="company_fields" style="display:none;">
+            <div class="registration-item">
+                <label for="company_name">Company Name:</label>
+                <input type="text" name="company_name" id="company_name" placeholder="Company Name" />
+            </div>
+            <div class="registration-item">
+                <label for="description">Description:</label>
+                <textarea name="description" id="description" placeholder="Company Description"></textarea>
+            </div>
+            <div class="registration-item">
+                <label for="category">Category:</label>
+                <select name="category" id="category">
+                    <option value="Academic Assistance">Academic Assistance</option>
+                    <option value="Creative Applications">Creative Applications</option>
+                    <option value="Productivity & Workflow">Productivity & Workflow</option>
+                    <option value="Code Assistance">Code Assistance</option>
+                    <option value="Career Development">Career Development</option>
+                    <option value="Mental Health Support">Mental Health Support</option>
+                </select>
+            </div>
+        </div>
+
         <div class="registration-item">
             <label for="password">Password: </label>
             <input type="password" name="password" id="password" placeholder="Password" required />
@@ -48,3 +96,5 @@
         </div>
     </form>
 </div>
+
+<script src="{{ url_for('static', filename='js/registrationForm.js') }}"></script>
