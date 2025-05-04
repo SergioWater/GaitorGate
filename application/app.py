@@ -7,6 +7,7 @@ from flask_bcrypt import Bcrypt
 import MySQLdb.cursors
 import re
 from markupsafe import escape
+from flask_mail import Mail
 
 from routes.main import main_bp
 from routes.search import search_bp
@@ -48,6 +49,17 @@ login_manager.init_app(app)
 #login_manager.login_view = 'auth.login' #rememme asdsaasdadaadad
 bcrypt = Bcrypt(app)  
 app.config['BCRYPT'] = bcrypt
+
+# Email Configuration
+app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.gmail.com')
+app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
+app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', 'True').lower() in ('true', '1', 't')
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', '')  
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', '') 
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER', 'noreply@gaitorgate.com')  # Should match MAIL_USERNAME
+app.config['SECURITY_PASSWORD_SALT'] = os.environ.get('SECURITY_PASSWORD_SALT', 'email-confirm-salt')
+mail = Mail(app)
+app.config['MAIL'] = mail
 
 # User class for Flask-Login 
 class User(UserMixin):

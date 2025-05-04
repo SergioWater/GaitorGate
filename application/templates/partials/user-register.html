@@ -8,8 +8,8 @@
 
     <form method="POST" action="/register" novalidate>
         <div class="registration-item">
-            <label for="thumbnailUrl">Thumbnail URL:</label>
-            <input type="url" name="thumbnailUrl" id="thumbnailUrl" placeholder="https://example.com/image.jpg" />
+            <label for="profile_pic_url">Thumbnail URL:</label>
+            <input type="url" name="profile_pic_url" id="profile_pic_url" placeholder="https://example.com/image.jpg" />
         </div>
         
         <div class="registration-item">
@@ -23,18 +23,17 @@
         </div>
 
         <div class="registration-item">
-            <label for="user_type">Account Type:</label>
-            <select name="user_type" id="user_type" class="role-dropdown">
-                <option class="dropdown-option" value="General" selected>General</option>
-                <option class="dropdown-option" value="Student">Student</option>
+            <label for="account_type">Account Type:</label>
+            <select name="account_type" id="account_type" class="role-dropdown">
+                <option class="dropdown-option" value="Student" selected>Student</option>
                 <option class="dropdown-option" value="Company">Company</option>
             </select>
         </div>
 
-        <div id="student_fields" style="display:none;">
+        <div id="student_fields">
             <div class="registration-item">
                 <label for="university">University:</label>
-                <input type="text" name="university" id="university" placeholder="University" />
+                <input type="text" name="university" id="university" placeholder="University" value="SFSU" />
             </div>
             <div class="registration-item">
                 <label for="major">Major:</label>
@@ -44,17 +43,6 @@
                 <label for="graduation_year">Graduation Year:</label>
                 <input type="text" name="graduation_year" id="graduation_year" placeholder="Graduation Year" />
             </div>
-            <div class="registration-item">
-                <label for="category">Category:</label>
-                <select name="category" id="category">
-                    <option value="Academic Assistance">Academic Assistance</option>
-                    <option value="Creative Applications">Creative Applications</option>
-                    <option value="Productivity & Workflow">Productivity & Workflow</option>
-                    <option value="Code Assistance">Code Assistance</option>
-                    <option value="Career Development">Career Development</option>
-                    <option value="Mental Health Support">Mental Health Support</option>
-                </select>
-            </div>
         </div>
 
         <div id="company_fields" style="display:none;">
@@ -63,19 +51,12 @@
                 <input type="text" name="company_name" id="company_name" placeholder="Company Name" />
             </div>
             <div class="registration-item">
-                <label for="description">Description:</label>
-                <textarea name="description" id="description" placeholder="Company Description"></textarea>
+                <label for="website">Website:</label>
+                <input type="url" name="website" id="website" placeholder="https://example.com" />
             </div>
             <div class="registration-item">
-                <label for="category">Category:</label>
-                <select name="category" id="category">
-                    <option value="Academic Assistance">Academic Assistance</option>
-                    <option value="Creative Applications">Creative Applications</option>
-                    <option value="Productivity & Workflow">Productivity & Workflow</option>
-                    <option value="Code Assistance">Code Assistance</option>
-                    <option value="Career Development">Career Development</option>
-                    <option value="Mental Health Support">Mental Health Support</option>
-                </select>
+                <label for="description">Description:</label>
+                <textarea name="description" id="description" placeholder="Company Description"></textarea>
             </div>
         </div>
 
@@ -97,4 +78,26 @@
     </form>
 </div>
 
-<script src="{{ url_for('static', filename='js/registrationForm.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const accountTypeSelect = document.getElementById('account_type');
+    const studentFields = document.getElementById('student_fields');
+    const companyFields = document.getElementById('company_fields');
+    
+    function toggleFields() {
+        if (accountTypeSelect.value === 'Student') {
+            studentFields.style.display = 'block';
+            companyFields.style.display = 'none';
+        } else if (accountTypeSelect.value === 'Company') {
+            studentFields.style.display = 'none';
+            companyFields.style.display = 'block';
+        }
+    }
+    
+    // Initial toggle based on default selection
+    toggleFields();
+    
+    // Add event listener for changes
+    accountTypeSelect.addEventListener('change', toggleFields);
+});
+</script>
