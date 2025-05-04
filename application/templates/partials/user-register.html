@@ -25,7 +25,8 @@
         <div class="registration-item">
             <label for="account_type">Account Type:</label>
             <select name="account_type" id="account_type" class="role-dropdown">
-                <option class="dropdown-option" value="Student" selected>Student</option>
+                <option class="dropdown-option" value="General" selected>General</option>
+                <option class="dropdown-option" value="Student">Student</option>
                 <option class="dropdown-option" value="Company">Company</option>
             </select>
         </div>
@@ -91,6 +92,10 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (accountTypeSelect.value === 'Company') {
             studentFields.style.display = 'none';
             companyFields.style.display = 'block';
+        } else {
+            // For General account type
+            studentFields.style.display = 'none';
+            companyFields.style.display = 'none';
         }
     }
     

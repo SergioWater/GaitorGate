@@ -25,10 +25,11 @@ def login():
         cursor.close()
         
         if user_data and bcrypt.check_password_hash(user_data['hashed_password'], password):
-            if not user_data.get('is_verified', 0):
-                loginMessage = 'Please verify your email before logging in.'
-                print(loginMessage)
-                return render_template('login.html', loginMessage=loginMessage, title='Log In')
+            # Comment out email verification check to allow all logins
+            # if not user_data.get('is_verified', 0):
+            #     loginMessage = 'Please verify your email before logging in.'
+            #     print(loginMessage)
+            #     return render_template('login.html', loginMessage=loginMessage, title='Log In')
             
             from app import User
             user = User.get(user_data['idAccount'])
@@ -67,8 +68,7 @@ def register():
         username = request.form['username']
         password = request.form['password']
         email = request.form['email']
-        account_type = request.form.get('account_type', 'Student')  # Default to Student if not specified
-
+        account_type = request.form.get('account_type', 'General')  
         cursor.execute('SELECT * FROM Account WHERE username = %s', (username,))
         check_username = cursor.fetchone()
 
@@ -124,7 +124,7 @@ def register():
                     print("Account table has is_verified column, using modified INSERT")
                     cursor.execute('''
                         INSERT INTO Account (profile_pic_url, idUser, idAccount, username, hashed_password, email, Account_Type, is_verified)
-                        VALUES (%s, %s, %s, %s, %s, %s, %s, 0)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, 1)
                     ''', (profile_pic_url, new_id_user, new_id_account, username, hashed_password, email, account_type))
                 else:
                     print("Account table does NOT have is_verified column, using default INSERT")
@@ -161,13 +161,17 @@ def register():
                 conn.commit()
                 print("User and Account records inserted successfully")
                 
+                # Comment out email verification sending
                 # Try to send verification email
-                email_sent = send_verification_email(email, account_type)
+                # email_sent = send_verification_email(email, account_type)
                 
-                if email_sent:
-                    registrationMessage = 'Registration successful! Please check your email to verify your account.'
-                else:
-                    registrationMessage = 'Registration successful! However, we could not send a verification email. Please contact support.'
+                # if email_sent:
+                #     registrationMessage = 'Registration successful! Please check your email to verify your account.'
+                # else:
+                #     registrationMessage = 'Registration successful! However, we could not send a verification email. Please contact support.'
+                
+                # Instead, just show registration success message
+                registrationMessage = 'Registration successful! You can now log in.'
                 print(registrationMessage)
 
             except Exception as e:
