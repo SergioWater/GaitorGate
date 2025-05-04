@@ -7,6 +7,8 @@ upload_bp = Blueprint('upload', __name__)
 @upload_bp.route('/dataUpload', methods=['GET', 'POST'])
 @login_required
 def dataUpload():
+    if current_user.accountType != 'company':
+        return redirect(url_for('main.index'))
     uploadMessage = ''
     with current_app.app_context():  # <-- Add this context manager
         if request.method == "POST":
@@ -15,10 +17,14 @@ def dataUpload():
             # Get input from user
             name = request.form['name']
             company = request.form['company']
+            company_id = 6
+            #companyID = current_user.id
             url = request.form['url']
             thumbnailUrl = request.form['thumbnailUrl']
             version = request.form['version']
+            if not version: version = 1.0
             pricing = request.form['pricing']
+            if not pricing: pricing = 0.00
             platform = request.form['platform']
             category = request.form['category']
             # description = request.form['description']
@@ -29,20 +35,10 @@ def dataUpload():
                 uploadMessage = "Tool already exists"
                 print(uploadMessage)
             else:
-                id_user = current_user.id
-                print(f"USER ID: {id_user}")
-
-                cursor.execute("INSERT INTO Company (idAccount, company_name, website) " \
-                "Values(%s, %s, %s)", (id_user, company, url ))
-                
-                cursor.execute("SELECT idAccount FROM Company " \
-                "WHERE company_name = %s AND website = %s", (company, url))
-                company_id = cursor.fetchone()['idAccount']
                 cursor.execute("INSERT INTO Tools (name, company, url, thumbnail_url, " \
                 "version, pricing) Values (%s, %s, %s, %s, %s, %s)", 
                 (name, company_id, url, thumbnailUrl, version, pricing)) # ADD DESCRIPTION ONCE FRONTEND ADDS TO FORM
-                cursor.execute("SELECT idTool FROM Tools WHERE name = %s AND company = %s",(name, company_id))
-                toolId = cursor.fetchone()['idTool']
+                toolId = cursor.lastrowid
                 cursor.execute("Select idCategory FROM Category WHERE name = %s", (category,))
                 categoryId = cursor.fetchone()['idCategory']
                 cursor.execute("SELECT idPlatform FROM Platform WHERE name = %s", (platform,))
