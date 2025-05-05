@@ -7,17 +7,14 @@ upload_bp = Blueprint('upload', __name__)
 @upload_bp.route('/dataUpload', methods=['GET', 'POST'])
 @login_required
 def dataUpload():
-    if current_user.accountType != 'company':
-        return redirect(url_for('main.index'))
-    uploadMessage = ''
     with current_app.app_context():  # <-- Add this context manager
+        uploadMessage = ""
         if request.method == "POST":
             conn = current_app.config['MYSQL'].connection
             cursor = conn.cursor(MySQLdb.cursors.DictCursor)
             # Get input from user
             name = request.form['name']
-            company = request.form['company']
-            company_id = 6
+            company = current_user.id
             #companyID = current_user.id
             url = request.form['url']
             thumbnailUrl = request.form['thumbnailUrl']
@@ -37,7 +34,7 @@ def dataUpload():
             else:
                 cursor.execute("INSERT INTO Tools (name, company, url, thumbnail_url, " \
                 "version, pricing) Values (%s, %s, %s, %s, %s, %s)", 
-                (name, company_id, url, thumbnailUrl, version, pricing)) # ADD DESCRIPTION ONCE FRONTEND ADDS TO FORM
+                (name, company, url, thumbnailUrl, version, pricing)) # ADD DESCRIPTION ONCE FRONTEND ADDS TO FORM
                 toolId = cursor.lastrowid
                 cursor.execute("Select idCategory FROM Category WHERE name = %s", (category,))
                 categoryId = cursor.fetchone()['idCategory']
