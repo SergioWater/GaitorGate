@@ -2,8 +2,8 @@ const searchForm = document.querySelector(".search-form");
 const addFilterButton = document.querySelector(".add-filter-button");
 const removeFilterButton = document.querySelector(".remove-filter-button");
 const optionsData = {
-  categories: ["Writing & Editing", "Image Generation", "Productivity & Workflow", "Code Assistance", "Video & Audio Editing",
-               "Academic Assistance", "Productivity", "Career Development", "Mental Health Support", "Creative Applications"],
+  categories: ["Productivity & Workflow", "Code Assistance",
+               "Academic Assistance", "Career Development", "Mental Health Support", "Creative Applications"],
   platform: ["Web App", "Mobile App", "Browser Extension", "Desktop", "Software", "API"],
   publishing: ["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"],
 };

@@ -41,8 +41,10 @@ def search():
         conn = current_app.config["MYSQL"].connection
         cursor = conn.cursor(MySQLdb.cursors.DictCursor)
 
-        filters = request.form.getlist("filters[]")
-        filter_options = request.form.getlist("filter-options[]")
+        filters = request.args.getlist("filters[]")
+        print("filters:", filters)
+        filter_options = request.args.getlist("filter-options[]")
+        print("filter options:", filter_options)
         query = request.args.get("search", request.form.get("search", "")).strip()
         page = request.args.get("page", 1, type=int)
         order_by = request.args.get("order_by", "rating")
@@ -72,6 +74,7 @@ def search():
 
             if selected_filter == "categories" and filter_option:
                 where_clauses.append("c.name = %s")
+                print("category filter option:", filter_option)
                 params.append(filter_option)
             elif selected_filter == "platform" and filter_option:
                 where_clauses.append("p.name = %s")
