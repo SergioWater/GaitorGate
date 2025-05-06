@@ -25,8 +25,6 @@ function createPlatformDropdown() {
     <option value="Web App">Web App</option>
     <option value="Mobile App">Mobile App</option>
     <option value="Browser Extension">Browser Extension</option>
-    <option value="Desktop">Desktop</option>
-    <option value="Software">Software</option>
     <option value="API">API</option>
   `;
 

@@ -22,8 +22,11 @@ def dataUpload():
             if not version: version = 1.0
             pricing = request.form['pricing']
             if not pricing: pricing = 0.00
-            platform = request.form['platform']
+            
+            platform_values = [v for k, v in request.form.items() if k.startswith("platform")]
+            print("Detected platforms:", platform_values)
             category = request.form['category']
+
             # description = request.form['description']
             cursor.execute('SELECT * FROM Tools WHERE name = %s', (name,))
             tool_name = cursor.fetchone()
@@ -38,12 +41,20 @@ def dataUpload():
                 toolId = cursor.lastrowid
                 cursor.execute("Select idCategory FROM Category WHERE name = %s", (category,))
                 categoryId = cursor.fetchone()['idCategory']
-                cursor.execute("SELECT idPlatform FROM Platform WHERE name = %s", (platform,))
-                platformId = cursor.fetchone()['idPlatform']
-                cursor.execute("""INSERT INTO SearchIndex (idTool, idCategory, idPlatform) 
-                               Values(%s, %s, %s)""", 
-                               (toolId, categoryId, platformId))
+                
+                cursor.execute("""INSERT INTO SearchIndex (idTool, idCategory) 
+                               Values(%s, %s)""", 
+                               (toolId, categoryId))
                 conn.commit()
+                indexId = cursor.lastrowid
+
+                for platform in platform_values:
+                    cursor.execute("Select idPlatform FROM Platform WHERE name = %s",(platform,))
+                    platformId = cursor.fetchone()['idPlatform']
+                    cursor.execute(""" INSERT INTO IndexPlatform (idIndex, idPlatform) VALUES (%s,%s)""",
+                               (indexId, platformId))
+                    conn.commit()
+
                 uploadMessage = "Tool successfully uploaded."
                 print(uploadMessage)
                 #return redirect("dataUpload.html", uploadMessage=uploadMessage)
