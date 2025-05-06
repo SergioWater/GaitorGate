@@ -120,7 +120,8 @@ def search():
             JOIN Tools t ON si.idTool = t.idTool
             LEFT JOIN Company Co ON t.company = Co.idAccount
             LEFT JOIN Category c ON si.idCategory = c.idCategory
-            LEFT JOIN Platform p ON si.idPlatform = p.idPlatform
+            LEFT JOIN IndexPlatform IP ON si.idIndex = IP.idIndex
+            JOIN Platform p ON IP.idPlatform = p.idPlatform
             LEFT JOIN Keywords_Indexes ki ON ki.IndexID = si.idIndex
             LEFT JOIN Keywords k ON ki.keywordID = k.idKeywords
             LEFT JOIN Rating r ON si.idIndex = r.idIndex
