@@ -1,0 +1,101 @@
+@import url(fonts.css);
+
+.recommended-container {
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .carousel {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .recommended-item {
+    flex: 0 0 auto;
+    width: 300px;
+    margin-right: 20px;
+    box-sizing: border-box;
+    background-color: rgba(83, 86, 90, 0.125);
+    border-radius: clamp(4px, 1vw, 8px);
+    padding: clamp(8px, 2vw, 16px);
+    margin-bottom: clamp(5px, 1.25vw, 10px);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .recommended-item:last-child {
+    margin-right: 0;
+  }
+  
+  .recommended-info {
+    color: #000000;
+    font-size: clamp(14px, 1.25vw, 16px);
+    word-break: break-word;
+  }
+  
+  .recommended-item a {
+    color: #933311;
+    font-size: clamp(14px, 1.25vw, 16px);
+    word-break: break-word;
+  }
+  
+  .recommended-item a:hover {
+    color: #38635a;
+  }
+  
+  .rotate-item {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+  }
+  
+  .rotate-item .carousel-button {
+    font-size: clamp(18px, 3vw, 24px);
+    display: inline-block;
+    padding: clamp(4px, 1vw, 8px) clamp(8px, 2vw, 12px);
+    margin-right: clamp(2px, 0.5vw, 5px);
+    border: 1px solid #ccc;
+    text-decoration: none;
+    color: #333;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background: none;
+    cursor: pointer;
+  }
+  
+  .rotate-item .carousel-button:hover {
+    background-color: #604c11;
+    color: #ffffff;
+  }
+  
+  .rotate-item .current-page {
+    background-color: #38635a;
+    color: #ffffff;
+    display: none;
+  }
+  
+  .carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease-in-out;
+  }
+  
+  .carousel-button:hover {
+    opacity: 1;
+  }
+  
+  .prev {
+    left: 10px;
+  }
+  
+  .next {
+    right: 10px;
+  }

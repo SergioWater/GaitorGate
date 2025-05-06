@@ -1,0 +1,67 @@
+@import url(fonts.css);
+
+.results-container {
+    flex-grow: 1;
+    background-color: #f0f0f0;
+    padding: clamp(16px, 4vw, 32px);
+    border-radius: clamp(4px, 1vw, 8px);
+    box-shadow: 0 0 10px rgba(96, 76, 17, 1);
+    width: 67.5%;
+    box-sizing: border-box;
+    margin-top: clamp(12px, 3vw, 24px);
+    margin-bottom: clamp(32px, 3vw, 80px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .result-item {
+    background-color: rgba(83, 86, 90, 0.125);
+    border-radius: clamp(4px, 1vw, 8px);
+    padding: clamp(8px, 2vw, 16px);
+    margin-bottom: clamp(5px, 1.25vw, 10px);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .result-item .result-info {
+    color: #000000;
+    font-size: clamp(14px, 1.25vw, 16px);
+    word-break: break-word;
+  }
+  
+  .result-item a {
+    color: #933311;
+    font-size: clamp(14px, 1.25vw, 16px);
+    word-break: break-word;
+  }
+  
+  .view-link {
+    color: #933311;
+    font-size: clamp(14px, 1.25vw, 16px);
+    word-break: break-word;
+  }
+  
+  .view-link:hover {
+    color: #38635a;
+    font-size: clamp(18px, 1.25vw, 24px);
+  }
+  
+  .result-item a:hover {
+    color: #38635a;
+  }
+  
+  #results-container .results-container {
+    display: block;
+    margin-top: clamp(10px, 2.5vw, 20px);
+    margin-left: auto;
+    margin-right: auto;
+    padding: clamp(5px, 1.25vw, 10px);
+    position: relative;
+    max-width: 1200px;
+    width: 100%;
+    box-sizing: border-box;
+  }
