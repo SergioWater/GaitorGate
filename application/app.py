@@ -17,7 +17,6 @@ from routes.upload import upload_bp
 from routes.history import history_bp
 from routes.favorites import favorites_bp
 from routes.view_tool import view_tool_bp
-from routes.dashboard import dashboard_bp
 
 app = Flask(__name__, instance_relative_config=True)
 
@@ -30,7 +29,6 @@ app.register_blueprint(upload_bp)
 app.register_blueprint(history_bp)
 app.register_blueprint(favorites_bp)
 app.register_blueprint(view_tool_bp)
-app.register_blueprint(dashboard_bp)
 
 app.secret_key = '5e2eef1ab7c2d3eb6d3057afacea039a330acf8ab35dfdf362b0a844cda25051'
 

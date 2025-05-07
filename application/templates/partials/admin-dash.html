@@ -2,40 +2,62 @@
     <div class="organizer">
         <div class="user-info">
             <h2>{{ title }}</h2>
-            {% if tool_summary %}
             <h3>Your Tools</h3>
-            <ul class="tool-list">
-                {% for tool in tool_summary %}
-                <li class="tool-item">
-                    Name: {{ tool.name }}<br>
-                    Description: {% if tool.description %}{{ tool.description|truncate(100) }}{% else %}No description available.{% endif %}<br>
-                    URL: <a href="{{ tool.url }}" target="_blank">{{ tool.url}}</a><br>
-                    Version: {{ tool.version }}<br>
-                    Pricing: {{ tool.pricing }}<br>
-                    {% if tool.thumbnail_url %}
-                    <img src="{{ tool.thumbnail_url }}" alt="Thumbnail" style="max-width: 100px; max-height: 100px;">
-                    {% endif %}
-                </li>
-                {% endfor %}
-            </ul>
-            {% else %}
-            <p>No tools listed for your company yet.</p>
-            {% endif %}
+            <div class="tool-container">
+                {% if tool_summary %}
+                <ul class="tool-list">
+                    {% for tool in tool_summary %}
+                        <p>
+                            <a href="{{ tool.url }}" target="_blank" class="tool-title">{{ tool.name }}</a>
+                        </p>
+                    
+                        {% if tool.thumbnail_url %}
+                        <img src="{{ tool.thumbnail_url }}" alt="{{ tool.name }} thumbnail" class="tool-thumbnail" height="21.25%" width="21.25%">
+                        {% endif %}
+                    
+                        <div class="tool-rating">
+                            {% if average_rating %}
+                            <span class="rating-value">{{ average_rating | default(0) | round(2) }}/5</span>
+                            {% else %}
+                            <span class="no-rating">No ratings yet</span>
+                            {% endif %}
+                        </div>
+                    
+                        <div class="tool-body">
+                            <div><strong>Version:</strong> {{ tool.version }}</div>
+                            <div><strong>Released:</strong> {{ tool.published_date }}</div>
+                            <div><strong>Platform:</strong> {{ tool.platform }}</div>
+                            <div><strong>Category:</strong> {{ tool.category }}</div>
+                            <div><strong>Price:</strong> {{ tool.pricing }}</div>
+                        </div>
+                    
+                        <div class="tool-description">
+                            {{ tool.description or "No description provided." }}
+                        </div>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>No tools listed for your company yet.</p>
+                {% endif %}
+            </div>
 
-            {% if reviews %}
             <h3>Recent Reviews for Your Tools</h3>
-            <ul class="review-list">
+            <div class="tool-reviews">
+                <h4>Reviews</h4>
+                {% if reviews %}
                 {% for review in reviews %}
-                <li class="review-item">
-                    Tool: {{ review.name }}<br>
-                    Review: "{{ review.review_text }}" <br>
-                    Date: {{ review.created_at }}
-                </li>
+                <div class="review">
+                    <div class="review-header">
+                        <span class="review-user">{{ review.name }}</span>
+                        <span class="review-date">{{ review.created_at }}</span>
+                    </div>
+                    <p class="review-text">{{ review.review_text }}</p>
+                </div>
                 {% endfor %}
-            </ul>
-            {% else %}
-            <p>No reviews for your tools yet.</p>
-            {% endif %}
+                {% else %}
+                <p>No reviews for your tools yet.</p>
+                {% endif %}
+            </div>
         </div>
     </div>
 </article>

@@ -18,13 +18,14 @@ def home():
             if account_type == 'Company':
                 print("IN DASHBOARD ROUTE IF BLOCK COMPANY")
                 # Display summary of Company's tool
-                cursor.execute("SELECT Company.company_name, Tools.name, " \
+                cursor.execute("SELECT Company.company_name, Tools.name, Tools.published_date, " \
                                "Company.website, Tools.url, Tools.thumbnail_url, Tools.version, " \
                                "Tools.pricing, Tools.description " \
                                "FROM Account " \
                                "JOIN Company ON Account.idAccount = Company.idAccount " \
                                "JOIN Tools ON Company.idAccount = Tools.company " \
                                "WHERE Account.idAccount = %s", (id_user,))
+
                 tool_summary_results = cursor.fetchall()
                 # Get reviews that were posted for this company
                 cursor.execute("SELECT Tools.name, Review.review_text, Review.created_at " \

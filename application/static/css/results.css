@@ -6,7 +6,7 @@
     padding: clamp(16px, 4vw, 32px);
     border-radius: clamp(4px, 1vw, 8px);
     box-shadow: 0 0 10px rgba(96, 76, 17, 1);
-    width: 67.5%;
+    width: 37.5%;
     box-sizing: border-box;
     margin-top: clamp(12px, 3vw, 24px);
     margin-bottom: clamp(32px, 3vw, 80px);
@@ -37,6 +37,10 @@
     color: #933311;
     font-size: clamp(14px, 1.25vw, 16px);
     word-break: break-word;
+  }
+
+  .result-info ul {
+    padding-bottom: 0px;
   }
   
   .view-link {
