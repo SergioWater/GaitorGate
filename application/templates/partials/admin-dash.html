@@ -2,40 +2,35 @@
     <div class="organizer">
         <div class="user-info">
             <h3>{{ title }}</h3>
-            {% if data %}
-                <ul class="search-results">
-                    {% for item in data %}
-                        <li class="result-item">
-                            <div class="result-info">
-                                <span class="label">Prompt:</span> {{ item[2] }}<br>
-                                <span class="label">Timestamp:</span> {{ item[3] }}
-                            </div>
+                {% if reviews %}
+                    <h3>Recent Reviews for Your Tools</h3>
+                    <ul class="review-list">
+                        {% for review in reviews %}
+                        <li class="review-item">
+                            Tool: {{ review.name }}<br>
+                            Review: "{{ review.review_text }}" <br>
+                            Date: {{ review.created_at }}
                         </li>
-                    {% endfor %}
-                </ul>
-                <div class="paging">
-                    {% if total_pages > 1 %}
-                        {% if current_page > 1 %}
-                            <a href="{{ url_for('history.history', page=current_page - 1) }}">Previous</a>
-                        {% endif %}
-
-                        {% for page in range(1, total_pages + 1) %}
-                            {% if page == current_page %}
-                                <span class="current-page">{{ page }}</span>
-                            {% else %}
-                                <a href="{{ url_for('history.history', page=page) }}">{{ page }}</a>
-                            {% endif %}
                         {% endfor %}
-
-                        {% if current_page < total_pages %}
-                            <a href="{{ url_for('history.history', page=current_page + 1) }}">Next</a>
-                        {% endif %}
-                    {% endif %}
-                </div>
-            {% elif request.method == 'POST' %}
-                <p class="no-results">No results found for your search.</p>
+                    </ul>
+                {% else %}
+                    <p>No reviews for your tools yet.</p>
+                {% endif %}
+                {% if reviews %}
+                    <h3>Recent Reviews You Posted</h3>
+                    <ul class="review-list">
+                        {% for review in reviews %}
+                        <li class="review-item">
+                            Review: "{{ review.review_text }}" <br>
+                            Date: {{ review.created_at }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>You haven't posted any reviews yet.</p>
+                {% endif %}
             {% else %}
-                <p class="no-history">Your search history is currently empty.</p>
+                <p>Please log in to view review history.</p>
             {% endif %}
         </div>
     </div>

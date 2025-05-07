@@ -28,6 +28,11 @@
         </div>
 
         <div class="upload-item">
+            <label for="description">Tool Description:</label>
+            <input type="text" name="description" id="description" placeholder="Official Tool Description" required />
+        </div>
+
+        <div class="upload-item">
             <label for="pricing">Pricing ($):</label>
             <input type="number" name="pricing" id="pricing" placeholder="0.00" step="0.01" min="0" />
         </div>
@@ -59,12 +64,8 @@
                 <option value="Mental Health Support">Mental Health Support</option>
                 <option value="Creative Applications">Creative Applications</option>
             </select>
-        </div>
 
-        <div class="button-row">
-            <button class="add-category-button">Add Category</button>
-            <button class="remove-category-button">Remove Category</button>
-          </div>
+        </div>
 
         <div class="uploading-button">
             <button class="upload-button" type="submit">Upload</button>

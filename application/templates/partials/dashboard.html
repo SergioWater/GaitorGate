@@ -1,21 +1,14 @@
 <div id="user-container" class="user-container">
-    <div class=" organizer">
+    <div class="organizer">
         <div class="dash-info">
-            {% if session.username %}
-            {% if session.account_type == 'Company' %}
-            <div class="admin-info">
-                {% include 'partials/admin-dash.html' %}
-            </div>
-            {% endif %}
-            {% if session.account_type == 'General' or session.account_type == 'Student' %}
-            <div class="user-info">
-                {% include 'partials/user-dash.html' %}
-            </div>
-            {% endif %}
+            {% if session.Account_Type == 'Company' %}
+            <p>Account Type from Session: Company</p>
             {% else %}
-            <div class="guest-info">
-                {% include 'partials/guest-dash.html' %}
-            </div>
+                {% if session.Account_Type == 'General' %}
+                <p>Account Type from Session: General or student</p>
+                {% else %}
+                <p>Account Type from Session: guest</p>
+                {% endif %}
             {% endif %}
         </div>
     </div>
