@@ -21,7 +21,8 @@ def view_tool():
                    FROM SearchIndex si
                    JOIN Tools t ON si.idTool = t.idTool
                    JOIN Category c ON si.idCategory = c.idCategory
-                   JOIN Platform p ON si.idPlatform = p.idPlatform
+                   JOIN IndexPlatform IP ON si.idIndex = IP.idIndex
+                   JOIN Platform p ON IP.idPlatform = p.idPlatform
                    WHERE si.idIndex = %s
                    """, (idIndex,))
     tool = cursor.fetchone()

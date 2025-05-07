@@ -77,20 +77,20 @@ def view_saved():
                 t.idTool,
                 t.description,
                 t.name,
-                t.company,
+                co.company_name AS company,
                 t.url,
                 t.thumbnail_url,
                 t.published_date,
                 t.pricing,
                 t.version,
-                c.name AS category,
-                p.name AS platform
+                c.name AS category
             FROM Favorite f
             JOIN SearchIndex si ON f.idIndex = si.idIndex
             JOIN Tools t ON si.idTool = t.idTool
             LEFT JOIN Category c ON si.idCategory = c.idCategory
-            LEFT JOIN Platform p ON si.idPlatform = p.idPlatform
+            JOIN Company co ON t.company = co.idAccount
             WHERE f.idAccount = %s
+            GROUP BY si.idIndex, t.idTool, t.description, t.name, t.company, t.url, t.thumbnail_url, t.published_date, t.pricing, t.version, c.name      
             ORDER BY f.idFavorite DESC
         """, (account_id,))
         

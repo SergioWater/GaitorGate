@@ -114,7 +114,6 @@ def search():
                 t.pricing,
                 t.version,
                 c.name AS category,
-                p.name AS platform,
                 AVG(r.rating) AS average_rating
             FROM SearchIndex si
             JOIN Tools t ON si.idTool = t.idTool
@@ -126,7 +125,7 @@ def search():
             LEFT JOIN Keywords k ON ki.keywordID = k.idKeywords
             LEFT JOIN Rating r ON si.idIndex = r.idIndex
             WHERE {}
-            GROUP BY si.idIndex, t.idTool, t.description, t.name, t.company, t.url, t.thumbnail_url, t.published_date, t.pricing, t.version, c.name, p.name
+            GROUP BY si.idIndex, t.idTool, t.description, t.name, t.company, t.url, t.thumbnail_url, t.published_date, t.pricing, t.version, c.name
             ORDER BY {}
         """.format(" AND ".join(where_clauses), order_by_statement)
         print("SQL:", sql)
