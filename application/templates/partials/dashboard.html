@@ -2,13 +2,11 @@
     <div class="organizer">
         <div class="dash-info">
             {% if session.Account_Type == 'Company' %}
-            <h2>Account Type from Session: Company</h2>
+            {% include 'partials/admin-dash.html' %}
+            {% elif session.Account_Type == 'General' %}
+            {% include 'partials/user-dash.html' %}
             {% else %}
-                {% if session.Account_Type == 'General' %}
-                <h2>Account Type from Session: General or student</h2>
-                {% else %}
-                <h2>Account Type from Session: guest</h2>
-                {% endif %}
+            {% include 'partials/guest-dash.html' %}
             {% endif %}
         </div>
     </div>

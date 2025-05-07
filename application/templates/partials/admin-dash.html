@@ -1,36 +1,40 @@
 <article class="search-history">
     <div class="organizer">
         <div class="user-info">
-            <h3>{{ title }}</h3>
-                {% if reviews %}
-                    <h3>Recent Reviews for Your Tools</h3>
-                    <ul class="review-list">
-                        {% for review in reviews %}
-                        <li class="review-item">
-                            Tool: {{ review.name }}<br>
-                            Review: "{{ review.review_text }}" <br>
-                            Date: {{ review.created_at }}
-                        </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>No reviews for your tools yet.</p>
-                {% endif %}
-                {% if reviews %}
-                    <h3>Recent Reviews You Posted</h3>
-                    <ul class="review-list">
-                        {% for review in reviews %}
-                        <li class="review-item">
-                            Review: "{{ review.review_text }}" <br>
-                            Date: {{ review.created_at }}
-                        </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>You haven't posted any reviews yet.</p>
-                {% endif %}
+            <h2>{{ title }}</h2>
+            {% if tool_summary %}
+            <h3>Your Tools</h3>
+            <ul class="tool-list">
+                {% for tool in tool_summary %}
+                <li class="tool-item">
+                    Name: {{ tool.name }}<br>
+                    Description: {% if tool.description %}{{ tool.description|truncate(100) }}{% else %}No description available.{% endif %}<br>
+                    URL: <a href="{{ tool.url }}" target="_blank">{{ tool.url}}</a><br>
+                    Version: {{ tool.version }}<br>
+                    Pricing: {{ tool.pricing }}<br>
+                    {% if tool.thumbnail_url %}
+                    <img src="{{ tool.thumbnail_url }}" alt="Thumbnail" style="max-width: 100px; max-height: 100px;">
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
             {% else %}
-                <p>Please log in to view review history.</p>
+            <p>No tools listed for your company yet.</p>
+            {% endif %}
+
+            {% if reviews %}
+            <h3>Recent Reviews for Your Tools</h3>
+            <ul class="review-list">
+                {% for review in reviews %}
+                <li class="review-item">
+                    Tool: {{ review.name }}<br>
+                    Review: "{{ review.review_text }}" <br>
+                    Date: {{ review.created_at }}
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>No reviews for your tools yet.</p>
             {% endif %}
         </div>
     </div>

@@ -51,6 +51,7 @@ def login():
 @login_required
 def logout():
     session.pop('username', None) # Remove the username from the session
+    session.pop('Account_Type', None)
     logout_user()
     return redirect(url_for('auth.login'))
 
