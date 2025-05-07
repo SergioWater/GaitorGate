@@ -27,7 +27,7 @@ def dataUpload():
             print("Detected platforms:", platform_values)
             category = request.form['category']
 
-            # description = request.form['description']
+            description = request.form['description']
             cursor.execute('SELECT * FROM Tools WHERE name = %s', (name,))
             tool_name = cursor.fetchone()
             # Check if tool already exists
@@ -36,8 +36,8 @@ def dataUpload():
                 print(uploadMessage)
             else:
                 cursor.execute("INSERT INTO Tools (name, company, url, thumbnail_url, " \
-                "version, pricing) Values (%s, %s, %s, %s, %s, %s)", 
-                (name, company, url, thumbnailUrl, version, pricing)) # ADD DESCRIPTION ONCE FRONTEND ADDS TO FORM
+                "version, pricing,description) Values (%s, %s, %s, %s, %s, %s,%s)", 
+                (name, company, url, thumbnailUrl, version, pricing,description)) # ADD DESCRIPTION ONCE FRONTEND ADDS TO FORM
                 toolId = cursor.lastrowid
                 cursor.execute("Select idCategory FROM Category WHERE name = %s", (category,))
                 categoryId = cursor.fetchone()['idCategory']
