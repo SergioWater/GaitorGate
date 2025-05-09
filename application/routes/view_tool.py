@@ -17,7 +17,7 @@ def view_tool():
     #get the tool information
     cursor.execute("""
                    SELECT t.name, t.description, t.url, t.thumbnail_url, t.published_date, 
-                   t.pricing, t.version, c.name as category, p.name as platform, si.idIndex
+                   t.pricing, t.version, c.name as category, GROUP_CONCAT(p.name SEPARATOR ', ') as platform, si.idIndex
                    FROM SearchIndex si
                    JOIN Tools t ON si.idTool = t.idTool
                    JOIN Category c ON si.idCategory = c.idCategory
