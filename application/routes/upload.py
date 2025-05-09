@@ -8,7 +8,7 @@ upload_bp = Blueprint('upload', __name__)
 @login_required
 def dataUpload():
     with current_app.app_context():  # <-- Add this context manager
-        uploadMessage = ""
+        upload_message = ""
         if request.method == "POST":
             conn = current_app.config['MYSQL'].connection
             cursor = conn.cursor(MySQLdb.cursors.DictCursor)
@@ -32,8 +32,8 @@ def dataUpload():
             tool_name = cursor.fetchone()
             # Check if tool already exists
             if tool_name:
-                uploadMessage = "Tool already exists"
-                print(uploadMessage)
+                upload_message = "Tool already exists"
+                print(upload_message)
             else:
                 cursor.execute("INSERT INTO Tools (name, company, url, thumbnail_url, " \
                 "version, pricing,description) Values (%s, %s, %s, %s, %s, %s,%s)", 
@@ -55,7 +55,66 @@ def dataUpload():
                                (indexId, platformId))
                     conn.commit()
 
-                uploadMessage = "Tool successfully uploaded."
-                print(uploadMessage)
+                upload_message = "Tool successfully uploaded."
+                print(upload_message)
                 #return redirect("dataUpload.html", uploadMessage=uploadMessage)
-        return render_template('dataUpload.html', title='Upload', uploadMessage=uploadMessage)
+        return render_template('dataUpload.html', title='Upload', uploadMessage=upload_message)
+
+
+
+@upload_bp.route('/dataUpdate', methods=['GET', 'POST'])
+@login_required
+def dataUpdate():
+    with current_app.app_context():  # <-- Add this context manager
+        update_message = ""
+        if request.method == "POST":
+            conn = current_app.config['MYSQL'].connection
+            cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+            tool_id = request.form.get('tool_id')
+            # Get input from user
+            name = request.form['name']
+            company = current_user.id
+            #companyID = current_user.id
+            url = request.form['url']
+            thumbnailUrl = request.form['thumbnailUrl']
+            version = request.form['version']
+            if not version: version = 1.0
+            pricing = request.form['pricing']
+            if not pricing: pricing = 0.00
+            
+            platform_values = [v for k, v in request.form.items() if k.startswith("platform")]
+            print("Detected platforms:", platform_values)
+            category = request.form['category']
+
+            description = request.form['description']
+
+            cursor.execute("""Update Tools SET name = %s, company = %s, url = %s, thumbnail_url = %s, 
+                            version = %s, pricing = %s, description = %s WHERE idTool = %s """, 
+                            (name, company, url, thumbnailUrl, version, pricing, description, tool_id))
+
+
+            cursor.execute("Select idCategory FROM Category WHERE name = %s", (category,))
+            category_id = cursor.fetchone()['idCategory']
+                
+            cursor.execute("""UPDATE SearchIndex SET idCategory = %s WHERE idTool = %s""", 
+                           (category_id, tool_id,))
+            conn.commit()
+            
+
+            cursor.execute("Select idIndex FROM SearchIndex WHERE idTool = %s", (tool_id,))
+            index_id = cursor.fetchone()['idIndex']
+
+
+            cursor.execute("DELETE FROM IndexPlatform WHERE idIndex = %s", (index_id,))
+
+
+            for platform in platform_values:
+                cursor.execute("Select idPlatform FROM Platform WHERE name = %s",(platform,))
+                platform_id = cursor.fetchone()['idPlatform']
+                cursor.execute("INSERT INTO IndexPlatform (idIndex, idPlatform) VALUES(%s, %s)" , (index_id, platform_id))
+                           
+                conn.commit()
+
+            update_message = "Tool successfully updated."
+            print(update_message)
+        return render_template('dataUpdate.html', title='Update', update_message=update_message)
