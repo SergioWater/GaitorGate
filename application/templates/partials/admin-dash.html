@@ -7,33 +7,34 @@
                 {% if tool_summary %}
                 <ul class="tool-list">
                     {% for tool in tool_summary %}
-                        <p>
-                            <a href="{{ tool.url }}" target="_blank" class="tool-title">{{ tool.name }}</a>
-                        </p>
-                    
-                        {% if tool.thumbnail_url %}
-                        <img src="{{ tool.thumbnail_url }}" alt="{{ tool.name }} thumbnail" class="tool-thumbnail" height="21.25%" width="21.25%">
+                    <p>
+                        <a href="{{ tool.url }}" target="_blank" class="tool-title">{{ tool.name }}</a>
+                    </p>
+
+                    {% if tool.thumbnail_url %}
+                    <img src="{{ tool.thumbnail_url }}" alt="{{ tool.name }} thumbnail" class="tool-thumbnail"
+                        height="21.25%" width="21.25%">
+                    {% endif %}
+
+                    <div class="tool-rating">
+                        {% if tool.average_rating > 0 %}
+                        <span class="rating-value">{{ tool.average_rating | round(2) }}/5</span>
+                        {% else %}
+                        <span class="no-rating">No ratings yet</span>
                         {% endif %}
-                    
-                        <div class="tool-rating">
-                            {% if average_rating %}
-                            <span class="rating-value">{{ average_rating | default(0) | round(2) }}/5</span>
-                            {% else %}
-                            <span class="no-rating">No ratings yet</span>
-                            {% endif %}
-                        </div>
-                    
-                        <div class="tool-body">
-                            <div><strong>Version:</strong> {{ tool.version }}</div>
-                            <div><strong>Released:</strong> {{ tool.published_date }}</div>
-                            <div><strong>Platform:</strong> {{ tool.platform }}</div>
-                            <div><strong>Category:</strong> {{ tool.category }}</div>
-                            <div><strong>Price:</strong> {{ tool.pricing }}</div>
-                        </div>
-                    
-                        <div class="tool-description">
-                            {{ tool.description or "No description provided." }}
-                        </div>
+                    </div>
+
+                    <div class="tool-body">
+                        <div><strong>Version:</strong> {{ tool.version }}</div>
+                        <div><strong>Released:</strong> {{ tool.published_date }}</div>
+                        <div><strong>Platform:</strong> {{ tool.platforms }}</div>
+                        <div><strong>Category:</strong> {{ tool.category }}</div>
+                        <div><strong>Price:</strong> {{ tool.pricing }}</div>
+                    </div>
+
+                    <div class="tool-description">
+                        {{ tool.description or "No description provided." }}
+                    </div>
                     {% endfor %}
                 </ul>
                 {% else %}
@@ -42,13 +43,12 @@
             </div>
 
             <h3>Recent Reviews for Your Tools</h3>
-            <div class="tool-reviews">
-                <h4>Reviews</h4>
+            <div class="tool-container">
                 {% if reviews %}
                 {% for review in reviews %}
                 <div class="review">
                     <div class="review-header">
-                        <span class="review-user">{{ review.name }}</span>
+                        <span class="review-user">{{ review.tool_name }}</span>
                         <span class="review-date">{{ review.created_at }}</span>
                     </div>
                     <p class="review-text">{{ review.review_text }}</p>

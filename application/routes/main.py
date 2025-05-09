@@ -17,25 +17,57 @@ def home():
 
             if account_type == 'Company':
                 print("IN DASHBOARD ROUTE IF BLOCK COMPANY")
-                # Display summary of Company's tool
-                cursor.execute("SELECT Company.company_name, Tools.name, Tools.published_date, " \
-                               "Company.website, Tools.url, Tools.thumbnail_url, Tools.version, " \
-                               "Tools.pricing, Tools.description " \
-                               "FROM Account " \
-                               "JOIN Company ON Account.idAccount = Company.idAccount " \
-                               "JOIN Tools ON Company.idAccount = Tools.company " \
-                               "WHERE Account.idAccount = %s", (id_user,))
-
+                # Display summary of Company's tool with category and platform
+                cursor.execute("""
+                    SELECT
+                        t.name,
+                        t.description,
+                        t.url,
+                        t.thumbnail_url,
+                        t.published_date,
+                        t.pricing,
+                        t.version,
+                        c.name AS category,
+                        GROUP_CONCAT(DISTINCT p.name SEPARATOR ', ') AS platforms,
+                        t.idTool
+                    FROM Account a
+                    JOIN Company com ON a.idAccount = com.idAccount
+                    JOIN Tools t ON com.idAccount = t.company
+                    JOIN SearchIndex si ON t.idTool = si.idTool
+                    JOIN Category c ON si.idCategory = c.idCategory
+                    LEFT JOIN IndexPlatform ip ON si.idIndex = ip.idIndex
+                    LEFT JOIN Platform p ON ip.idPlatform = p.idPlatform
+                    WHERE a.idAccount = %s
+                    GROUP BY t.idTool, c.name
+                """, (id_user,))
                 tool_summary_results = cursor.fetchall()
-                # Get reviews that were posted for this company
-                cursor.execute("SELECT Tools.name, Review.review_text, Review.created_at " \
-                               "FROM Account " \
-                               "JOIN Company ON Account.idAccount = Company.idAccount " \
-                               "JOIN Tools ON Company.idAccount = Tools.company " \
-                               "JOIN SearchIndex ON Tools.idTool = SearchIndex.idTool " \
-                               "JOIN Review ON SearchIndex.idIndex = Review.idIndex " \
-                               "WHERE Account.idAccount = %s " \
-                               "ORDER BY Review.created_at DESC", (id_user,))
+
+                # Fetch average rating for each tool in the summary
+                for tool in tool_summary_results:
+                    cursor.execute("""
+                        SELECT AVG(r.rating) AS average_rating
+                        FROM Rating r
+                        JOIN SearchIndex si ON r.idIndex = si.idIndex
+                        JOIN Tools t ON si.idTool = t.idTool
+                        WHERE t.idTool = %s
+                    """, (tool['idTool'],))
+                    rating_data = cursor.fetchone()
+                    tool['average_rating'] = rating_data['average_rating'] if rating_data['average_rating'] is not None else 0
+
+                # Get reviews that were posted for this company's tools
+                cursor.execute("""
+                    SELECT
+                        t.name AS tool_name,
+                        r.review_text,
+                        r.created_at
+                    FROM Account a
+                    JOIN Company com ON a.idAccount = com.idAccount
+                    JOIN Tools t ON com.idAccount = t.company
+                    JOIN SearchIndex si ON t.idTool = si.idTool
+                    JOIN Review r ON si.idIndex = r.idIndex
+                    WHERE a.idAccount = %s
+                    ORDER BY r.created_at DESC
+                """, (id_user,))
                 review_results = cursor.fetchall()
                 cursor.close()
                 return render_template(
@@ -47,13 +79,20 @@ def home():
                 )
             elif account_type in ('General', 'Student'):
                 print("IN DASHBOARD ROUTE IF NOT COMPANY BLOCK STATEMENT")
-                # Display reviews that users posted
-                cursor.execute("SELECT Review.idAccount, Review.review_text, Review.created_at, Tools.name " \
-                               "FROM Account " \
-                               "JOIN Review ON Account.idAccount = Review.idAccount " \
-                               "JOIN SearchIndex ON Review.idIndex = SearchIndex.idIndex " \
-                               "JOIN Tools ON SearchIndex.idTool = Tools.idTool " \
-                               "WHERE Account.idAccount = %s ", (id_user,))
+                # Display reviews that users posted, including the tool details
+                cursor.execute("""
+                    SELECT
+                        r.review_text,
+                        r.created_at,
+                        t.name AS tool_name,
+                        t.idTool
+                    FROM Account a
+                    JOIN Review r ON a.idAccount = r.idAccount
+                    JOIN SearchIndex si ON r.idIndex = si.idIndex
+                    JOIN Tools t ON si.idTool = t.idTool
+                    WHERE a.idAccount = %s
+                    ORDER BY r.created_at DESC
+                """, (id_user,))
                 review_results = cursor.fetchall()
                 print(review_results)
                 print(id_user)
@@ -62,7 +101,7 @@ def home():
                     'index.html',
                     title='Dashboard',
                     account_type=account_type,
-                    tool_summary=tool_summary_results if account_type == 'Company' else None,
+                    tool_summary=None,
                     reviews=review_results
                 )
             else:
@@ -71,10 +110,7 @@ def home():
                     title='Gaitor Gate'
                 )
     else:
-        return render_template(
-            'index.html',
-            title='Gaitor Gate'
-        )
+        return render_template('index.html', title='Gaitor Gate')
         
 @main_bp.route('/about')
 def about():
@@ -98,38 +134,3 @@ def account():
     cursor.close()
     title = f"{account_info['username']}'s Account"
     return render_template('account.html', user=account_info, active_page='account', title=title)
-
-@main_bp.route('/settings')
-@login_required
-def settings():
-    return render_template('settings.html', title="title")
-
-
- # When possible this should be moved into its own file to keep up with our
-@main_bp.route('/update_description', methods=['POST'])
-def update_description():
-    try:
-        description = request.form.get('description', '')
-        
-        if not description:
-            return redirect(url_for('main.about'))
-            
-        image_url = request.form.get('image_url', '')
-        
-        # Connect to database
-        conn = current_app.config['MYSQL'].connection
-        cursor = conn.cursor()
-        
-        # Insert into description table
-        cursor.execute(
-            "INSERT INTO Website_Description (description, image_url) VALUES (%s, %s)",
-            (description, image_url)
-        )
-        
-        conn.commit()
-        cursor.close()
-        
-        return redirect(url_for('main.about'))
-    except Exception as e:
-        print(f"Error updating description: {e}")
-        return redirect(url_for('main.about'))
