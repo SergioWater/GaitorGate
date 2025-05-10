@@ -1,10 +1,12 @@
 from flask import Blueprint, current_app
 import MySQLdb.cursors
-from dotenv import dotenv_values
+from dotenv import dotenv_values, load_dotenv
+import os
 from google import genai
 
 # take environment variables
-GEMINI_KEY = dotenv_values("credentials/.env")["GEMINI_KEY"]
+load_dotenv("../../credentials/.env")
+GEMINI_KEY = os.getenv("GEMINI_KEY")
 
 chat_bp = Blueprint("chat", __name__)
 
