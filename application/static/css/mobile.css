@@ -1,12 +1,17 @@
 @import url(fonts.css);
 
 @media (max-width: 1320px) {
+
   .left-nav li a,
   .right-nav li a {
     white-space: nowrap;
     overflow: hidden;
     text-indent: -9999px;
     transition: 0.3s ease;
+  }
+
+  a:hover {
+    font-size: clamp(24px, 7vw, 36px);
   }
 }
 

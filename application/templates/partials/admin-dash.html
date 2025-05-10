@@ -1,12 +1,8 @@
-<head>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/admin-dash.css') }}">
-</head>
-
 <article class="search-history">
     <div class="organizer">
-        <div class="user-info">
+        <div class="admin-info">
             <h2>{{ title }}</h2>
-            <h3>Your Tools</h3>
+            <h3 class="dash">Your Tools</h3>
             <div class="tool-container">
                 {% if tool_summary %}
                 <ul class="tool-list">
@@ -22,7 +18,7 @@
 
                     <div class="tool-rating">
                         {% if tool.average_rating > 0 %}
-                        <span class="rating-value">{{ tool.average_rating | round(2) }}/5</span>
+                        <span class="rating-value">{{ tool.average_rating | round(2) }}/5.0</span>
                         {% else %}
                         <span class="no-rating">No ratings yet</span>
                         {% endif %}
@@ -46,7 +42,7 @@
                 {% endif %}
             </div>
 
-            <h3>Recent Reviews for Your Tools</h3>
+            <h3 class="dash">Recent Reviews for Your Tools</h3>
             <div class="tool-container">
                 {% if reviews %}
                 {% for review in reviews %}

@@ -4,7 +4,7 @@ from markupsafe import escape
 import re
 import MySQLdb.cursors
 
-RESULTS_PER_PAGE = 12
+RESULTS_PER_PAGE = 15
 
 search_bp = Blueprint("search", __name__)
 

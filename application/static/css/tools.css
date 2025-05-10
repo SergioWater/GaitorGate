@@ -1,5 +1,16 @@
 @import url(fonts.css);
 
+article {
+  margin-bottom: 64px;
+}
+
+.admin-info {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .user-info {
   display:flex;
   flex-direction: column;
@@ -7,10 +18,19 @@
   align-items: center;
 }
 
+.admin-info .tool-list {
+  padding-bottom: 0px;
+  width: 94%;
+}
+
 .user-info .tool-list {
   padding-bottom: 0px;
 }
 
+.dash {
+  margin-top: 16px;
+}
+
 .tool-container {
   width: 37.5%;
   margin-top: clamp(36px, 8vw, 128px);
@@ -31,10 +51,23 @@
   padding: clamp(8px, 2vw, 16px);
   font-family: Arial, sans-serif;
   line-height: 1.6;
+}
+
+.admin-info .tool-container {
+  width: 60%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  background-color: rgba(83, 86, 90, 0.125);
+  border-radius: clamp(4px, 1vw, 8px);
+  padding: clamp(8px, 2vw, 16px);
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .user-info .tool-container {
-  width: 37.5%;
+  width: 85%;
   margin-top: 0px;
   margin-bottom: 0px;
   background-color: rgba(83, 86, 90, 0.125);
@@ -74,6 +107,8 @@
 .tool-thumbnail {
   border-radius: 8px;
   margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .tool-rating {
@@ -131,11 +166,19 @@
   border-radius: 8px;
 }
 
-.user-info .review {
+.admin-info .review {
   width: 90%;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  background-color: rgba(83, 86, 90, 0.125);
+  margin-top: 16px;
+  margin-bottom: 16px;
+  background-color: #f8f8f8;
+  border-radius: clamp(4px, 1vw, 8px);
+}
+
+.user-info .review {
+  width: 80%;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  background-color: #f8f8f8;
   border-radius: clamp(4px, 1vw, 8px);
 }
 
@@ -144,6 +187,11 @@
   justify-content: space-between;
   color: #666;
   margin-bottom: 5px;
+}
+
+.admin-info .review-header {
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .user-info .review-header {
@@ -168,15 +216,16 @@
 }
 
 .tool-title {
-  text-decoration: none;
-  color: inherit;
-  transition: color 0.3s ease;
+  text-decoration:none;
+  color: #933311;
+  transition: 0.3s ease;
+  font-size: clamp(36px, 1.25vw, 48px);
 }
 
 .tool-title:hover {
   color: #38635a;
+   font-size: clamp(42px, 1.25vw, 54px);
 }
-
 .star {
   font-size: 20px;
   color: gray;

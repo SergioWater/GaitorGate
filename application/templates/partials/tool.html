@@ -4,12 +4,14 @@
     </h2>
 
     {% if item.thumbnail_url %}
-    <img src="{{ item.thumbnail_url }}" alt="{{ item.name }} thumbnail" class="tool-thumbnail" height="21.25%" width="21.25%">
+    <img src="{{ item.thumbnail_url }}" alt="{{ item.name }} thumbnail" class="tool-thumbnail" height="21.25%"
+        width="21.25%">
     {% endif %}
 
     <div class="tool-rating">
+        
         {% if average_rating %}
-        <span class="rating-value">{{ average_rating | default(0) | round(2) }}/5</span>
+        <span class="rating-value">{{ average_rating | default(0) | round(2) }}/5.0</span>
         {% else %}
         <span class="no-rating">No ratings yet</span>
         {% endif %}
@@ -46,9 +48,9 @@
 
     {% set index_id = item.idIndex %}
     {% if session.username %}
-        {% include 'partials/favorite-button.html' %}
-        {% include 'partials/rating-form.html' %}
-        {% include 'partials/review-form.html' %}
+    {% include 'partials/favorite-button.html' %}
+    {% include 'partials/rating-form.html' %}
+    {% include 'partials/review-form.html' %}
     {% else %}
     {% endif %}
 </div>

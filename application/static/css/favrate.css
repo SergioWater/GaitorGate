@@ -10,7 +10,7 @@
   }
   
   .star-rating {
-    color: #6b702b;
+    color: #463077;
     display: flex;
     gap: clamp(2px, 0.75vw, 4px);
     flex-direction: row-reverse;
@@ -34,7 +34,7 @@
   .star-rating input:checked+label~label,
   .star-rating label:hover,
   .star-rating label:hover~label {
-    color: #463077;
+    color: #C99700;
   }
   
   .submit-rating {

@@ -87,6 +87,8 @@ form {
   .filter-dropdown,
   .add-filter-button,
   .remove-filter-button,
+  .add-platform-button,
+  .remove-platform-button,
   .role-dropdown {
     background-color: #38635a;
     color: #f0f0f0;
@@ -181,12 +183,14 @@ form {
 .registration-item input[type="email"],
 .registration-item input[type="text"],
 .registration-item input[type="password"],
+.registration-item input[type="url"],
 .login-item input[type="email"],
 .login-item input[type="text"],
 .login-item input[type="password"],
 .upload-item input[type="text"],
 .upload-item input[type="text"],
-.upload-item input[type="file"] {
+.upload-item input[type="file"],
+.upload-item input[type="url"] {
   width: 100%;
   padding: clamp(8px, 1.5vw, 12px);
   border: 1px solid #53565a;
@@ -278,7 +282,7 @@ form {
   border: 1px solid;
   border-radius: clamp(4px, 1vw, 8px);
   font-size: clamp(14px, 1.25vw, 16px);
-  width: clamp(96px, 10vw, 128px);
+  width: clamp(96px, 10vw, 164px);
   margin-right: clamp(5px, 1.25vw, 10px);
   transition: 0.3s ease;
 }
@@ -297,7 +301,7 @@ form {
 
 .platform-dropdown option:hover,
 .category-dropdown option:hover {
-  background-color: #4e4f50;
+  background-color: #53565a;
 }
 
 .button-row {
@@ -326,5 +330,5 @@ form {
 }
 
 .clear-button:hover {
-  background-color: #2a4a43;
+  background-color: #26547c;
 }

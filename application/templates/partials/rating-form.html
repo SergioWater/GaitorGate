@@ -2,8 +2,10 @@
   <form class="star-rating-form" method="POST" action="/rating">
     <input type="hidden" name="tool" value="{{ index_id }}">
 
-    <div class="star-rating reversed"> {% for i in range(5, 0, -1) %} <label for="star{{ i }}-{{ index_id }}">★</label>
-        <input type="radio" id="star{{ i }}-{{ index_id }}" name="rating" value="{{ i }}" required>
+    <div class="star-rating reversed">
+      {% for i in range(5, 0, -1) %}
+      <input type="radio" id="star{{ i }}-{{ index_id }}" name="rating" value="{{ i }}" required>
+      <label for="star{{ i }}-{{ index_id }}">★</label>
       {% endfor %}
     </div>
 

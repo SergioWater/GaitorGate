@@ -6,7 +6,6 @@
             <ul>
                 <li><a href="{{ url_for ('view_tool.view_tool', idIndex = item.idIndex)  }}">{{ item.name }}</a></li> <!--update after viewTool route is created-->
                 <li><img src="{{ item.thumbnail_url }}" height="12.5%" width="12.5%"></li>
-                <li>{{ item.description }}</li>
                 <li>
                     Created by {{ item.company }},
                     {{ item.category }},

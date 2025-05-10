@@ -79,20 +79,23 @@ addPlatformButton.addEventListener("click", (e) => {
 });
 
 removePlatformButton.addEventListener("click", (e) => {
-  e.preventDefault();
-  const containers = uploadForm.querySelectorAll(".platform-container");
-  if (containers.length > 1) {
-    containers[0].remove();  
-    platformCount--;
-  }
-
-  if (platformCount < 6) {
-    addPlatformButton.style.display = "inline-block";  
-  }
-  if (platformCount <= 1) {
-    removePlatformButton.style.display = "none";  
-  }
+    e.preventDefault();
+    const containers = uploadForm.querySelectorAll(".platform-container");
+    if (containers.length > 1) {
+        containers[containers.length - 1].remove();
+        platformCount--;
+    }
+    if (platformCount < 6) {
+        addPlatformButton.style.display = "inline-block";
+    }
+    if (platformCount <= 1) {
+        removePlatformButton.style.display = "none";
+    }
 });
+
+// Initial state: hide remove buttons
+removePlatformButton.style.display = "none";
+removeCategoryButton.style.display = "none";
 
 addCategoryButton.addEventListener("click", (e) => {
   e.preventDefault();
