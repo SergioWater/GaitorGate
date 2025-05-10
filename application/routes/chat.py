@@ -15,7 +15,7 @@ def get_data():
 
     sql = """
         select
-            t.name,
+            t.name as "AI Tool Name",
             t.description,
             c.name as category,
             group_concat(k.name) as keywords
@@ -52,6 +52,8 @@ If the answer cannot be found in the CSV data, respond with "I do not have that 
 User question: {question}
 Chatbot answer:
 """
+
+    # print(prompt)
 
     client = genai.Client(api_key=GEMINI_KEY)
     response = client.models.generate_content(model="gemini-2.0-flash", contents=prompt)
