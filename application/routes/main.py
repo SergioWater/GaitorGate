@@ -83,6 +83,7 @@ def home():
                 cursor.execute("""
                     SELECT
                         r.review_text,
+                        t.thumbnail_url,
                         r.created_at,
                         t.name AS tool_name,
                         t.idTool
