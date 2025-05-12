@@ -130,14 +130,13 @@
   background-color: #f0f0f0;
   padding: clamp(16px, 4vw, 32px);
   border-radius: clamp(4px, 1vw, 8px);
-  width: 50%;
+  width: 90%;
   box-sizing: border-box;
   margin-top: clamp(12px, 3vw, 24px);
-  margin-bottom: clamp(32px, 96px, 124px);
-  overflow-y: auto;
+  margin-bottom: clamp(24px, 48px, 96px);
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
 }
 
 .chat-item {
@@ -148,5 +147,5 @@
   text-align: left;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
 }

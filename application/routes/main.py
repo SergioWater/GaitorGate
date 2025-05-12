@@ -28,7 +28,6 @@ def home():
             account_type = cursor.fetchone()["Account_Type"]
 
             if account_type == "Company":
-                print("IN DASHBOARD ROUTE IF BLOCK COMPANY")
                 # Display summary of Company's tool with category and platform
                 cursor.execute(
                     """
@@ -103,7 +102,6 @@ def home():
                     reviews=review_results,
                 )
             elif account_type in ("General", "Student"):
-                print("IN DASHBOARD ROUTE IF NOT COMPANY BLOCK STATEMENT")
                 # Display reviews that users posted, including the tool details
                 cursor.execute(
                     """

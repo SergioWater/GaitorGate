@@ -93,9 +93,7 @@ removePlatformButton.addEventListener("click", (e) => {
     }
 });
 
-// Initial state: hide remove buttons
 removePlatformButton.style.display = "none";
-removeCategoryButton.style.display = "none";
 
 addCategoryButton.addEventListener("click", (e) => {
   e.preventDefault();
@@ -126,5 +124,4 @@ removeCategoryButton.addEventListener("click", (e) => {
   }
 });
 
-removePlatformButton.style.display = "none";
 removeCategoryButton.style.display = "none";

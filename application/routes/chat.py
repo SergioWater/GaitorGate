@@ -43,11 +43,11 @@ def chat():
         return render_template("chat.html", title="Gaitor Gate | Alli Chat")
     if request.method == "POST":
         print("post request sent")
-        prompt = request.form["prompt"]
+        prompt = request.form["chat_text"]  # Changed to match the textarea name
 
         data = get_data()
 
-        prompt = f"""You are a customer support chatbot for "Gaitor Gate", a search engine for AI tools. Answer the user's questions based ONLY on the following CSV data:
+        prompt_gemini = f"""You are a customer support chatbot for "Gaitor Gate", a search engine for AI tools. Answer the user's questions based ONLY on the following CSV data:
 
 --- CSV DATA START ---
 {data}
@@ -59,11 +59,11 @@ User question: {prompt}
 Chatbot answer:
 """
 
-        # print(prompt)
-
         client = genai.Client(api_key=GEMINI_KEY)
         response = client.models.generate_content(
-            model="gemini-2.0-flash", contents=prompt
+            model="gemini-2.0-flash", contents=prompt_gemini
         )
 
-        return f"response: {response.text}"
+        return render_template(
+            "chat.html", title="Gaitor Gate | Alli Chat", response=response.text, user_prompt=prompt
+        )

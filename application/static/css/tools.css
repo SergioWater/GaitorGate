@@ -265,3 +265,18 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+.chat-info {
+  width: 60%;
+  margin-top: clamp(32px, 8vw, 124px);
+  margin-bottom: 96px;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: clamp(4px, 1vw, 8px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 18px;
+  padding-bottom: 24px;
+  box-shadow: 0 0 10px rgba(96, 76, 17, 1);
+}
