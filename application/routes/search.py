@@ -105,7 +105,7 @@ def search():
             SELECT
                 si.idIndex,
                 t.idTool,
-                t.description,
+                COALESCE(t.description, '') AS description, -- Use COALESCE to handle NULL descriptions
                 t.name,
                 Co.company_name AS company,
                 t.url,
@@ -134,17 +134,22 @@ def search():
         data = cursor.fetchall()
         cursor.close()
         print(data)
+
+        for item in data:
+            if item.get('description') is None:
+                item['description'] = ''
+
         total_results = len(data)
         total_pages = (total_results + RESULTS_PER_PAGE - 1) // RESULTS_PER_PAGE
         offset = (page - 1) * RESULTS_PER_PAGE
         page_data = data[offset : offset + RESULTS_PER_PAGE]
 
-    return render_template(
-        "searchpage.html",
-        data=page_data,
-        current_page=page,
-        total_pages=total_pages,
-        title="Gaitor Gate | Results",
-        message="Success",
-        search=query,
-    )
+        return render_template(
+            "searchpage.html",
+            data=page_data,
+            current_page=page,
+            total_pages=total_pages,
+            title="Gaitor Gate | Results",
+            message="Success",
+            search=query,
+        )

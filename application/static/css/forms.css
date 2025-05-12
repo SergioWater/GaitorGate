@@ -165,6 +165,7 @@ form .search-form {
   box-shadow: 0 0 10px rgba(96, 76, 17, 0.25);
   max-width: clamp(320px, 60vw, 640px);
   margin-top: clamp(32px, 8vw, 124px);
+  margin-bottom: clamp(32px, 96px, 124px);
   width: 100%;
   box-sizing: border-box;
   box-shadow: 0 0 10px rgba(96, 76, 17, 1);
