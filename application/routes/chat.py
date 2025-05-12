@@ -1,12 +1,10 @@
-from flask import Blueprint, current_app
+from flask import Blueprint, current_app, render_template, request
 import MySQLdb.cursors
-from dotenv import dotenv_values, load_dotenv
-import os
+from dotenv import dotenv_values
 from google import genai
 
-# take environment variables
-load_dotenv("../../credentials/.env")
-GEMINI_KEY = os.getenv("GEMINI_KEY")
+# take environment variablesimport os
+GEMINI_KEY = dotenv_values("credentials/.env")["GEMINI_KEY"]
 
 chat_bp = Blueprint("chat", __name__)
 
@@ -39,11 +37,17 @@ def get_data():
     return csv
 
 
-@chat_bp.route("/chat/<question>", methods=["GET"])
-def chat(question):
-    data = get_data()
+@chat_bp.route("/chat", methods=["GET", "POST"])
+def chat():
+    if request.method == "GET":
+        return render_template("chat.html", title="Gaitor Gate | Alli Chat")
+    if request.method == "POST":
+        print("post request sent")
+        prompt = request.form["prompt"]
 
-    prompt = f"""You are a customer support chatbot for "Gaitor Gate", a search engine for AI tools. Answer the user's questions based ONLY on the following CSV data:
+        data = get_data()
+
+        prompt = f"""You are a customer support chatbot for "Gaitor Gate", a search engine for AI tools. Answer the user's questions based ONLY on the following CSV data:
 
 --- CSV DATA START ---
 {data}
@@ -51,13 +55,15 @@ def chat(question):
 
 If the answer cannot be found in the CSV data, respond with "I do not have that information in the provided data." Do not use any external knowledge.
 
-User question: {question}
+User question: {prompt}
 Chatbot answer:
 """
 
-    # print(prompt)
+        # print(prompt)
 
-    client = genai.Client(api_key=GEMINI_KEY)
-    response = client.models.generate_content(model="gemini-2.0-flash", contents=prompt)
+        client = genai.Client(api_key=GEMINI_KEY)
+        response = client.models.generate_content(
+            model="gemini-2.0-flash", contents=prompt
+        )
 
-    return f"response: {response.text}"
+        return f"response: {response.text}"
