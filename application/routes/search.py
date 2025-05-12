@@ -57,7 +57,7 @@ def search():
                 data=[],
                 current_page=1,
                 total_pages=0,
-                title="Results",
+                title="Gaitor Gate | Results",
                 message="Query too long or Include Invalid Characters. Query only allow letters, numbers and spaaces",  # display error message in the front end
                 search=query
             )
@@ -144,7 +144,7 @@ def search():
         data=page_data,
         current_page=page,
         total_pages=total_pages,
-        title="Results",
+        title="Gaitor Gate | Results",
         message="Success",
         search=query,
     )

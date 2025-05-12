@@ -52,7 +52,9 @@ def view_tool():
         average_rating_value = 0
     else:
         average_rating_value = average_rating['average_rating']
-    
+
+    title = f"Gaitor Gate | {tool['name']} Info"
+
     print(tool, reviews, average_rating)
     cursor.close()
-    return render_template('viewTool.html', item=tool, reviewdata=reviews, average_rating=average_rating_value, count = average_rating['rating_count'])
+    return render_template('viewTool.html', title=title, item=tool, reviewdata=reviews, average_rating=average_rating_value, count = average_rating['rating_count'])

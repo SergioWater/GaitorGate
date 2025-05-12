@@ -1,0 +1,15 @@
+<div id="chat-container" class="chat-container">
+    {% if data %}
+    {% for item in data %}
+    <div class="chat-item"> 
+        <div class="chat-info">
+            <ul>
+                
+            </ul>
+        </div>
+    </div>
+    {% endfor %}
+    {% elif request.method == 'POST' %}
+    <p>No messages found.</p>
+    {% endif %}
+</div>

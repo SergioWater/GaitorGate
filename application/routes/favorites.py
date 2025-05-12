@@ -63,7 +63,7 @@ def view_saved():
         
         if not user_result:
             print(f"Could not find User ID for Account ID {current_user.id}")
-            return render_template('saved.html', data=[], user={'username': 'User'}, title="Favorites")
+            return render_template('saved.html', data=[], user={'username': 'User'}, title="Gaitor Gate | Favorites")
             
         user_id = user_result['idUser']
         username = user_result['username']
@@ -103,7 +103,7 @@ def view_saved():
         data = favorites[offset : offset + RESULTS_PER_PAGE]
         cursor.close()
         
-        title = f"{username}'s Favorites"
+        title = f"Gaitor Gate | {username}'s Favorites"
         return render_template('saved.html', data=data, user={'username': username, 'email': email}, title=title, current_page=page, total_pages=total_pages)
 
 @favorites_bp.route('/clear_favorites', methods=['POST'])

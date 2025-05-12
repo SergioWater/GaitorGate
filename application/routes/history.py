@@ -34,7 +34,7 @@ def history():
     cursor.execute("SELECT username, email FROM Account WHERE idAccount = %s", (current_user.id,))
     account_info = cursor.fetchone()
 
-    title = f"{account_info['username']}'s History"
+    title = f"Gaitor Gate | {account_info['username']}'s History"
 
     cursor.close()
 

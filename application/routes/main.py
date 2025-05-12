@@ -72,7 +72,7 @@ def home():
                 cursor.close()
                 return render_template(
                     'index.html',
-                    title='Dashboard',
+                    title='Gaitor Gate | Dashboard',
                     account_type=account_type,
                     tool_summary=tool_summary_results,
                     reviews=review_results
@@ -100,7 +100,7 @@ def home():
                 cursor.close()
                 return render_template(
                     'index.html',
-                    title='Dashboard',
+                    title='Gaitor Gate | Dashboard',
                     account_type=account_type,
                     tool_summary=None,
                     reviews=review_results
@@ -115,15 +115,21 @@ def home():
         
 @main_bp.route('/about')
 def about():
-    return render_template("about.html", title='About')
+    return render_template("about.html", title='Gaitor Gate | About')
 
 @main_bp.route('/members/<name>')
 def team_member(name):
-    return render_template(f"members/{escape(name)}.html", title=name)
+    title = f"Gaitor Gate | {name}'s Bio"
+    return render_template(f"members/{escape(name)}.html", title=title)
 
 @main_bp.route('/mainSearch')
 def mainSearch():
-    return render_template("mainSearch.html", title='Search')
+    return render_template("mainSearch.html", title='Gaitor Gate | Search')
+
+@main_bp.route('/chat')
+def chat():
+    return render_template("chat.html", title='Gaitor Gate | Alli Chat')
+
 
 @main_bp.route('/account')
 @login_required
@@ -133,5 +139,5 @@ def account():
     cursor.execute("SELECT username, email, Account_Type FROM Account WHERE idAccount = %s", (current_user.id,))
     account_info = cursor.fetchone()
     cursor.close()
-    title = f"{account_info['username']}'s Account"
+    title = f"Gaitor Gate | {account_info['username']}'s Account"
     return render_template('account.html', user=account_info, active_page='account', title=title)

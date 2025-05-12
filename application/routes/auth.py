@@ -44,7 +44,7 @@ def login():
             loginMessage = 'Incorrect username or password!'
             print('Incorrect username or password!')
                 
-    return render_template('login.html', loginMessage=loginMessage, title='Log In')
+    return render_template('login.html', loginMessage=loginMessage, title='Gaitor Gate | Log In')
 
 # Logout
 @auth_bp.route('/logout')
@@ -182,7 +182,7 @@ def register():
 
         cursor.close()
 
-    return render_template('registration.html', registrationMessage=registrationMessage, title='Register')
+    return render_template('registration.html', registrationMessage=registrationMessage, title='Gaitor Gate | Register')
 
 # Helper: Generate token
 

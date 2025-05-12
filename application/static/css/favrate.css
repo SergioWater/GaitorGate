@@ -3,7 +3,7 @@
 .rating-container {
     margin: clamp(0.5rem, 1vw, 1rem) 0;
     padding: clamp(0.5rem, 1vw, 1rem);
-    background: rgba(83, 86, 90, 0.05);
+    background: #F6F6F7;
     border-radius: 8px;
     width: 100%;
     box-sizing: border-box;
@@ -57,7 +57,7 @@
   .review-container {
     margin: clamp(0.5rem, 1vw, 1rem) 0;
     padding: clamp(0.5rem, 1vw, 1rem);
-    background: rgba(83, 86, 90, 0.05);
+    background: #F6F6F7;
     border-radius: 8px;
     width: 100%;
     box-sizing: border-box;
@@ -91,11 +91,49 @@
   .submit-review:hover {
     background: #26547c;
   }
+
+  .chat-container {
+    margin: clamp(0.5rem, 1vw, 1rem) 0;
+    padding: clamp(0.5rem, 1vw, 1rem);
+    background: #F6F6F7;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .chat-form textarea {
+    width: 100%;
+    padding: clamp(0.25rem, 0.5vw, 0.5rem);
+    border: 1px solid #f4f4f4;
+    border-radius: 4px;
+    font-family: "Aktiv Grotesk", sans-serif;
+    resize: vertical;
+    min-height: clamp(60px, 10vw, 80px);
+    font-size: clamp(14px, 1.25vw, 16px);
+    box-sizing: border-box;
+  }
+  
+  .submit-chat {
+    background: #38635a;
+    color: #ffffff;
+    border: none;
+    padding: clamp(0.25rem, 0.5vw, 0.5rem) clamp(0.5rem, 1vw, 1rem);
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: clamp(0.25rem, 0.5vw, 0.5rem);
+    font-family: "Aktiv Grotesk", sans-serif;
+    font-size: clamp(14px, 1.25vw, 16px);
+    box-sizing: border-box;
+  }
+  
+  .submit-chat:hover {
+    background: #26547c;
+  }
   
   .favorite-container {
     margin: clamp(0.5rem, 1vw, 1rem) 0;
     padding: clamp(0.5rem, 1vw, 1rem);
-    background: rgba(83, 86, 90, 0.05);
+    background: #F6F6F7;
     border-radius: 8px;
     width: 100%;
     box-sizing: border-box;
@@ -147,7 +185,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 60%;
+    width: 75%;
     margin-left: auto;
     margin-right: auto;
   }

@@ -5,7 +5,13 @@
 }
 
 body {
-  background-color: rgba(255, 255, 255, 1);
+  background: linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), url(../imgs/sfsu.jpg);
+  background-position: right;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
   font-family: "Source Sans 3", sans-serif;
   display: flex;
   flex-direction: column;
@@ -58,7 +64,6 @@ h2 {
   font-family: 'Aktiv Grotesk', sans-serif;
   font-size: clamp(18px, 3vw, 24px);
   text-decoration: underline;
-  margin-top: clamp(32px, 8vw, 124px);
   margin-bottom: clamp(9px, 1.5vw, 18px);
   text-align: center;
 }
@@ -111,6 +116,23 @@ a:hover {
   font-weight: bold;
 }
 
+.home-button:hover {
+  font-size: clamp(24px, 7vw, 36px);
+}
+
+.alli {
+  z-index: 50;
+  position: fixed;
+  bottom: -28px;
+  transition: 0.3s ease;
+
+}
+
+.alli:hover {
+  bottom: 12px;
+  transition: 0.3s ease;
+}
+
 footer {
   background-color: #e9d597;
   text-align: center;
@@ -118,6 +140,7 @@ footer {
   bottom: 0px;
   width: 100%;
   z-index: 100;
+  padding-top: 4px;
 }
 
 .about-button {
@@ -146,6 +169,7 @@ footer {
   padding: clamp(4px, 1vw, 8px) clamp(8px, 2vw, 12px);
   margin-right: clamp(2px, 0.5vw, 5px);
   border: 1px solid #ccc;
+  background-color: #ffffff;
   text-decoration: none;
   color: #333;
   border-radius: 4px;
@@ -178,6 +202,7 @@ footer {
   padding: clamp(4px, 1vw, 8px) clamp(8px, 2vw, 12px);
   margin-right: clamp(2px, 0.5vw, 5px);
   border: 1px solid #ccc;
+  background-color: #ffffff;
   text-decoration: none;
   color: #333;
   border-radius: 4px;

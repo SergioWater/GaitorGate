@@ -58,7 +58,7 @@ def dataUpload():
                 upload_message = "Tool successfully uploaded."
                 print(upload_message)
                 #return redirect("dataUpload.html", uploadMessage=uploadMessage)
-        return render_template('dataUpload.html', title='Upload', uploadMessage=upload_message)
+        return render_template('dataUpload.html', title='Gaitor Gate | Upload', uploadMessage=upload_message)
 
 @upload_bp.route('/dataUpdate', methods=['GET', 'POST'])
 @login_required
@@ -124,4 +124,4 @@ def dataUpdate():
                 update_message = "Error: Tool not found for your company with that name."
                 print(update_message)
 
-        return render_template('dataUpdate.html', title='Update', update_message=update_message)
+        return render_template('dataUpdate.html', title='Gaitor Gate | Update', update_message=update_message)

@@ -10,16 +10,22 @@
     transition: 0.3s ease;
   }
 
-  a:hover {
-    font-size: clamp(24px, 7vw, 36px);
+  .alli {
+    bottom: 2px;
   }
-}
 
-@media (max-width: 1320px) {
+  .alli:hover {
+    bottom: 16px;
+  }
+
+  article {
+    margin-bottom: 64px;
+  }
+
   form .search-form {
     align-items: center;
     display: inline-flex;
-    min-width: 375px;
+    min-width: 75px;
     max-width: 500px;
   }
 
@@ -28,6 +34,9 @@
     flex-direction: column;
     align-items: center;
     gap: clamp(8px, 1vw, 16px);
+    padding: 0px;
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
 
   .search-form h2,
@@ -54,20 +63,19 @@
     text-align: center;
     justify-content: center;
   }
-}
 
-@media (max-width: 1320px) {
   .tool-container {
     width: 50%;
     margin-left: auto;
     margin-right: auto;
     margin-top: clamp(32px, 8vw, 96px);
-    margin-bottom: clamp(36px, 1.5vw, 54px);
+    margin-bottom: clamp(54px, 1.5vw, 96px);
   }
 
   .tool-container h2 {
     margin-top: clamp(12px, 8vw, 24px);
   }
+  
 
   .tool-header {
     justify-content: center;
@@ -94,6 +102,10 @@
     grid-template-columns: 1fr;
     gap: clamp(8px, 2vw, 16px);
     margin: clamp(10px, 3vw, 20px) 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 6px;
+
   }
 
   .tool-description {
@@ -112,19 +124,36 @@
   .registration-form,
   .login-form,
   .upload-form {
-    background-color: #f0f0f0;
     padding: clamp(16px, 4vw, 32px);
     border-radius: clamp(4px, 1vw, 8px);
-    box-shadow: 0 0 10px rgba(96, 76, 17, 0.25);
     max-width: clamp(320px, 60vw, 640px);
-    margin-top: clamp(12px, 3vw, 24px);
+    margin-top: clamp(18px, 8vw, 36px);
     width: 50%;
     box-sizing: border-box;
   }
 
   .favorite-item {
-    width: 50%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
+    padding: 2px;
   }
+
+  .review {
+    padding: 4px;
+    width: 80%;
+  }
+
+  .history-info {
+    margin-top: clamp(48px, 8vw, 124px);
+    margin-bottom: 96px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 37.5%;
+  }
+
+  .info {
+    width: 22.5%;
+  }
+
 }
