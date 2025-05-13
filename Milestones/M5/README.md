@@ -27,17 +27,22 @@ Deployed at: [http://18.222.76.244:8000](http://18.222.76.244:8000)
 ### Team Members & Roles
 
 - **Jared Aung** – Team Lead, Database Engineer, Back End Developer  
-  📧 yaung2@sfsu.edu
+  yaung2@sfsu.edu
 
 - **Ulices Gonzalez** – Front End Lead
-
+  sgonzalez30@sfsu.edu
+  
 - **Andre Dargani** – Back End Lead
-
+  mdargani@sfsu.edu
+  
 - **Mowtee Sailan** – GitHub Master, Front End Engineer
-
+  msailan@mail.sfsu.edu
+  	
 - **Marco Barraza** – Full Stack Engineer (Front/Back End)
-
+  mbarraza@sfsu.edu
+  
 - **Sergio Aguilar** – Back End Engineer
+  saguilar11@sfsu.edu
 
 ---
 
