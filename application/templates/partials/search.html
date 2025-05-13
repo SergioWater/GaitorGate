@@ -10,11 +10,8 @@
             <option value="name" {% if request.args.get('order_by')=='name' %}selected{% endif %}>
                 A-Z
             </option>
-            <option value="price" {% if request.args.get('order_by')=='price' %}selected{% endif %}>
-                Pricing: Low-High
-            </option>
-            <option value="price" {% if request.args.get('order_by')=='price' %}selected{% endif %}>
-                Pricing: High-Low
+            <option value="review" {% if request.args.get('order_by')=='review' %}selected{% endif %}>
+                Most Reviewed
             </option>
         </select>
     </div>
