@@ -124,14 +124,19 @@ a:hover {
   z-index: 50;
   position: fixed;
   bottom: -28px;
+  right: -330px;
   transition: 0.3s ease;
-
 }
 
 .alli:hover {
   bottom: 12px;
   transition: 0.3s ease;
 }
+
+.chatlogo {
+  height: 15%;
+  width: 15%;
+} 
 
 footer {
   background-color: #e9d597;
