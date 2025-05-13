@@ -1,10 +1,14 @@
 from flask import Blueprint, current_app, render_template, request
 import MySQLdb.cursors
+import os
 from dotenv import dotenv_values
 from google import genai
 
 # take environment variablesimport os
-GEMINI_KEY = dotenv_values("credentials/.env")["GEMINI_KEY"]
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
+ENV_PATH = os.path.join(BASE_DIR, "credentials", ".env")
+
+GEMINI_KEY = dotenv_values(ENV_PATH)["GEMINI_KEY"]
 
 chat_bp = Blueprint("chat", __name__)
 
