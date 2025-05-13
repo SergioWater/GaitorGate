@@ -125,7 +125,7 @@ def search():
             LEFT JOIN Keywords_Indexes ki ON ki.IndexID = si.idIndex
             LEFT JOIN Keywords k ON ki.keywordID = k.idKeywords
             LEFT JOIN Rating r ON si.idIndex = r.idIndex
-            JOIN Review rv ON si.idIndex = rv.idIndex
+            LEFT JOIN Review rv ON si.idIndex = rv.idIndex
             WHERE {}
             GROUP BY si.idIndex, t.idTool, t.description, t.name, t.company, t.url, t.thumbnail_url, t.published_date, t.pricing, t.version, c.name
             ORDER BY {}
