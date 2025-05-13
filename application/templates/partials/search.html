@@ -10,6 +10,12 @@
             <option value="name" {% if request.args.get('order_by')=='name' %}selected{% endif %}>
                 A-Z
             </option>
+            <option value="price" {% if request.args.get('order_by')=='price' %}selected{% endif %}>
+                Pricing: Low-High
+            </option>
+            <option value="price" {% if request.args.get('order_by')=='price' %}selected{% endif %}>
+                Pricing: High-Low
+            </option>
         </select>
     </div>
     <div class="filter-buttons">
