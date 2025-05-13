@@ -47,7 +47,7 @@ def chat():
 
         data = get_data()
 
-        prompt_gemini = f"""You are a customer support chatbot for "Gaitor Gate", a search engine for AI tools. Answer the user's questions based ONLY on the following CSV data:
+        prompt_gemini = f"""You are a customer support chatbot for "Gaitor Gate", a search engine for AI tools. Respond using html elements to make it easier for the user to read. Answer the user's questions based ONLY on the following CSV data:
 
 --- CSV DATA START ---
 {data}
@@ -65,5 +65,9 @@ Chatbot answer:
         )
 
         return render_template(
-            "chat.html", title="Gaitor Gate | Alli Chat", response=response.text, user_prompt=prompt
+            "chat.html",
+            title="Gaitor Gate | Alli Chat",
+            response=response.text,
+            user_prompt=prompt,
         )
+
