@@ -2,3 +2,17 @@
 .idea/
 __pycache__/
 *.pyc
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials/.env
+credentials/*.pem
+credentials/*.key
+
+# Operating-system files
+.DS_Store
+Thumbs.db
