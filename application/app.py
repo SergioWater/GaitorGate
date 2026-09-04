@@ -28,7 +28,7 @@ from routes.chat import chat_bp
 
 app = Flask(__name__, instance_relative_config=True)
 
-# register blueprints
+# Register blueprints
 app.register_blueprint(main_bp)
 app.register_blueprint(search_bp)
 app.register_blueprint(auth_bp)
@@ -39,13 +39,27 @@ app.register_blueprint(favorites_bp)
 app.register_blueprint(view_tool_bp)
 app.register_blueprint(chat_bp)
 
-app.secret_key = "5e2eef1ab7c2d3eb6d3057afacea039a330acf8ab35dfdf362b0a844cda25051"
+# Secrets and environment-specific configuration must come from environment variables.
+required_env = [
+    "FLASK_SECRET_KEY",
+    "MYSQL_USER",
+    "MYSQL_PASSWORD",
+    "MYSQL_DB",
+    "MYSQL_HOST",
+]
+missing_env = [name for name in required_env if not os.environ.get(name)]
+if missing_env:
+    raise RuntimeError(
+        "Missing required environment variables: " + ", ".join(missing_env)
+    )
+
+app.secret_key = os.environ["FLASK_SECRET_KEY"]
 
 # Database connection
-app.config["MYSQL_USER"] = "team3admin"
-app.config["MYSQL_PASSWORD"] = "12345"
-app.config["MYSQL_DB"] = "TestDb"
-app.config["MYSQL_HOST"] = "18.222.76.244"
+app.config["MYSQL_USER"] = os.environ["MYSQL_USER"]
+app.config["MYSQL_PASSWORD"] = os.environ["MYSQL_PASSWORD"]
+app.config["MYSQL_DB"] = os.environ["MYSQL_DB"]
+app.config["MYSQL_HOST"] = os.environ["MYSQL_HOST"]
 
 mysql = MySQL(app)
 app.config["MYSQL"] = mysql
@@ -53,7 +67,6 @@ app.config["MYSQL"] = mysql
 # Flask Login Setup
 login_manager = LoginManager()
 login_manager.init_app(app)
-# login_manager.login_view = 'auth.login' #rememme asdsaasdadaadad
 bcrypt = Bcrypt(app)
 app.config["BCRYPT"] = bcrypt
 
@@ -69,7 +82,7 @@ app.config["MAIL_USERNAME"] = os.environ.get("MAIL_USERNAME", "")
 app.config["MAIL_PASSWORD"] = os.environ.get("MAIL_PASSWORD", "")
 app.config["MAIL_DEFAULT_SENDER"] = os.environ.get(
     "MAIL_DEFAULT_SENDER", "noreply@gaitorgate.com"
-)  # Should match MAIL_USERNAME
+)
 app.config["SECURITY_PASSWORD_SALT"] = os.environ.get(
     "SECURITY_PASSWORD_SALT", "email-confirm-salt"
 )
@@ -77,7 +90,6 @@ mail = Mail(app)
 app.config["MAIL"] = mail
 
 
-# User class for Flask-Login
 class User(UserMixin):
     def __init__(self, user_id, username, password, email, Account_Type):
         self.id = user_id
@@ -105,13 +117,11 @@ class User(UserMixin):
             )
 
 
-# Flask-Login User Loader
 @login_manager.user_loader
 def load_user(user_id):
     return User.get(user_id)
 
 
-# Make is_favorited function available in templates
 @app.context_processor
 def utility_processor():
     from routes.favorites import is_favorited
